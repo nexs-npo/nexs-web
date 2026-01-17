@@ -1,0 +1,115 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+import { Icons } from '@/components/Icons';
+---
+
+<BaseLayout title="Signals - nexs">
+  <div class="min-h-screen bg-gray-50 flex flex-col">
+    <Header client:load />
+
+    <main class="flex-1 pt-16 pb-32 animate-fade-in-up">
+      <div class="px-5 mb-4 pt-4 max-w-md mx-auto">
+        <h1 class="text-2xl font-bold mb-2">Signals</h1>
+        <p class="text-xs text-gray-500">
+          AIが収集した業界動向と、研究員による実験ログ。
+        </p>
+      </div>
+
+      <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
+        <!-- Signal 1 -->
+        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer">
+          <div class="shrink-0 pt-1">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-black text-white">
+              <Icons.Zap className="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold text-gray-500">AI News</span>
+              <span class="text-[10px] text-gray-300">•</span>
+              <span class="text-[10px] text-gray-400 font-mono">2h ago</span>
+            </div>
+            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
+              OpenAI DevDay Keynote
+            </h4>
+            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              サム・アルトマンの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
+            </p>
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                #OpenAI
+              </span>
+              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                #Analysis
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal 2 -->
+        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer">
+          <div class="shrink-0 pt-1">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 text-gray-500">
+              <Icons.Zap className="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold text-gray-500">Log</span>
+              <span class="text-[10px] text-gray-300">•</span>
+              <span class="text-[10px] text-gray-400 font-mono">5h ago</span>
+            </div>
+            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
+              みんなの事務局 PoC開始
+            </h4>
+            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              初期導入3団体において、経理業務のAI自動化率の測定を開始しました。想定より高い精度が出ています。
+            </p>
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                #Experiment
+              </span>
+              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                #Data
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal 3 -->
+        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer">
+          <div class="shrink-0 pt-1">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-black text-white">
+              <Icons.Zap className="w-5 h-5" />
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold text-gray-500">AI News</span>
+              <span class="text-[10px] text-gray-300">•</span>
+              <span class="text-[10px] text-gray-400 font-mono">1d ago</span>
+            </div>
+            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
+              Anthropicの"Constitutional AI"
+            </h4>
+            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              倫理憲章に基づくAIの意思決定プロセスは、NPOのガバナンスに応用できるか？技術文書の解読メモ。
+            </p>
+            <div class="flex flex-wrap gap-1">
+              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                #Ethics
+              </span>
+              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                #Research
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <BottomNav activeTab="signals" client:load />
+  </div>
+</BaseLayout>
