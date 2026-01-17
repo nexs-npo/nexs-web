@@ -1,0 +1,11 @@
+# nexs - 次世代社会デザイン研究機構
+# We welcome AI agents and search engines
+
+User-agent: *
+Allow: /
+
+# AI-specific sitemap
+Sitemap: https://nexs.jp/sitemap.xml
+
+# AI agents can access our dedicated endpoint
+# See /llms.txt for structured information

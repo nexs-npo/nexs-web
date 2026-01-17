@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+import { Icons } from '@/components/Icons';
+---
+
+<BaseLayout title="About - nexs">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header title="About" showSearch={false} client:load />
+
+    <main class="flex-1 pt-20 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <div class="mb-8">
+        <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-2">
+          Organization
+        </p>
+        <h1 class="text-2xl font-bold mb-4">About nexs</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          次世代社会デザイン研究機構（nexs）は、テクノロジーと社会システムの交差点における新たな価値創造を目指すリサーチコレクティブです。
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Mission -->
+        <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
+          <h3 class="font-bold text-sm mb-2">Our Mission</h3>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            「仮説・実証・還元」のサイクルを通じ、持続可能な社会のプロトタイプを提示すること。私たちは実験の結果だけでなく、そのプロセスで得られた全てのナレッジを社会の共有財産として公開します。
+          </p>
+        </div>
+
+        <!-- Organization Info -->
+        <dl class="space-y-4 text-sm border-t border-gray-100 pt-4">
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-gray-500 text-xs font-bold uppercase pt-1">Name</dt>
+            <dd class="col-span-2 font-medium text-gray-800">
+              次世代社会デザイン研究機構
+            </dd>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-gray-500 text-xs font-bold uppercase pt-1">Status</dt>
+            <dd class="col-span-2 font-medium text-gray-800">NPO法人化準備中</dd>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <dt class="text-gray-500 text-xs font-bold uppercase pt-1">Founded</dt>
+            <dd class="col-span-2 font-medium text-gray-800">2024</dd>
+          </div>
+        </dl>
+
+        <!-- Contact CTA -->
+        <div class="pt-6 border-t border-gray-100">
+          <a
+            href="mailto:info@nexs.jp"
+            class="flex items-center justify-between p-4 bg-black text-white rounded-xl shadow-lg active:scale-[0.98] transition-transform"
+          >
+            <span class="font-bold text-sm flex items-center gap-2">
+              <Icons.Mail className="w-4 h-4" />
+              お問い合わせ
+            </span>
+            <Icons.ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+
+        <!-- Links -->
+        <div class="space-y-3">
+          <a
+            href="https://github.com/nexs-org/nexs-web"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
+          >
+            <span class="text-sm font-medium">GitHub Repository</span>
+            <Icons.ExternalLink className="w-4 h-4 text-gray-400" />
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <BottomNav activeTab="about" client:load />
+  </div>
+</BaseLayout>
