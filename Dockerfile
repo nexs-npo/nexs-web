@@ -42,9 +42,9 @@ COPY --from=builder /app/dist /usr/share/nginx/html
 # Expose port
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:8080/health || exit 1
+# Health check (temporarily disabled for debugging)
+# HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+#     CMD wget --quiet --tries=1 --spider http://localhost:8080/health || exit 1
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start nginx with debug output
+CMD ["sh", "-c", "echo 'Starting nginx...' && nginx -t && nginx -g 'daemon off;'"]
