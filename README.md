@@ -84,9 +84,26 @@ npm run dev
 
 Open [http://localhost:4321](http://localhost:4321) in your browser.
 
+### Docker Deployment
+
+```bash
+# Build and run with Docker Compose
+docker-compose up -d
+
+# View logs
+docker-compose logs -f web
+
+# Stop
+docker-compose down
+```
+
+Open [http://localhost:8080](http://localhost:8080) in your browser.
+
 ### Environment Setup
 
 詳細な環境構築手順は [`docs/05_ENVIRONMENT_SETUP.md`](./docs/05_ENVIRONMENT_SETUP.md) を参照してください。
+
+デプロイメント（Coolify、Docker、Cloudflare Pages）の詳細は [`docs/07_DEPLOYMENT_GUIDE.md`](./docs/07_DEPLOYMENT_GUIDE.md) を参照してください。
 
 ---
 
@@ -101,7 +118,8 @@ nexs-web/
 │   ├── 03_DATA_SCHEMA.md     # Database Schema (ER Diagram)
 │   ├── 04_UI_UX_GUIDELINES.md # Design System
 │   ├── 05_ENVIRONMENT_SETUP.md # Setup Guide
-│   └── 06_PWA_STRATEGY.md    # PWA Implementation
+│   ├── 06_PWA_STRATEGY.md    # PWA Implementation
+│   └── 07_DEPLOYMENT_GUIDE.md # Deployment (Coolify, Docker, Cloudflare)
 ├── src/
 │   ├── components/           # React Components (Islands)
 │   ├── layouts/              # Astro Layouts
@@ -114,6 +132,9 @@ nexs-web/
 ├── supabase/
 │   └── migrations/           # Database Migrations
 ├── mockups/                  # UI Prototypes
+├── Dockerfile                # Docker image definition
+├── docker-compose.yml        # Docker Compose configuration
+├── nginx.conf                # Nginx server configuration
 └── .env.example              # Environment Variables Template
 ```
 
