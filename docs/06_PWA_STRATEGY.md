@@ -113,73 +113,80 @@ Always Network (No cache):
 
 ## **4. Service Worker Strategy**
 
-### **使用ツール: Workbox (Google製)**
+### **実装方針: 段階的なPWA対応**
 
-Astro での実装:
+**Phase 1 (現在): 基本的なPWA対応** ✅ 完了
+- manifest.json の配置
+- PWA メタタグの設定（BaseLayout.astro）
+- アイコンの準備
 
-```bash
-npm install @astrojs/pwa
-```
+**Phase 2 (将来): Service Worker の実装**
+- Workbox または手動実装
+- オフラインキャッシュ
+- バックグラウンド同期
 
-### **`astro.config.mjs`**
+### **現在の実装状況**
+
+以下はすでに実装済みです:
+
+1. **`public/manifest.json`** - PWA マニフェスト ✅
+2. **`src/layouts/BaseLayout.astro`** - PWA メタタグ ✅
+   ```html
+   <link rel="manifest" href="/manifest.json" />
+   <meta name="theme-color" content="#000000" />
+   <meta name="mobile-web-app-capable" content="yes" />
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   ```
+3. **Icons** - `/public/icons/` ディレクトリに配置予定 ⚠️
+
+### **Service Worker の手動実装（Phase 2 - 将来）**
+
+#### Step 1: `public/sw.js` を作成
 
 ```javascript
-import { defineConfig } from 'astro/config';
-import pwa from '@astrojs/pwa';
+// Service Worker
+const CACHE_NAME = 'nexs-v1';
+const STATIC_CACHE = [
+  '/',
+  '/about',
+  '/projects',
+  '/signals',
+  '/manifest.json'
+];
 
-export default defineConfig({
-  integrations: [
-    pwa({
-      mode: 'production',
-      base: '/',
-      scope: '/',
-      includeAssets: ['fonts/**/*', 'icons/**/*'],
-      registerType: 'autoUpdate',
-      manifest: {
-        // manifest.json の内容を参照
-      },
-      workbox: {
-        navigateFallback: '/',
-        globPatterns: ['**/*.{css,js,html,svg,png,woff,woff2}'],
-        runtimeCaching: [
-          // Static HTML pages
-          {
-            urlPattern: /^https:\/\/nexs\.jp\/(about|projects)?$/,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'pages-cache',
-              expiration: {
-                maxEntries: 10,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 1週間
-              }
-            }
-          },
-          // Supabase API (Network First)
-          {
-            urlPattern: /^https:\/\/supabase\.yourdomain\.com\/rest\/v1\/.*/,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              networkTimeoutSeconds: 5,
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 5 // 5分
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
-          },
-          // Clerk (Always Network - 認証データはキャッシュしない)
-          {
-            urlPattern: /^https:\/\/.*\.clerk\.accounts\.dev\/.*/,
-            handler: 'NetworkOnly'
-          }
-        ]
-      }
+// Install
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.addAll(STATIC_CACHE);
     })
-  ]
+  );
 });
+
+// Fetch (Network First, fallback to Cache)
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseClone);
+        });
+        return response;
+      })
+      .catch(() => caches.match(event.request))
+  );
+});
+```
+
+#### Step 2: BaseLayout.astro に登録
+
+```html
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+  }
+</script>
 ```
 
 ---
