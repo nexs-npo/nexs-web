@@ -5,8 +5,9 @@ import clerk from '@clerk/astro';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://nexs.jp',
+  site: 'https://nexs.or.jp',
   output: 'static',
+  trailingSlash: 'always',
   integrations: [
     react(),
     tailwind({
