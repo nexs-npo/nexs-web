@@ -6,9 +6,9 @@ interface BottomNavProps {
 
 const tabs = [
   { id: 'home', icon: Icons.Home, label: 'Home', href: '/' },
-  { id: 'projects', icon: Icons.Projects, label: 'Projects', href: '/projects' },
-  { id: 'signals', icon: Icons.Signals, label: 'Signals', href: '/signals' },
-  { id: 'about', icon: Icons.Info, label: 'About', href: '/about' },
+  { id: 'projects', icon: Icons.Projects, label: 'Projects', href: '/projects/' },
+  { id: 'signals', icon: Icons.Signals, label: 'Signals', href: '/signals/' },
+  { id: 'about', icon: Icons.Info, label: 'About', href: '/about/' },
 ];
 
 export default function BottomNav({ activeTab }: BottomNavProps) {
