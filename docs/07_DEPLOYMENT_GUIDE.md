@@ -123,7 +123,27 @@ Coolify の Environment Variables セクションで以下を設定:
 
 ### **トラブルシューティング**
 
-#### ビルドが失敗する
+#### npm ci が失敗する（package-lock.json がない）
+
+```bash
+# Error: The `npm ci` command can only install with an existing package-lock.json
+```
+
+**解決方法:**
+
+```bash
+# ローカルで package-lock.json を生成
+npm install
+
+# Git にコミット
+git add package-lock.json
+git commit -m "chore: Add package-lock.json for reproducible builds"
+git push
+```
+
+Dockerfileは自動的に `npm install` にフォールバックしますが、再現性のため `package-lock.json` のコミットを推奨します。
+
+#### ビルドが失敗する（環境変数が設定されていない）
 
 ```bash
 # Coolify のログを確認

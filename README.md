@@ -78,6 +78,11 @@ cp .env.example .env
 # Edit .env and fill in your credentials
 # (Clerk, Supabase, etc.)
 
+# IMPORTANT: Commit package-lock.json if it was generated
+# This ensures consistent builds in Docker/Coolify
+git add package-lock.json
+git commit -m "chore: Add package-lock.json for reproducible builds"
+
 # Run development server
 npm run dev
 ```
