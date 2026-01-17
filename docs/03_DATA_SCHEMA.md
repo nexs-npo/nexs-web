@@ -102,6 +102,16 @@ AIエージェントによるニュース収集や、実験の進捗ログ。
 
 * **type:** news（外部情報）か log（内部活動）かを区別。
 
+### **F. Project Members (project_members)**
+
+プロジェクトへの参加メンバーシップを管理。
+
+* **role:**
+  * owner: プロジェクトオーナー（全権限）
+  * maintainer: メンテナー（編集権限）
+  * contributor: 貢献者（議論参加、タスク実行）
+* **UNIQUE制約:** 同一プロジェクトに同一ユーザーは1度のみ参加可能
+
 ## **3. Security Policies (RLS)**
 
 Supabaseの Row Level Security (RLS) を使用し、データの読み書き権限を制御する。
