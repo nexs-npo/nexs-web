@@ -1,0 +1,38 @@
+{
+  "name": "nexs-web",
+  "version": "1.0.0",
+  "description": "次世代社会デザイン研究機構 - AI時代の社会システムを実証・還元するリサーチコレクティブ",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [
+    "research",
+    "social-design",
+    "open-source",
+    "pwa",
+    "astro"
+  ],
+  "author": "nexs - 次世代社会デザイン研究機構",
+  "license": "MIT",
+  "dependencies": {
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/tailwind": "^5.1.1",
+    "@clerk/astro": "^1.4.0",
+    "@supabase/supabase-js": "^2.45.4",
+    "astro": "^4.15.12",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14"
+  },
+  "devDependencies": {
+    "@astrojs/pwa": "^0.2.1",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.6.3"
+  }
+}
