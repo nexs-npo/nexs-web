@@ -1,0 +1,65 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="Library - nexs">
+  <div class="min-h-screen bg-gray-50 flex flex-col">
+    <Header
+      title="Library"
+      subtitle="変化の速い知識を横断的に更新するための実験的アーカイブ"
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <section class="space-y-4">
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
+            Living Index
+          </p>
+          <h2 class="text-base font-bold text-gray-900 mb-2">常時更新するまとめ情報</h2>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            主要なファンデーションモデルの料金、提供機能、プランの違いを横断的に整理。
+            「いま何がどこまで使えるか」を一目で確認できるようにします。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
+            Prompt Archive
+          </p>
+          <h2 class="text-base font-bold text-gray-900 mb-2">プロンプト集</h2>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            実務で役立つプロンプトを分類し、再利用できる形で蓄積します。
+            研究・開発・運用それぞれに効く手札を増やすための棚。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
+            Tools & Tactics
+          </p>
+          <h2 class="text-base font-bold text-gray-900 mb-2">便利なツールや仕組み</h2>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            発見された便利なAIツール、ワークフロー、組織実装の工夫を整理。
+            使い方のコツや注意点も合わせてまとめます。
+          </p>
+        </div>
+
+        <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
+            Field Notes
+          </p>
+          <h2 class="text-base font-bold text-gray-900 mb-2">実験テンプレート & 評価フレーム</h2>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            小さく試して素早く学ぶための実験設計テンプレートや評価指標を収集。
+            研究の「型」を共有し、再現性を高めます。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <BottomNav activeTab="library" client:load />
+  </div>
+</BaseLayout>
