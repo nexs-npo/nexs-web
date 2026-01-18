@@ -7,15 +7,13 @@ import { Icons } from '@/components/Icons';
 
 <BaseLayout title="Signals - nexs">
   <div class="min-h-screen bg-gray-50 flex flex-col">
-    <Header client:load />
+    <Header
+      title="Signals"
+      subtitle="AIが収集した業界動向と、研究員による実験ログ"
+      client:load
+    />
 
-    <main class="flex-1 pt-16 pb-32 animate-fade-in-up">
-      <div class="px-5 mb-4 pt-4 max-w-md mx-auto">
-        <h1 class="text-2xl font-bold mb-2">Signals</h1>
-        <p class="text-xs text-gray-500">
-          AIが収集した業界動向と、研究員による実験ログ。
-        </p>
-      </div>
+    <main class="flex-1 pt-24 pb-32 animate-fade-in-up">
 
       <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
         <!-- Signal 1 -->
