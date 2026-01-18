@@ -7,61 +7,118 @@ import { Icons } from '@/components/Icons';
 
 <BaseLayout title="About - nexs">
   <div class="min-h-screen bg-white flex flex-col">
-    <Header title="About" showSearch={false} client:load />
+    <Header
+      title="nexs"
+      subtitle="次世代社会デザイン研究機構（nexs）の団体情報"
+      showSearch={false}
+      client:load
+    />
 
-    <main class="flex-1 pt-20 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
-      <div class="mb-8">
-        <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-2">
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <section class="mb-6">
+        <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-3">
           Organization
         </p>
-        <h1 class="text-2xl font-bold mb-4">About nexs</h1>
+        <h1 class="text-3xl font-bold leading-tight mb-3 text-gray-900">次の解へ</h1>
         <p class="text-sm text-gray-600 leading-relaxed">
-          次世代社会デザイン研究機構（nexs）は、テクノロジーと社会システムの交差点における新たな価値創造を目指すリサーチコレクティブです。
+          社会課題に対して仮説を立て、実装し、還元する。nexsはその循環を公開し続ける実験場です。
         </p>
-      </div>
+      </section>
 
-      <div class="space-y-6">
-        <!-- Mission -->
-        <div class="p-5 bg-gray-50 rounded-xl border border-gray-100">
-          <h3 class="font-bold text-sm mb-2">Our Mission</h3>
-          <p class="text-xs text-gray-600 leading-relaxed">
-            「仮説・実証・還元」のサイクルを通じ、持続可能な社会のプロトタイプを提示すること。私たちは実験の結果だけでなく、そのプロセスで得られた全てのナレッジを社会の共有財産として公開します。
-          </p>
+      <section class="mb-8">
+        <div class="grid grid-cols-4 gap-3 text-center text-xs font-bold text-gray-600">
+          <div class="bg-gray-50 border border-gray-100 rounded-xl py-3">問い</div>
+          <div class="bg-gray-50 border border-gray-100 rounded-xl py-3">試行</div>
+          <div class="bg-gray-50 border border-gray-100 rounded-xl py-3">実証</div>
+          <div class="bg-gray-50 border border-gray-100 rounded-xl py-3">公開</div>
         </div>
+      </section>
 
-        <!-- Organization Info -->
-        <dl class="space-y-4 text-sm border-t border-gray-100 pt-4">
-          <div class="grid grid-cols-3 gap-4">
-            <dt class="text-gray-500 text-xs font-bold uppercase pt-1">Name</dt>
-            <dd class="col-span-2 font-medium text-gray-800">
-              次世代社会デザイン研究機構
-            </dd>
-          </div>
-          <div class="grid grid-cols-3 gap-4">
-            <dt class="text-gray-500 text-xs font-bold uppercase pt-1">Status</dt>
-            <dd class="col-span-2 font-medium text-gray-800">NPO法人化準備中</dd>
-          </div>
-          <div class="grid grid-cols-3 gap-4">
-            <dt class="text-gray-500 text-xs font-bold uppercase pt-1">Founded</dt>
-            <dd class="col-span-2 font-medium text-gray-800">2024</dd>
-          </div>
-        </dl>
-
-        <!-- Contact CTA -->
-        <div class="pt-6 border-t border-gray-100">
+      <section class="mb-10">
+        <div class="grid grid-cols-2 gap-3">
           <a
             href="mailto:info@nexs.jp"
-            class="flex items-center justify-between p-4 bg-black text-white rounded-xl shadow-lg active:scale-[0.98] transition-transform"
+            class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:border-gray-300 transition-colors"
           >
-            <span class="font-bold text-sm flex items-center gap-2">
-              <Icons.Mail className="w-4 h-4" />
-              お問い合わせ
-            </span>
-            <Icons.ArrowRight className="w-4 h-4" />
+            お問い合わせ
+          </a>
+          <a
+            href="#public-info"
+            class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:border-gray-300 transition-colors"
+          >
+            公開情報
           </a>
         </div>
+      </section>
 
-        <!-- Links -->
+      <section class="mb-8">
+        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">News</h2>
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+          <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Member Call</p>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">一緒に実験を進める仲間を募集しています</h3>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            AI時代の社会実装に関心のある研究者・開発者・編集者の参加を歓迎します。
+          </p>
+        </div>
+      </section>
+
+      <div class="space-y-6">
+        <section class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-gray-900 mb-2">ミッション</h2>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            「仮説・実証・還元」の循環を通じて、持続可能な社会のプロトタイプを提示する。
+          </p>
+        </section>
+
+        <section class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <h2 class="text-sm font-bold text-gray-900 mb-2">ビジョン</h2>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            AI時代の公共性を再設計し、透明な社会実装を標準にする。
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Members</h2>
+          <div class="grid grid-cols-3 gap-3">
+            <div class="bg-white rounded-xl border border-gray-100 p-3 text-center">
+              <div class="w-12 h-12 rounded-full bg-gray-100 mx-auto mb-2"></div>
+              <p class="text-xs font-bold text-gray-900">山田 太郎</p>
+              <p class="text-[10px] text-gray-500">Research Lead</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-100 p-3 text-center">
+              <div class="w-12 h-12 rounded-full bg-gray-100 mx-auto mb-2"></div>
+              <p class="text-xs font-bold text-gray-900">佐藤 花子</p>
+              <p class="text-[10px] text-gray-500">Design & Ops</p>
+            </div>
+            <div class="bg-white rounded-xl border border-gray-100 p-3 text-center">
+              <div class="w-12 h-12 rounded-full bg-gray-100 mx-auto mb-2"></div>
+              <p class="text-xs font-bold text-gray-900">高橋 玲</p>
+              <p class="text-[10px] text-gray-500">Engineering</p>
+            </div>
+          </div>
+        </section>
+
+        <details class="group bg-white rounded-xl border border-gray-100 p-5 shadow-sm" id="public-info">
+          <summary class="cursor-pointer list-none flex items-center justify-between">
+            <span class="font-bold text-sm">公開情報</span>
+            <span class="text-xs text-gray-400 group-open:rotate-180 transition-transform">⌃</span>
+          </summary>
+          <dl class="mt-3 space-y-3 text-xs text-gray-600">
+            <div class="flex justify-between gap-4">
+              <dt class="text-gray-400">団体名</dt>
+              <dd class="font-medium text-gray-800">次世代社会デザイン研究機構</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-gray-400">設立</dt>
+              <dd class="font-medium text-gray-800">2024</dd>
+            </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-gray-400">ステータス</dt>
+              <dd class="font-medium text-gray-800">NPO法人化準備中</dd>
+            </div>
+          </dl>
+        </details>
+
         <div class="space-y-3">
           <a
             href="https://github.com/nexs-org/nexs-web"
