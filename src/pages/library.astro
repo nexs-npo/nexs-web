@@ -13,6 +13,17 @@ import BottomNav from '@/components/BottomNav';
     />
 
     <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <section class="mb-6">
+        <div class="flex flex-wrap gap-2" id="library-tags">
+          <button class="tag-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 transition-colors hover:border-gray-300 hover:text-gray-700" type="button" aria-pressed="false">料金</button>
+          <button class="tag-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 transition-colors hover:border-gray-300 hover:text-gray-700" type="button" aria-pressed="false">機能</button>
+          <button class="tag-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 transition-colors hover:border-gray-300 hover:text-gray-700" type="button" aria-pressed="false">比較</button>
+          <button class="tag-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 transition-colors hover:border-gray-300 hover:text-gray-700" type="button" aria-pressed="false">プロンプト</button>
+          <button class="tag-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 transition-colors hover:border-gray-300 hover:text-gray-700" type="button" aria-pressed="false">ツール</button>
+          <button class="tag-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 transition-colors hover:border-gray-300 hover:text-gray-700" type="button" aria-pressed="false">テンプレート</button>
+        </div>
+      </section>
+
       <section class="space-y-4">
         <div class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
           <p class="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">
@@ -63,3 +74,24 @@ import BottomNav from '@/components/BottomNav';
     <BottomNav activeTab="library" client:load />
   </div>
 </BaseLayout>
+
+<script is:inline>
+  const tagContainer = document.querySelector('#library-tags');
+  if (tagContainer) {
+    tagContainer.addEventListener('click', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLButtonElement)) return;
+      const isPressed = target.getAttribute('aria-pressed') === 'true';
+      target.setAttribute('aria-pressed', String(!isPressed));
+      target.classList.toggle('is-active', !isPressed);
+    });
+  }
+</script>
+
+<style>
+  .tag-pill.is-active {
+    background-color: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+</style>

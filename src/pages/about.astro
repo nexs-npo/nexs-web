@@ -7,35 +7,30 @@ import { Icons } from '@/components/Icons';
 
 <BaseLayout title="About - nexs">
   <div class="min-h-screen bg-white flex flex-col">
-    <Header title="About" showSearch={false} client:load />
+    <Header
+      title="nexs"
+      subtitle="次世代社会デザイン研究機構（nexs）の団体情報"
+      showSearch={false}
+      client:load
+    />
 
     <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
-      <section class="mb-8">
-        <div class="bg-gradient-to-br from-white to-gray-50 p-8 rounded-xl shadow-soft border border-gray-200 relative overflow-hidden">
-          <div class="relative z-10">
-            <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-4">
-              Research Collective
-            </p>
-            <h1 class="text-3xl font-bold leading-tight mb-3 text-gray-900">
-              次の解へ
-            </h1>
-            <p class="text-sm text-gray-600 leading-relaxed">
-              社会課題に対して仮説を立て、実装し、還元する。nexsはその循環を公開し続ける実験場です。
-            </p>
-          </div>
-          <div
-            class="absolute -bottom-8 -right-8 w-32 h-32 bg-gray-100 rounded-full blur-2xl opacity-80 mix-blend-multiply pointer-events-none"
-            aria-hidden="true"
-          ></div>
-        </div>
+      <section class="mb-10">
+        <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-3">
+          Organization
+        </p>
+        <h1 class="text-3xl font-bold leading-tight mb-3 text-gray-900">次の解へ</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          社会課題に対して仮説を立て、実装し、還元する。nexsはその循環を公開し続ける実験場です。
+        </p>
       </section>
 
       <section class="mb-8">
         <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">News</h2>
-        <div class="bg-black text-white rounded-xl p-5 shadow-lg">
+        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
           <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Member Call</p>
-          <h3 class="text-lg font-bold mb-2">一緒に実験を進める仲間を募集しています</h3>
-          <p class="text-xs text-gray-200 leading-relaxed">
+          <h3 class="text-lg font-bold text-gray-900 mb-2">一緒に実験を進める仲間を募集しています</h3>
+          <p class="text-xs text-gray-600 leading-relaxed">
             AI時代の社会実装に関心のある研究者・開発者・編集者の参加を歓迎します。
           </p>
         </div>
