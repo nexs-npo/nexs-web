@@ -20,7 +20,7 @@ const tabs: Tab[] = [
     id: 'about',
     imageSrc: 'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
     imageAlt: 'nexs logo',
-    label: 'About',
+    label: 'nexs',
     href: '/about/',
   },
 ];

@@ -14,14 +14,15 @@ import { Icons } from '@/components/Icons';
     />
 
     <main class="flex-1 pt-24 pb-32 animate-fade-in-up">
-      <div class="px-5 max-w-md mx-auto pt-2 pb-4 flex justify-end">
-        <button
-          class="text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 flex items-center gap-2 hover:border-gray-300 hover:text-gray-700 transition-colors"
-          type="button"
-        >
-          並び替え
-          <span class="text-[10px] text-gray-400">未実装</span>
-        </button>
+      <div class="px-5 max-w-md mx-auto pt-2 pb-3">
+        <div class="flex items-center gap-3 text-xs font-bold text-gray-500">
+          <span>並び替え</span>
+          <div class="flex gap-2">
+            <button class="sort-pill is-active" type="button" aria-pressed="true">新着</button>
+            <button class="sort-pill" type="button" aria-pressed="false">スター数</button>
+            <button class="sort-pill" type="button" aria-pressed="false">コメント数</button>
+          </div>
+        </div>
       </div>
 
       <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
@@ -120,3 +121,24 @@ import { Icons } from '@/components/Icons';
     <BottomNav activeTab="signals" client:load />
   </div>
 </BaseLayout>
+
+<style>
+  .sort-pill {
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    transition: all 150ms ease;
+  }
+  .sort-pill:hover {
+    border-color: #d1d5db;
+    color: #374151;
+  }
+  .sort-pill.is-active {
+    background-color: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+</style>
