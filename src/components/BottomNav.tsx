@@ -1,14 +1,28 @@
+import type { SVGProps } from 'react';
+
 import { Icons } from './Icons';
 
 interface BottomNavProps {
   activeTab: string;
 }
 
-const tabs = [
-  { id: 'home', icon: Icons.Home, label: 'Home', href: '/' },
-  { id: 'projects', icon: Icons.Projects, label: 'Projects', href: '/projects/' },
+type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
+
+type Tab =
+  | { id: string; label: string; href: string; icon: IconComponent }
+  | { id: string; label: string; href: string; imageSrc: string; imageAlt: string };
+
+const tabs: Tab[] = [
   { id: 'signals', icon: Icons.Signals, label: 'Signals', href: '/signals/' },
-  { id: 'about', icon: Icons.Info, label: 'About', href: '/about/' },
+  { id: 'projects', icon: Icons.Projects, label: 'Projects', href: '/projects/' },
+  { id: 'library', icon: Icons.Library, label: 'Library', href: '/library/' },
+  {
+    id: 'about',
+    imageSrc: 'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
+    imageAlt: 'nexs logo',
+    label: 'About',
+    href: '/about/',
+  },
 ];
 
 export default function BottomNav({ activeTab }: BottomNavProps) {
@@ -17,7 +31,6 @@ export default function BottomNav({ activeTab }: BottomNavProps) {
       <div className="flex justify-between items-center max-w-md mx-auto h-16">
         {tabs.map((tab) => {
           const isActive = activeTab === tab.id;
-          const Icon = tab.icon;
           return (
             <a
               key={tab.id}
@@ -30,7 +43,17 @@ export default function BottomNav({ activeTab }: BottomNavProps) {
               aria-label={tab.label}
               aria-current={isActive ? 'page' : undefined}
             >
-              <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+              {'icon' in tab ? (
+                <tab.icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+              ) : (
+                <img
+                  src={tab.imageSrc}
+                  alt={tab.imageAlt}
+                  className={`h-6 w-6 rounded-full object-contain transition-opacity ${
+                    isActive ? 'opacity-100' : 'opacity-70'
+                  }`}
+                />
+              )}
               <span
                 className={`text-[10px] font-bold tracking-tight ${
                   isActive ? 'opacity-100' : 'opacity-0'

@@ -7,14 +7,21 @@ import { Icons } from '@/components/Icons';
 
 <BaseLayout title="Signals - nexs">
   <div class="min-h-screen bg-gray-50 flex flex-col">
-    <Header client:load />
+    <Header
+      title="Signals"
+      subtitle="AIが収集した業界動向と、研究員による実験ログ"
+      client:load
+    />
 
-    <main class="flex-1 pt-16 pb-32 animate-fade-in-up">
-      <div class="px-5 mb-4 pt-4 max-w-md mx-auto">
-        <h1 class="text-2xl font-bold mb-2">Signals</h1>
-        <p class="text-xs text-gray-500">
-          AIが収集した業界動向と、研究員による実験ログ。
-        </p>
+    <main class="flex-1 pt-24 pb-32 animate-fade-in-up">
+      <div class="px-5 max-w-md mx-auto pt-2 pb-4 flex justify-end">
+        <button
+          class="text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 flex items-center gap-2 hover:border-gray-300 hover:text-gray-700 transition-colors"
+          type="button"
+        >
+          並び替え
+          <span class="text-[10px] text-gray-400">未実装</span>
+        </button>
       </div>
 
       <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
