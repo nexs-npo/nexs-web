@@ -1,102 +1,160 @@
 import React from 'react';
-import { HelpCircle, Code, CheckCircle, RefreshCcw, ChevronRight, RefreshCw } from 'lucide-react';
+import { HelpCircle, Code, CheckCircle, Share2 } from 'lucide-react';
 
 const CycleDiagram = () => {
   const steps = [
     {
       title: '仮説',
-      description: '問いの発見',
-      icon: <HelpCircle className="w-3 h-3 md:w-6 md:h-6" />,
+      subtitle: '問いの発見',
+      icon: HelpCircle,
+      position: 'top-left',
     },
     {
       title: '実装',
-      description: '解の探索',
-      icon: <Code className="w-3 h-3 md:w-6 md:h-6" />,
+      subtitle: '解の探索',
+      icon: Code,
+      position: 'top-right',
     },
     {
       title: '検証',
-      description: '知の蓄積',
-      icon: <CheckCircle className="w-3 h-3 md:w-6 md:h-6" />,
+      subtitle: '知の蓄積',
+      icon: CheckCircle,
+      position: 'bottom-left',
     },
     {
       title: '共有',
-      description: '社会の更新',
-      icon: <RefreshCcw className="w-3 h-3 md:w-6 md:h-6" />,
+      subtitle: '社会の更新',
+      icon: Share2,
+      position: 'bottom-right',
     },
   ];
 
   return (
-    <div className="w-full px-0 md:px-4 bg-white relative">
-      <div className="relative">
-        {/* メインのステップフロー：モバイルでも常に横並び */}
-        <div className="flex flex-row items-stretch justify-between gap-0.5 md:gap-3 relative z-10">
-          {steps.map((step, index) => (
-            <React.Fragment key={index}>
-              <div className="flex flex-col items-center flex-1 min-w-0">
-                {/* メインボックス：モバイル用にサイズを大幅に縮小 */}
-                <div className="group relative flex flex-col items-center justify-center p-1.5 md:p-4 w-full border-[1px] md:border-2 border-gray-900 rounded-md md:rounded-xl bg-white hover:bg-gray-900 hover:text-white transition-all duration-300 shadow-none min-h-20 md:min-h-32">
-                  <div className="mb-0.5 md:mb-2 p-0.5 md:p-2 bg-gray-100 rounded-full group-hover:bg-gray-800 transition-colors flex-shrink-0">
-                    {step.icon}
-                  </div>
-                  <h3 className="text-[8px] md:text-base font-bold leading-tight w-full text-center flex-shrink-0">
-                    {step.title}
-                  </h3>
-                  <p className="text-[6px] md:text-xs text-center opacity-70 font-medium flex-shrink-0 mt-0.5">
-                    {step.description}
-                  </p>
+    <div className="w-full px-0 md:px-8 py-8 md:py-12 bg-white">
+      <div className="max-w-2xl mx-auto relative">
+        {/* 2x2グリッドレイアウト */}
+        <div className="grid grid-cols-2 gap-4 md:gap-8 mb-8">
+          {steps.map((step, index) => {
+            const IconComponent = step.icon;
+            return (
+              <div
+                key={index}
+                className="flex justify-center"
+              >
+                <div className="group relative w-full max-w-40 md:max-w-48">
+                  {/* ステップボックス */}
+                  <div className="flex flex-col items-center p-4 md:p-6 rounded-2xl md:rounded-3xl border-2 border-gray-900 bg-white hover:bg-gray-900 hover:text-white transition-all duration-300 cursor-pointer aspect-square flex-shrink-0">
+                    {/* ステップナンバー */}
+                    <div className="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-7 h-7 md:w-9 md:h-9 bg-white border-2 border-gray-900 rounded-full flex items-center justify-center font-black text-xs md:text-sm text-gray-900 group-hover:bg-gray-900 group-hover:text-white transition-colors">
+                      {index + 1}
+                    </div>
 
-                  {/* 番号バッジも小さく調整 */}
-                  <span className="absolute -top-2 -left-2 bg-white border border-gray-900 text-gray-900 text-[8px] md:text-[10px] font-black px-1 md:px-2 py-0 md:py-0.5 rounded group-hover:bg-white group-hover:text-gray-900">
-                    0{index + 1}
-                  </span>
+                    {/* アイコン */}
+                    <div className="mb-2 md:mb-3 p-2 md:p-3 bg-gray-100 rounded-full group-hover:bg-gray-800 transition-colors">
+                      <IconComponent className="w-5 h-5 md:w-7 md:h-7" />
+                    </div>
+
+                    {/* タイトル */}
+                    <h3 className="text-sm md:text-lg font-bold mb-1 md:mb-2 text-center leading-tight">
+                      {step.title}
+                    </h3>
+
+                    {/* サブタイトル */}
+                    <p className="text-xs md:text-sm text-center opacity-70 font-medium leading-tight">
+                      {step.subtitle}
+                    </p>
+                  </div>
                 </div>
               </div>
-
-              {/* ステップ間の矢印：常に右向きを表示 */}
-              {index < steps.length - 1 && (
-                <div className="flex items-center justify-center text-gray-900 flex-shrink-0 px-0.5 md:px-1">
-                  <ChevronRight className="w-2.5 h-2.5 md:w-5 md:h-5" />
-                </div>
-              )}
-            </React.Fragment>
-          ))}
+            );
+          })}
         </div>
 
-        {/* ループバック矢印 (04 -> 01) */}
-        <div className="mt-2 md:mt-3 relative h-8 md:h-16 w-full">
-          {/* SVG：モバイルとデスクトップで共通のパスを使用 */}
-          <svg className="w-full h-full" viewBox="0 0 800 80" fill="none" preserveAspectRatio="none">
-            <path
-              d="M 700,0 L 700,30 Q 700,50 680,50 L 120,50 Q 100,50 100,30 L 100,10"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeDasharray="6 4"
-              className="text-gray-300"
-            />
-            <path d="M 96,15 L 100,5 L 104,15" fill="currentColor" className="text-gray-300" />
-          </svg>
+        {/* ループ矢印の接続線（SVG） */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          style={{ top: '-20px', height: 'calc(100% + 40px)' }}
+          viewBox="0 0 400 500"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          {/* 右上から右下への矢印 */}
+          <path
+            d="M 350 80 L 350 220"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeDasharray="6 4"
+            fill="none"
+            className="text-gray-300"
+          />
+          <path
+            d="M 347 220 L 350 230 L 353 220"
+            fill="currentColor"
+            className="text-gray-300"
+          />
 
-          {/* 中央のテキストラベル：モバイルでも読めるサイズを維持しつつ調整 */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="bg-gray-50 px-2 md:px-5 py-1 md:py-2 border border-dashed border-gray-300 rounded-sm md:rounded-md">
-              <p className="text-[7px] md:text-sm font-bold text-gray-500 flex items-center gap-1 md:gap-2 whitespace-nowrap">
-                <RefreshCw className="w-2 h-2 md:w-4 md:h-4 animate-spin-slow text-gray-300 flex-shrink-0" />
-                <span className="text-gray-900">前提の変化による新たな問い</span>
-              </p>
-            </div>
+          {/* 右下から左下への矢印 */}
+          <path
+            d="M 350 230 L 50 230"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeDasharray="6 4"
+            fill="none"
+            className="text-gray-300"
+          />
+          <path
+            d="M 50 227 L 40 230 L 50 233"
+            fill="currentColor"
+            className="text-gray-300"
+          />
+
+          {/* 左下から左上への矢印 */}
+          <path
+            d="M 50 230 L 50 80"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeDasharray="6 4"
+            fill="none"
+            className="text-gray-300"
+          />
+          <path
+            d="M 53 80 L 50 70 L 47 80"
+            fill="currentColor"
+            className="text-gray-300"
+          />
+
+          {/* 左上から右上への矢印 */}
+          <path
+            d="M 50 70 L 350 70"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeDasharray="6 4"
+            fill="none"
+            className="text-gray-300"
+          />
+          <path
+            d="M 350 73 L 360 70 L 350 67"
+            fill="currentColor"
+            className="text-gray-300"
+          />
+        </svg>
+
+        {/* ループテキスト */}
+        <div className="mt-12 md:mt-16 flex justify-center">
+          <div className="bg-gray-50 px-3 md:px-5 py-2 md:py-3 border border-dashed border-gray-300 rounded-lg">
+            <p className="text-xs md:text-sm font-bold text-gray-600 text-center">
+              前提の変化による新たな問い
+            </p>
           </div>
         </div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(-360deg); }
+        @media (max-width: 768px) {
+          svg {
+            display: none !important;
+          }
         }
-        .animate-spin-slow {
-          animation: spin-slow 8s linear infinite;
-        }
-      `}} />
+      ` }} />
     </div>
   );
 };
