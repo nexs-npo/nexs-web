@@ -7,14 +7,22 @@ import { Icons } from '@/components/Icons';
 
 <BaseLayout title="Signals - nexs">
   <div class="min-h-screen bg-gray-50 flex flex-col">
-    <Header client:load />
+    <Header
+      title="Signals"
+      subtitle="AIが収集した業界動向と、研究員による実験ログ"
+      client:load
+    />
 
-    <main class="flex-1 pt-16 pb-32 animate-fade-in-up">
-      <div class="px-5 mb-4 pt-4 max-w-md mx-auto">
-        <h1 class="text-2xl font-bold mb-2">Signals</h1>
-        <p class="text-xs text-gray-500">
-          AIが収集した業界動向と、研究員による実験ログ。
-        </p>
+    <main class="flex-1 pt-24 pb-32 animate-fade-in-up">
+      <div class="px-5 max-w-md mx-auto pt-2 pb-3">
+        <div class="flex items-center gap-3 text-xs font-bold text-gray-500">
+          <span>並び替え</span>
+          <div class="flex gap-2">
+            <button class="sort-pill is-active" type="button" aria-pressed="true">新着</button>
+            <button class="sort-pill" type="button" aria-pressed="false">スター数</button>
+            <button class="sort-pill" type="button" aria-pressed="false">コメント数</button>
+          </div>
+        </div>
       </div>
 
       <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
@@ -35,7 +43,7 @@ import { Icons } from '@/components/Icons';
               OpenAI DevDay Keynote
             </h4>
             <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
-              サム・アルトマンの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
+              さむ・あるとまんの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
             </p>
             <div class="flex flex-wrap gap-1">
               <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
@@ -113,3 +121,24 @@ import { Icons } from '@/components/Icons';
     <BottomNav activeTab="signals" client:load />
   </div>
 </BaseLayout>
+
+<style>
+  .sort-pill {
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #6b7280;
+    transition: all 150ms ease;
+  }
+  .sort-pill:hover {
+    border-color: #d1d5db;
+    color: #374151;
+  }
+  .sort-pill.is-active {
+    background-color: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+</style>
