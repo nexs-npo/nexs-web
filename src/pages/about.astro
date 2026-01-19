@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
+import CycleDiagram from '@/components/CycleDiagram';
 import { Icons } from '@/components/Icons';
 ---
 
@@ -27,6 +28,13 @@ import { Icons } from '@/components/Icons';
           <p class="text-xs text-gray-600 leading-relaxed">
             「仮説・実証・還元」のサイクルを通じ、持続可能な社会のプロトタイプを提示すること。私たちは実験の結果だけでなく、そのプロセスで得られた全てのナレッジを社会の共有財産として公開します。
           </p>
+        </div>
+
+        <!-- Cycle Diagram -->
+        <div class="my-8 -mx-5 px-5 overflow-x-auto">
+          <div class="min-w-fit">
+            <CycleDiagram client:load />
+          </div>
         </div>
 
         <!-- Organization Info -->
