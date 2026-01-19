@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
+import CycleDiagram from '@/components/CycleDiagram';
 import { Icons } from '@/components/Icons';
 ---
 
@@ -27,79 +28,7 @@ import { Icons } from '@/components/Icons';
 
       <section class="mb-8">
         <div class="bg-white border border-gray-100 rounded-2xl p-4 overflow-hidden">
-          <div class="cycle-flow">
-            <div class="flex flex-col items-center flex-1 min-w-0">
-              <div class="cycle-card group">
-                <div class="cycle-icon">?</div>
-                <h3 class="text-lg font-bold mb-1 leading-none">仮説</h3>
-                <p class="text-[10px] md:text-xs text-center opacity-70 font-medium">
-                  問いの発見
-                </p>
-                <span class="cycle-badge">01</span>
-              </div>
-            </div>
-
-            <div class="cycle-arrow">→</div>
-
-            <div class="flex flex-col items-center flex-1 min-w-0">
-              <div class="cycle-card group">
-                <div class="cycle-icon">&lt;/&gt;</div>
-                <h3 class="text-lg font-bold mb-1 leading-none">実装</h3>
-                <p class="text-[10px] md:text-xs text-center opacity-70 font-medium">
-                  解の探索
-                </p>
-                <span class="cycle-badge">02</span>
-              </div>
-            </div>
-
-            <div class="cycle-arrow">→</div>
-
-            <div class="flex flex-col items-center flex-1 min-w-0">
-              <div class="cycle-card group">
-                <div class="cycle-icon">✓</div>
-                <h3 class="text-lg font-bold mb-1 leading-none">検証</h3>
-                <p class="text-[10px] md:text-xs text-center opacity-70 font-medium">
-                  知の蓄積
-                </p>
-                <span class="cycle-badge">03</span>
-              </div>
-            </div>
-
-            <div class="cycle-arrow">→</div>
-
-            <div class="flex flex-col items-center flex-1 min-w-0">
-              <div class="cycle-card group">
-                <div class="cycle-icon">↺</div>
-                <h3 class="text-lg font-bold mb-1 leading-none">共有</h3>
-                <p class="text-[10px] md:text-xs text-center opacity-70 font-medium">
-                  社会の更新
-                </p>
-                <span class="cycle-badge">04</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-4 relative h-14 w-full">
-            <svg class="w-full h-full" viewBox="0 0 800 80" fill="none" preserveAspectRatio="none">
-              <path
-                d="M 700,0 L 700,30 Q 700,50 680,50 L 120,50 Q 100,50 100,30 L 100,10"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeDasharray="6 4"
-                class="text-gray-300"
-              />
-              <path d="M 96,15 L 100,5 L 104,15" fill="currentColor" class="text-gray-300" />
-            </svg>
-
-            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div class="bg-gray-50 px-4 py-2 border border-dashed border-gray-300 rounded-lg translate-y-2">
-                <p class="text-xs font-bold text-gray-500 flex items-center gap-2">
-                  <span class="inline-flex w-4 h-4 items-center justify-center text-gray-300 animate-spin-slow">↺</span>
-                  <span class="text-gray-900">前提の変化による新たな問いの発生</span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <CycleDiagram client:load />
         </div>
       </section>
 
@@ -206,74 +135,3 @@ import { Icons } from '@/components/Icons';
   </div>
 </BaseLayout>
 
-<style>
-  .cycle-card {
-    position: relative;
-    width: 100%;
-    padding: 1.25rem 1rem;
-    border: 2px solid #111827;
-    border-radius: 1.5rem;
-    background-color: #ffffff;
-    text-align: center;
-    transition: all 200ms ease;
-  }
-  .cycle-flow {
-    display: flex;
-    align-items: stretch;
-    gap: 0.75rem;
-    flex-wrap: nowrap;
-  }
-  .cycle-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #111827;
-    font-size: 1.25rem;
-    font-weight: 700;
-    flex: 0 0 auto;
-  }
-  .cycle-card:hover {
-    background-color: #111827;
-    color: #ffffff;
-  }
-  .cycle-icon {
-    margin: 0 auto 0.75rem;
-    width: 2.75rem;
-    height: 2.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: #f3f4f6;
-    font-size: 1.1rem;
-    font-weight: 700;
-    transition: background-color 200ms ease, color 200ms ease;
-  }
-  .cycle-card:hover .cycle-icon {
-    background-color: #1f2937;
-    color: #ffffff;
-  }
-  .cycle-badge {
-    position: absolute;
-    top: -0.75rem;
-    left: -0.75rem;
-    background-color: #ffffff;
-    border: 2px solid #111827;
-    color: #111827;
-    font-size: 0.65rem;
-    font-weight: 900;
-    padding: 0.1rem 0.5rem;
-    border-radius: 9999px;
-  }
-  @keyframes spin-slow {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(-360deg);
-    }
-  }
-  .animate-spin-slow {
-    animation: spin-slow 8s linear infinite;
-  }
-</style>
