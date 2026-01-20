@@ -1,0 +1,90 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+import { Icons } from '@/components/Icons';
+---
+
+<BaseLayout title="OpenAI DevDay Keynote - Signals">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Signal Details"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Signal Header -->
+      <section class="mb-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-black text-white">
+              <Icons.Zap className="w-6 h-6" />
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">AI News</span>
+              <span class="text-xs text-gray-400">2 hours ago</span>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900 mb-3">OpenAI DevDay Keynote</h1>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              さむ・あるとまんの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-4 py-4 border-t border-b border-gray-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">★ 12</span>
+            <span class="text-xs text-gray-500">Stars</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">💬 5</span>
+            <span class="text-xs text-gray-500">Comments</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8">
+        <h2 class="text-sm font-bold text-gray-900 mb-4">Context</h2>
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>
+            OpenAI DevDay 2024において、CEOの Sam Altman が発表した新しいエージェント指向のAIアーキテクチャは、従来のプロンプト駆動型から大きく転換します。
+          </p>
+          <p>
+            このアプローチは、AIエージェントに対して複数のタスクを並行処理させ、自律的に意思決定を行わせることを可能にします。これにより、組織のガバナンスや意思決定プロセス自体が根本的に変わる可能性があります。
+          </p>
+          <p>
+            特にNPOや社会的インパクトを志向する組織にとって、透明性と説明可能性を備えたエージェント型AIの導入は、新しい組織運営モデルの創出につながるかもしれません。
+          </p>
+        </div>
+      </section>
+
+      <!-- Tags -->
+      <section class="mb-8">
+        <h2 class="text-sm font-bold text-gray-900 mb-3">Tags</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#OpenAI</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#AI</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Agent</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Analysis</span>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/signals/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Signals
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="signals" client:load />
+  </div>
+</BaseLayout>
