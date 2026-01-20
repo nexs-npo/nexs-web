@@ -14,8 +14,8 @@ type Tab =
 
 const tabs: Tab[] = [
   { id: 'signals', icon: Icons.Signals, label: 'Signals', href: '/signals/' },
+  { id: 'knowledge', icon: Icons.Library, label: 'Knowledge', href: '/knowledge/' },
   { id: 'projects', icon: Icons.Projects, label: 'Projects', href: '/projects/' },
-  { id: 'library', icon: Icons.Library, label: 'Library', href: '/library/' },
   {
     id: 'about',
     imageSrc: 'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
