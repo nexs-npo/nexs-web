@@ -1,0 +1,82 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="適者生存の誤読 - Knowledge">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Knowledge: FOUNDATION"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Article Header -->
+      <section class="mb-8">
+        <div class="mb-3">
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-blue-600 px-2 py-1 rounded">FOUNDATION</span>
+          <span class="text-xs font-mono text-gray-400 ml-2">#F-001</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">適者生存の誤読</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          ダーウィン進化論がしばしば誤解される理由と、組織進化への影響について。
+        </p>
+        <div class="flex items-center gap-2 text-xs text-gray-500 mt-3">
+          <span>2024年12月</span>
+          <span>•</span>
+          <span>nexs Research</span>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8 prose prose-sm max-w-none">
+        <h2 class="text-base font-bold text-gray-900 mb-4">背景</h2>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          「適者生存（Survival of the Fittest）」という言葉は、自然界では「最も強い者が生き残る」という意味で理解されることが多い。しかし、ダーウィンが本来意図した意味ははるかに複雑である。
+        </p>
+
+        <h2 class="text-base font-bold text-gray-900 mb-4 mt-6">誤解の源泉</h2>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          実際には、「適者生存」は「環境に最も適応した者が生き残る」という意味である。ここで「適応」とは、力の強さだけではなく、以下を含む：
+        </p>
+        <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+          <li>• 協調能力と社会性</li>
+          <li>• 環境への柔軟性</li>
+          <li>• 相互扶助の能力</li>
+          <li>• 学習速度と適応速度</li>
+        </ul>
+
+        <h2 class="text-base font-bold text-gray-900 mb-4 mt-6">組織への示唆</h2>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          この誤解は、組織論にも影響を与えている。「生存競争」という文脈では、競合他社を打ち負かすことが目的と考えられることが多いが、本来は「環境変化への適応」こそが重要である。
+        </p>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          NPOや社会的インパクト組織においては、この正しい理解が特に重要である。なぜなら、社会課題への適応には、相互扶助と協調が不可欠だからである。
+        </p>
+      </section>
+
+      <!-- References & Related -->
+      <section class="mb-8 pt-4 border-t border-gray-200">
+        <h2 class="text-sm font-bold text-gray-900 mb-3">Related Knowledge</h2>
+        <div class="space-y-2">
+          <a href="/knowledge/f-002/" class="text-xs text-blue-600 hover:underline">→ #F-002 贈与経済の再定義</a>
+          <a href="/knowledge/t-001/" class="text-xs text-blue-600 hover:underline">→ #T-001 分散型自律組織の可能性</a>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/knowledge/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Knowledge
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="knowledge" client:load />
+  </div>
+</BaseLayout>
