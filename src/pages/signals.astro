@@ -15,19 +15,18 @@ import { Icons } from '@/components/Icons';
 
     <main class="flex-1 pt-24 pb-32 animate-fade-in-up">
       <div class="px-5 max-w-md mx-auto pt-2 pb-3">
-        <div class="flex items-center gap-3 text-xs font-bold text-gray-500">
-          <span>並び替え</span>
+        <div class="flex items-center gap-2 text-xs font-bold text-gray-500">
           <div class="flex gap-2">
-            <button class="sort-pill is-active" type="button" aria-pressed="true">新着</button>
-            <button class="sort-pill" type="button" aria-pressed="false">スター数</button>
-            <button class="sort-pill" type="button" aria-pressed="false">コメント数</button>
+            <button class="sort-pill is-active" type="button" aria-pressed="true">新着順</button>
+            <button class="sort-pill" type="button" aria-pressed="false">スター数順</button>
+            <button class="sort-pill" type="button" aria-pressed="false">コメント数順</button>
           </div>
         </div>
       </div>
 
       <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
         <!-- Signal 1 -->
-        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer">
+        <a href="/signals/001/" class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer hover:bg-gray-50">
           <div class="shrink-0 pt-1">
             <div class="w-10 h-10 rounded-full flex items-center justify-center bg-black text-white">
               <Icons.Zap className="w-5 h-5" />
@@ -45,19 +44,28 @@ import { Icons } from '@/components/Icons';
             <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
               さむ・あるとまんの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
             </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                #OpenAI
-              </span>
-              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                #Analysis
-              </span>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  ★ 12
+                </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  💬 5
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-1 ml-auto">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  #OpenAI
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
 
         <!-- Signal 2 -->
-        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer">
+        <a href="/signals/002/" class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer hover:bg-gray-50">
           <div class="shrink-0 pt-1">
             <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 text-gray-500">
               <Icons.Zap className="w-5 h-5" />
@@ -75,19 +83,28 @@ import { Icons } from '@/components/Icons';
             <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
               初期導入3団体において、経理業務のAI自動化率の測定を開始しました。想定より高い精度が出ています。
             </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                #Experiment
-              </span>
-              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                #Data
-              </span>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  ★ 8
+                </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  💬 3
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-1 ml-auto">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  #Experiment
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
 
         <!-- Signal 3 -->
-        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer">
+        <a href="/signals/003/" class="flex gap-4 p-4 border-b border-gray-50 bg-white active:bg-gray-50 transition-colors cursor-pointer hover:bg-gray-50">
           <div class="shrink-0 pt-1">
             <div class="w-10 h-10 rounded-full flex items-center justify-center bg-black text-white">
               <Icons.Zap className="w-5 h-5" />
@@ -105,16 +122,25 @@ import { Icons } from '@/components/Icons';
             <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
               倫理憲章に基づくAIの意思決定プロセスは、NPOのガバナンスに応用できるか？技術文書の解読メモ。
             </p>
-            <div class="flex flex-wrap gap-1">
-              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                #Ethics
-              </span>
-              <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                #Research
-              </span>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  ★ 24
+                </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  💬 7
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-1 ml-auto">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  #Ethics
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </main>
 

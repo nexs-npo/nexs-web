@@ -1,0 +1,94 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+import { Icons } from '@/components/Icons';
+---
+
+<BaseLayout title="Anthropicの Constitutional AI - Signals">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Signal Details"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Signal Header -->
+      <section class="mb-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-black text-white">
+              <Icons.Zap className="w-6 h-6" />
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">AI News</span>
+              <span class="text-xs text-gray-400">1 day ago</span>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900 mb-3">Anthropicの "Constitutional AI"</h1>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              倫理憲章に基づくAIの意思決定プロセスは、NPOのガバナンスに応用できるか？技術文書の解読メモ。
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-4 py-4 border-t border-b border-gray-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">★ 24</span>
+            <span class="text-xs text-gray-500">Stars</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">💬 7</span>
+            <span class="text-xs text-gray-500">Comments</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8">
+        <h2 class="text-sm font-bold text-gray-900 mb-4">概要</h2>
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>
+            Anthropic社が発表した「Constitutional AI（憲法型AI）」は、単なるファインチューニングではなく、AIが倫理的な「憲法」に基づいて自律的に判断・学習するアーキテクチャです。
+          </p>
+          <h3 class="text-xs font-bold text-gray-900 mt-4 mb-2">主要な特徴：</h3>
+          <ul class="list-disc pl-5 space-y-1">
+            <li>明示的な倫理原則（憲法）に基づいた学習</li>
+            <li>人間のフィードバックを減らしながら倫理的な行動を実現</li>
+            <li>多様な価値観を反映できる柔軟性</li>
+          </ul>
+          <h3 class="text-xs font-bold text-gray-900 mt-4 mb-2">社会実装への示唆：</h3>
+          <p>
+            NPOのガバナンスにおいて、組織の「基本原則（憲法）」をAIに組み込むことで、より透明で予測可能な意思決定をサポートできる可能性があります。これは特に分散的な組織運営や、複数のステークホルダーが存在する状況で有効かもしれません。
+          </p>
+        </div>
+      </section>
+
+      <!-- Tags -->
+      <section class="mb-8">
+        <h2 class="text-sm font-bold text-gray-900 mb-3">Tags</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Ethics</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Research</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Anthropic</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Governance</span>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/signals/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Signals
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="signals" client:load />
+  </div>
+</BaseLayout>
