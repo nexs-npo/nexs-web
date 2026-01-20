@@ -9,203 +9,166 @@ import { Icons } from '@/components/Icons';
   <div class="min-h-screen bg-white flex flex-col">
     <Header
       title="nexs"
-      subtitle="次世代社会デザイン研究機構（nexs）の団体情報"
+      subtitle="次世代社会デザイン研究機構"
       showSearch={false}
       client:load
     />
 
     <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
-      <section class="mb-6">
-        <p class="font-mono text-xs text-gray-400 uppercase tracking-widest mb-3">
-          Organization
+      <!-- Hero Section -->
+      <section class="mb-12">
+        <h1 class="text-4xl font-bold leading-tight mb-4 text-gray-900">
+          社会課題に、科学する。
+        </h1>
+        <p class="text-base text-gray-600 leading-relaxed mb-6">
+          AI時代だからこそ、解くべき社会課題があります。nexsは、仮説から実装、検証、そして社会への還元まで—その全プロセスを公開し、学び、改善し続ける研究コレクティブです。
         </p>
-        <h1 class="text-3xl font-bold leading-tight mb-3 text-gray-900">次の解へ</h1>
-        <p class="text-sm text-gray-600 leading-relaxed">
-          社会課題に対して仮説を立て、実装し、還元する。nexsはその循環を公開し続ける実験場です。
+        <p class="text-sm text-gray-500 leading-relaxed">
+          透明性と再現性を重視し、研究の知見をすべての人に還元します。
         </p>
       </section>
 
-      <section class="mb-8">
-        <div class="flex justify-center">
-          <svg width="100%" height="auto" viewBox="0 0 448 170" preserveAspectRatio="xMidYMid meet" fill="none" xmlns="http://www.w3.org/2000/svg" class="max-w-[448px]">
-            <style>
-              .text-title { font-family: system-ui, -apple-system, sans-serif; font-weight: bold; font-size: 14px; fill: #111827; }
-              .text-desc { font-family: system-ui, -apple-system, sans-serif; font-size: 9px; fill: #6B7280; font-weight: 500; }
-              .text-badge { font-family: system-ui, -apple-system, sans-serif; font-weight: 900; font-size: 9px; fill: #111827; }
-              .text-loop { font-family: system-ui, -apple-system, sans-serif; font-weight: bold; font-size: 13px; fill: #111827; }
-            </style>
-
-            <!-- メインコンテンツエリア (px-5 = 左右20pxの余白) -->
-            <g transform="translate(20, 30)">
-
-              <!-- Step 01: 仮説 -->
-              <g transform="translate(0, 0)">
-                <rect width="85" height="82" rx="12" fill="white" stroke="#111827" stroke-width="1.5"/>
-                <circle cx="42.5" cy="24" r="13" fill="#F3F4F6"/>
-                <path d="M42.5 30V30.01M42.5 26C42.5 24 44.5 23.5 44.5 22C44.5 20.8 43.6 20 42.5 20C41.4 20 40.5 20.8 40.5 22" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-                <text x="42.5" y="56" text-anchor="middle" class="text-title">仮説</text>
-                <text x="42.5" y="73" text-anchor="middle" class="text-desc">問いの発見</text>
-                <rect x="-5" y="-5" width="20" height="16" rx="3" fill="white" stroke="#111827" stroke-width="1.2"/>
-                <text x="5" y="6" text-anchor="middle" class="text-badge">01</text>
-              </g>
-
-              <!-- Arrow 1 -->
-              <path d="M93 41L102 41" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M99 37L103 41L99 45" stroke="#111827" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-
-              <!-- Step 02: 実装 -->
-              <g transform="translate(108, 0)">
-                <rect width="85" height="82" rx="12" fill="white" stroke="#111827" stroke-width="1.5"/>
-                <circle cx="42.5" cy="24" r="13" fill="#F3F4F6"/>
-                <path d="M38 21L34 25L38 29M47 21L51 25L47 29" stroke="#111827" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <text x="42.5" y="56" text-anchor="middle" class="text-title">実装</text>
-                <text x="42.5" y="73" text-anchor="middle" class="text-desc">解の探索</text>
-                <rect x="-5" y="-5" width="20" height="16" rx="3" fill="white" stroke="#111827" stroke-width="1.2"/>
-                <text x="5" y="6" text-anchor="middle" class="text-badge">02</text>
-              </g>
-
-              <!-- Arrow 2 -->
-              <path d="M201 41L210 41" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M207 37L211 41L207 45" stroke="#111827" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-
-              <!-- Step 03: 検証 -->
-              <g transform="translate(216, 0)">
-                <rect width="85" height="82" rx="12" fill="white" stroke="#111827" stroke-width="1.5"/>
-                <circle cx="42.5" cy="24" r="13" fill="#F3F4F6"/>
-                <path d="M38 25L41 28L47 22" stroke="#111827" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <text x="42.5" y="56" text-anchor="middle" class="text-title">検証</text>
-                <text x="42.5" y="73" text-anchor="middle" class="text-desc">知の蓄積</text>
-                <rect x="-5" y="-5" width="20" height="16" rx="3" fill="white" stroke="#111827" stroke-width="1.2"/>
-                <text x="5" y="6" text-anchor="middle" class="text-badge">03</text>
-              </g>
-
-              <!-- Arrow 3 -->
-              <path d="M309 41L318 41" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M315 37L319 41L315 45" stroke="#111827" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-
-              <!-- Step 04: 共有 -->
-              <g transform="translate(324, 0)">
-                <rect width="85" height="82" rx="12" fill="white" stroke="#111827" stroke-width="1.5"/>
-                <circle cx="42.5" cy="24" r="13" fill="#F3F4F6"/>
-                <path d="M48 24C48 27 45.5 29.5 42.5 29.5C39.5 29.5 37 27 37 24C37 21 39.5 18.5 42.5 18.5C43.8 18.5 44.8 19 45.8 19.8" stroke="#111827" stroke-width="1.5" stroke-linecap="round"/>
-                <text x="42.5" y="56" text-anchor="middle" class="text-title">共有</text>
-                <text x="42.5" y="73" text-anchor="middle" class="text-desc">社会の更新</text>
-                <rect x="-5" y="-5" width="20" height="16" rx="3" fill="white" stroke="#111827" stroke-width="1.2"/>
-                <text x="5" y="6" text-anchor="middle" class="text-badge">04</text>
-              </g>
-
-              <!-- ループバックパス -->
-              <path d="M 366,88 L 366,105 Q 366,120 346,120 L 62,120 Q 42,120 42,105 L 42,91" stroke="#111827" stroke-width="1.0" stroke-dasharray="2 2" fill="none"/>
-              <!-- 矢印先端 -->
-              <path d="M 38,95 L 42,91 L 46,95" stroke="#111827" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-
-              <!-- コンテキストラベル -->
-              <g transform="translate(104, 105)">
-                <rect width="200" height="30" rx="6" fill="#F9FAFB" stroke="#111827" stroke-width="1" stroke-dasharray="2 2"/>
-                <text x="100" y="20" text-anchor="middle" class="text-loop">前提の変化による新たな問い</text>
-              </g>
-            </g>
-          </svg>
-        </div>
-      </section>
-
-      <section class="mb-10">
-        <div class="grid grid-cols-2 gap-3">
-          <a
-            href="mailto:info@nexs.jp"
-            class="flex items-center justify-center gap-2 rounded-xl border border-gray-900 bg-gray-900 py-3 text-xs font-bold text-white hover:bg-black hover:border-black transition-colors"
-          >
-            お問い合わせ
-          </a>
-          <a
-            href="#public-info"
-            class="flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:border-gray-300 transition-colors"
-          >
-            公開情報
-          </a>
-        </div>
-      </section>
-
-      <section class="mb-8">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">News</h2>
-        <div class="bg-gray-50 border border-gray-200 rounded-xl p-5">
-          <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Member Call</p>
-          <h3 class="text-lg font-bold text-gray-900 mb-2">一緒に実験を進める仲間を募集しています</h3>
-          <p class="text-xs text-gray-600 leading-relaxed">
-            AI時代の社会実装に関心のある研究者・開発者・編集者の参加を歓迎します。
-          </p>
-        </div>
-      </section>
-
-      <div class="space-y-6">
-        <section class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <h2 class="text-sm font-bold text-gray-900 mb-2">ミッション</h2>
-          <p class="text-xs text-gray-600 leading-relaxed">
-            「仮説・実証・還元」の循環を通じて、持続可能な社会のプロトタイプを提示する。
-          </p>
-        </section>
-
-        <section class="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <h2 class="text-sm font-bold text-gray-900 mb-2">ビジョン</h2>
-          <p class="text-xs text-gray-600 leading-relaxed">
-            AI時代の公共性を再設計し、透明な社会実装を標準にする。
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-3">Members</h2>
-          <div class="grid grid-cols-3 gap-3">
-            <div class="bg-white rounded-xl border border-gray-100 p-3 text-center">
-              <div class="w-12 h-12 rounded-full bg-gray-100 mx-auto mb-2"></div>
-              <p class="text-xs font-bold text-gray-900">山田 太郎</p>
-              <p class="text-[10px] text-gray-500">Research Lead</p>
+      <!-- Process Cycle (Simplified HTML/CSS) -->
+      <section class="mb-12">
+        <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-6">Our Cycle</h2>
+        <div class="space-y-3">
+          <!-- Step 1 -->
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-lg border-2 border-blue-600 flex items-center justify-center bg-blue-50">
+              <span class="text-sm font-bold text-blue-600">①</span>
             </div>
-            <div class="bg-white rounded-xl border border-gray-100 p-3 text-center">
-              <div class="w-12 h-12 rounded-full bg-gray-100 mx-auto mb-2"></div>
-              <p class="text-xs font-bold text-gray-900">佐藤 花子</p>
-              <p class="text-[10px] text-gray-500">Design & Ops</p>
-            </div>
-            <div class="bg-white rounded-xl border border-gray-100 p-3 text-center">
-              <div class="w-12 h-12 rounded-full bg-gray-100 mx-auto mb-2"></div>
-              <p class="text-xs font-bold text-gray-900">高橋 玲</p>
-              <p class="text-[10px] text-gray-500">Engineering</p>
+            <div class="flex-1 pt-1">
+              <h3 class="text-sm font-bold text-gray-900">仮説を立てる</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                課題の本質を問い、解のアイデアを検討します。
+              </p>
             </div>
           </div>
-        </section>
 
-        <details class="group bg-white rounded-xl border border-gray-100 p-5 shadow-sm" id="public-info">
-          <summary class="cursor-pointer list-none flex items-center justify-between">
-            <span class="font-bold text-sm">公開情報</span>
+          <!-- Step 2 -->
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-lg border-2 border-green-600 flex items-center justify-center bg-green-50">
+              <span class="text-sm font-bold text-green-600">②</span>
+            </div>
+            <div class="flex-1 pt-1">
+              <h3 class="text-sm font-bold text-gray-900">実装する</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                小さく始める。プロトタイプから実証まで、迅速に。
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-lg border-2 border-purple-600 flex items-center justify-center bg-purple-50">
+              <span class="text-sm font-bold text-purple-600">③</span>
+            </div>
+            <div class="flex-1 pt-1">
+              <h3 class="text-sm font-bold text-gray-900">検証する</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                データと学びを蓄積。想定と現実のギャップから学ぶ。
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="flex gap-4">
+            <div class="flex-shrink-0 w-12 h-12 rounded-lg border-2 border-orange-600 flex items-center justify-center bg-orange-50">
+              <span class="text-sm font-bold text-orange-600">④</span>
+            </div>
+            <div class="flex-1 pt-1">
+              <h3 class="text-sm font-bold text-gray-900">社会に還元する</h3>
+              <p class="text-xs text-gray-600 leading-relaxed">
+                知見と提言を公開。次の課題へ、循環する。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values -->
+      <section class="mb-12">
+        <h2 class="text-sm font-bold text-gray-500 uppercase tracking-widest mb-6">Our Values</h2>
+        <div class="space-y-4">
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <h3 class="text-sm font-bold text-gray-900 mb-1">透明性</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              なぜその仮説か、なぜそう判断したのか。すべてのプロセスを公開します。
+            </p>
+          </div>
+          <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+            <h3 class="text-sm font-bold text-gray-900 mb-1">再現性</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              他の地域、他の組織でも実装できるように。方法論を整理・共有します。
+            </p>
+          </div>
+          <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+            <h3 class="text-sm font-bold text-gray-900 mb-1">失敗から学ぶ</h3>
+            <p class="text-xs text-gray-600 leading-relaxed">
+              成功だけが知見ではない。失敗こそが、次の仮説につながります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Join Section -->
+      <section class="mb-12 bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg p-6 text-white">
+        <h2 class="text-lg font-bold mb-2">一緒に社会を研究しませんか</h2>
+        <p class="text-sm text-gray-300 leading-relaxed mb-4">
+          研究者、開発者、デザイナー、編集者。どんな専門性でも、社会課題に向き合いたい想いが大切です。
+        </p>
+        <a
+          href="mailto:info@nexs.jp"
+          class="inline-block mt-4 px-4 py-2 bg-white text-gray-900 font-bold text-xs rounded-lg hover:bg-gray-100 transition-colors"
+        >
+          参加を検討する →
+        </a>
+      </section>
+
+      <!-- Info Section -->
+      <section class="space-y-6 pb-6">
+        <details class="group bg-white rounded-lg border border-gray-200 p-4" id="public-info">
+          <summary class="cursor-pointer flex items-center justify-between">
+            <span class="font-bold text-sm text-gray-900">公開情報</span>
             <span class="text-xs text-gray-400 group-open:rotate-180 transition-transform">⌃</span>
           </summary>
-          <dl class="mt-3 space-y-3 text-xs text-gray-600">
+          <dl class="mt-4 space-y-3 text-xs text-gray-600">
             <div class="flex justify-between gap-4">
               <dt class="text-gray-400">団体名</dt>
               <dd class="font-medium text-gray-800">次世代社会デザイン研究機構</dd>
             </div>
             <div class="flex justify-between gap-4">
+              <dt class="text-gray-400">英文名</dt>
+              <dd class="font-medium text-gray-800">nexs Institute</dd>
+            </div>
+            <div class="flex justify-between gap-4">
               <dt class="text-gray-400">設立</dt>
-              <dd class="font-medium text-gray-800">2024</dd>
+              <dd class="font-medium text-gray-800">2024年</dd>
             </div>
             <div class="flex justify-between gap-4">
               <dt class="text-gray-400">ステータス</dt>
               <dd class="font-medium text-gray-800">NPO法人化準備中</dd>
             </div>
+            <div class="flex justify-between gap-4">
+              <dt class="text-gray-400">連絡先</dt>
+              <dd class="font-medium text-gray-800">info@nexs.jp</dd>
+            </div>
           </dl>
         </details>
 
-        <div class="space-y-3">
-          <a
-            href="https://github.com/nexs-org/nexs-web"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors"
-          >
-            <span class="text-sm font-medium">GitHub Repository</span>
-            <Icons.ExternalLink className="w-4 h-4 text-gray-400" />
-          </a>
-        </div>
-      </div>
+        <a
+          href="https://github.com/nexs-org/nexs-web"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-between p-4 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          <div>
+            <p class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-1">Open Source</p>
+            <p class="text-sm font-bold text-gray-900">すべてのコードを公開中</p>
+          </div>
+          <Icons.ExternalLink className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        </a>
+      </section>
     </main>
 
     <BottomNav activeTab="about" client:load />
