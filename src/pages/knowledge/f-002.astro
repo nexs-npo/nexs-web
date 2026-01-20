@@ -1,0 +1,92 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="贈与経済の再定義 - Knowledge">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Knowledge: FOUNDATION"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Article Header -->
+      <section class="mb-8">
+        <div class="mb-3">
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-blue-600 px-2 py-1 rounded">FOUNDATION</span>
+          <span class="text-xs font-mono text-gray-400 ml-2">#F-002</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">贈与経済の再定義</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          デジタル社会における相互扶助と価値交換の新しい形態について。
+        </p>
+        <div class="flex items-center gap-2 text-xs text-gray-500 mt-3">
+          <span>2024年12月</span>
+          <span>•</span>
+          <span>nexs Research</span>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8 space-y-4">
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">背景</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            古典的な経済学では、価値交換は「等価交換」を前提としています。しかし、インターネット時代の経済では、従来の「贈与経済」が復活し、新しい形へ進化しています。
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">デジタル時代の贈与経済</h2>
+          <p class="text-sm text-gray-600 leading-relaxed mb-3">
+            以下の特性が、従来の贈与経済と異なります：
+          </p>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+            <li>• スケーラビリティ：物理的制約がない</li>
+            <li>• トレーサビリティ：すべての交換が記録される</li>
+            <li>• 非同期性：時間軸を超えた価値交換が可能</li>
+            <li>• 透明性：なぜその価値が生まれたのかが可視化される</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">社会への示唆</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            オープンソースソフトウェア、Wikipedia、ボランティア活動などは、すべてこの「デジタル時代の贈与経済」の実例です。これは単なる経済形態ではなく、人間の本質的な相互扶助欲求の表現です。
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">nexs への含意</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            社会的インパクト組織が持続可能になるためには、この贈与経済の論理を組織設計に組み込む必要があります。金銭的リターンのみでなく、「社会への貢献」という価値交換の可視化が重要です。
+          </p>
+        </div>
+      </section>
+
+      <!-- References & Related -->
+      <section class="mb-8 pt-4 border-t border-gray-200">
+        <h2 class="text-sm font-bold text-gray-900 mb-3">Related Knowledge</h2>
+        <div class="space-y-2">
+          <a href="/knowledge/f-001/" class="text-xs text-blue-600 hover:underline">→ #F-001 適者生存の誤読</a>
+          <a href="/knowledge/t-001/" class="text-xs text-blue-600 hover:underline">→ #T-001 分散型自律組織の可能性</a>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/knowledge/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Knowledge
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="knowledge" client:load />
+  </div>
+</BaseLayout>

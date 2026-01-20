@@ -1,0 +1,88 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="分散型自律組織の可能性 - Knowledge">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Knowledge: THESIS"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Article Header -->
+      <section class="mb-8">
+        <div class="mb-3">
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-green-600 px-2 py-1 rounded">THESIS</span>
+          <span class="text-xs font-mono text-gray-400 ml-2">#T-001</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">分散型自律組織の可能性</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          DAO技術を社会的インパクト組織に応用する際の課題と機会について。
+        </p>
+        <div class="flex items-center gap-2 text-xs text-gray-500 mt-3">
+          <span>2024年12月</span>
+          <span>•</span>
+          <span>nexs Research Team</span>
+        </div>
+      </section>
+
+      <!-- Context -->
+      <section class="mb-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+        <h3 class="text-xs font-bold text-gray-900 mb-2">背景となる知識</h3>
+        <p class="text-xs text-gray-600">
+          本仮説は<a href="/knowledge/f-001/" class="text-blue-600 underline">#F-001 適者生存の誤読</a>と<a href="/knowledge/f-002/" class="text-blue-600 underline">#F-002 贈与経済の再定義</a>に基づいています。
+        </p>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8 space-y-4">
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">仮説の内容</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            ブロックチェーン技術とスマートコントラクトを用いた分散型自律組織（DAO）は、NPOや社会的インパクト組織のガバナンス課題を解決できるのではないか？
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">検証する課題</h2>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+            <li>• 意思決定の透明性と迅速性の両立</li>
+            <li>• 分散的な権限委譲と説明責任のバランス</li>
+            <li>• テクノロジーと人間的価値観の調和</li>
+            <li>• 規制環境での実現可能性</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">期待されるインパクト</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            成功した場合、より多くの人が組織運営に参加でき、地理的制約を超えた相互扶助が可能になる。これにより、社会課題への対応速度と規模が大幅に向上する可能性がある。
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">次のステップ</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            本仮説は、現在進行中の<a href="/knowledge/p-001/" class="text-blue-600 underline">#P-001 地域通貨実証実験</a>にて検証中です。
+          </p>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/knowledge/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Knowledge
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="knowledge" client:load />
+  </div>
+</BaseLayout>
