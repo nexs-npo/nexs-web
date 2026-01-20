@@ -1,0 +1,78 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="nexsアプリ - Projects">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Projects"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Project Header -->
+      <section class="mb-8">
+        <div class="mb-3">
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-900 px-2 py-1 rounded">Core Product</span>
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-green-600 px-2 py-1 rounded ml-2">Active</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">nexsアプリ</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          情報が増え続ける時代に、AIが「適切に減らす」ことで中立なシグナルを抽出できるかを検証。
+        </p>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8 space-y-6">
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">コンセプト</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            ニュースキュレーションやSNS情報の過多により、本当に重要な「社会課題のシグナル」が埋もれています。nexs アプリは、AI が提示された課題情報から「本質的に重要な課題」を識別し、ユーザーに提示する実験プラットフォームです。
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">主な機能</h2>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+            <li>• Signals：社会課題の兆候をキュレーション</li>
+            <li>• Knowledge：課題に関連する理論・仮説・データをリンク</li>
+            <li>• Projects：実装中のプロジェクト進捗を共有</li>
+            <li>• オープンソース化：すべてのコードを GitHub で公開</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">Research Items</h2>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+            <li>• AIによる情報削減が偏りを抑えられるかの検証（Signals）</li>
+            <li>• エンジニア不在でもAIと協働した開発運用は成立するか</li>
+            <li>• ユーザーコミュニティの自律的な課題発掘プロセス構築</li>
+            <li>• 課題とアクション（プロジェクト）の接続メカニズムの検証</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">現在の進捗</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            Signals・Knowledge・Projects の3つの基本機能が実装完了。ユーザーテスト・フィードバック収集フェーズに入っています。
+          </p>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/projects/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Projects
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="projects" client:load />
+  </div>
+</BaseLayout>
