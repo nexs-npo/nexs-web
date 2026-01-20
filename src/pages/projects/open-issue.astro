@@ -1,0 +1,81 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="open issue - Projects">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Projects"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Project Header -->
+      <section class="mb-8">
+        <div class="mb-3">
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-purple-600 px-2 py-1 rounded">Platform</span>
+          <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-300 text-gray-700 px-2 py-1 rounded ml-2">In Prep</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">open issue</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          課題の「定義」と「解決」を分散的に行う、課題駆動型AI実装プラットフォーム。
+        </p>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8 space-y-6">
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">ビジョン</h2>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            現在、社会課題の「定義」は既存のシンクタンク・専門家に依存しています。open issue は、市民・実践者・研究者が協働して課題を定義し、その解決方法を分散的に探索するプラットフォームです。
+          </p>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">プラットフォームの構成</h2>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+            <li>• Issue Board：社会課題の定義と議論</li>
+            <li>• Solution Workspace：解決案の実装と実験</li>
+            <li>• Impact Tracker：社会的インパクトの可視化</li>
+            <li>• Learning Hub：失敗事例を含めた学習資料の蓄積</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">Research Items</h2>
+          <ul class="text-sm text-gray-600 leading-relaxed space-y-2 ml-4">
+            <li>• 良き課題（Issue）を生み出すための教育プログラム開発</li>
+            <li>• 新人育成の場としてのAIワークフロー検証</li>
+            <li>• 分散型ガバナンスの実現可能性検証</li>
+            <li>• 課題の質を評価するメトリクスの開発</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="text-base font-bold text-gray-900 mb-3">進捗</h2>
+          <p class="text-sm text-gray-600 leading-relaxed mb-3">
+            現在、プラットフォーム設計・仕様策定フェーズです。2025年中のベータ版公開を目指しています。
+          </p>
+          <p class="text-sm text-gray-600 leading-relaxed">
+            開発パートナー・ユーザーテスター募集中。nexs への参画に興味のある方は <a href="mailto:info@nexs.jp" class="text-blue-600 underline">info@nexs.jp</a> までお気軽にお問い合わせください。
+          </p>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/projects/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Projects
+        </a>
+      </div>
+    </main>
+
+    <BottomNav activeTab="projects" client:load />
+  </div>
+</BaseLayout>
