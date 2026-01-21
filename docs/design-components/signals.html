@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signals - nexs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+  <div class="min-h-screen bg-white flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div class="max-w-md mx-auto px-5 py-6">
+        <h1 class="text-xl font-bold text-gray-900 mb-1">Signals</h1>
+        <p class="text-xs text-gray-500">AIが収集した業界動向と、研究員による実験ログ</p>
+      </div>
+    </header>
+
+    <main class="flex-1 pt-2 pb-24 animate-fade-in-up">
+      <!-- Sort Controls -->
+      <div class="px-5 max-w-md mx-auto pt-2 pb-3">
+        <div class="flex items-center gap-2 text-xs font-bold text-gray-500">
+          <div class="flex gap-2">
+            <button class="sort-pill is-active px-3 py-1.5 bg-gray-900 text-white rounded-full" type="button">新着順</button>
+            <button class="sort-pill px-3 py-1.5 border border-gray-200 text-gray-500 rounded-full hover:border-gray-300" type="button">スター数順</button>
+            <button class="sort-pill px-3 py-1.5 border border-gray-200 text-gray-500 rounded-full hover:border-gray-300" type="button">コメント数順</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
+        <!-- Signal 1 -->
+        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+          <div class="shrink-0 pt-1">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-black text-white text-lg">
+              ⚡
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold text-gray-500">AI News</span>
+              <span class="text-[10px] text-gray-300">•</span>
+              <span class="text-[10px] text-gray-400 font-mono">2h ago</span>
+            </div>
+            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
+              OpenAI DevDay Keynote
+            </h4>
+            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              さむ・あるとまんの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  ★ 12
+                </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  💬 5
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-1 ml-auto">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  #OpenAI
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Signal 2 -->
+        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+          <div class="shrink-0 pt-1">
+            <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 text-gray-500 text-lg">
+              📝
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-[10px] font-bold text-gray-500">Log</span>
+              <span class="text-[10px] text-gray-300">•</span>
+              <span class="text-[10px] text-gray-400 font-mono">5h ago</span>
+            </div>
+            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
+              AI倫理ガイドラインの動向
+            </h4>
+            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
+              EU AI Actの実装フェーズに入りました。組織内の意思決定をどう透明化するかが課題です。
+            </p>
+            <div class="flex items-center gap-3">
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  ★ 8
+                </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  💬 3
+                </span>
+              </div>
+              <div class="flex flex-wrap gap-1 ml-auto">
+                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                  #AI倫理
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Navigation -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+      <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
+        <button class="text-center text-gray-900 font-bold">📡 Signals</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📚 Knowledge</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📋 Projects</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">ⓘ About</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Sort pill interaction
+    document.querySelectorAll('.sort-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        document.querySelectorAll('.sort-pill').forEach(p => {
+          p.classList.remove('is-active', 'bg-gray-900', 'text-white');
+          p.classList.add('border', 'border-gray-200', 'text-gray-500');
+        });
+        this.classList.add('is-active', 'bg-gray-900', 'text-white');
+        this.classList.remove('border', 'border-gray-200', 'text-gray-500');
+      });
+    });
+  </script>
+</body>
+</html>
