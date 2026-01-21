@@ -1,0 +1,153 @@
+<!--
+  Design Component: Contact Form
+  対応する実装ファイル: src/pages/contact.astro
+
+  【このファイルについて】
+  お問い合わせ・協働提案用のフォームページです。
+  Aboutページのデザイン原則（Minimal & Mono）を継承しています。
+
+  【デザイン原則 (Design Principles)】
+  1. Minimal & Mono: 白黒・グレーを基調とし、知性的で落ち着いたトーンを維持してください。
+  2. Lightweight: 過剰な装飾や重いアニメーションを避け、標準的なTailwindクラスで完結させてください。
+  3. Implementable: 実装（Astro/React等）への移行が容易な、素直なDOM構造を保ってください。
+
+  【編集ガイド】
+  ✏️ 変更OK:
+    - フォーム項目の増減・ラベル変更
+    - テキスト内容
+    - レイアウトの微調整
+
+  🔒 変更NG:
+    - ページ全体の骨格（Header, Footerコンポーネントの配置）
+    - サイトのトーンを逸脱する有彩色
+    - 独自のCSS（<style>タグ）や外部ライブラリの追加
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - nexs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+  <div class="min-h-screen bg-white flex flex-col">
+    <!-- Header (共通コンポーネント) -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div class="max-w-md mx-auto px-5 py-6">
+        <h1 class="text-xl font-bold text-gray-900 mb-1">nexs</h1>
+        <p class="text-xs text-gray-500">次世代社会デザイン研究機構</p>
+      </div>
+    </header>
+
+    <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
+      <!-- Hero Section -->
+      <section class="mb-8">
+        <h1 class="text-2xl font-bold leading-tight mb-4 text-gray-900">
+          お問い合わせ
+        </h1>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          協働のご提案、取材のご依頼、その他のお問い合わせはこちらから受け付けています。<br>
+          通常、3営業日以内に担当者より返信いたします。
+        </p>
+      </section>
+
+      <!-- Form Section -->
+      <section class="mb-12">
+        <form class="space-y-6" onsubmit="event.preventDefault(); alert('これはデモ画面です。実際には送信されません。');">
+
+          <!-- Name -->
+          <div>
+            <label for="name" class="block text-xs font-bold text-gray-900 mb-2">お名前 <span class="text-gray-400 font-normal ml-1">(必須)</span></label>
+            <input type="text" id="name" name="name" required
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors"
+              placeholder="山田 太郎">
+          </div>
+
+          <!-- Organization -->
+          <div>
+            <label for="org" class="block text-xs font-bold text-gray-900 mb-2">所属・組織名 <span class="text-gray-400 font-normal ml-1">(任意)</span></label>
+            <input type="text" id="org" name="org"
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors"
+              placeholder="株式会社〇〇 / △△大学">
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-xs font-bold text-gray-900 mb-2">メールアドレス <span class="text-gray-400 font-normal ml-1">(必須)</span></label>
+            <input type="email" id="email" name="email" required
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors"
+              placeholder="your-email@example.com">
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label for="category" class="block text-xs font-bold text-gray-900 mb-2">お問い合わせ種別 <span class="text-gray-400 font-normal ml-1">(必須)</span></label>
+            <div class="relative">
+              <select id="category" name="category" required
+                class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer">
+                <option value="" disabled selected>選択してください</option>
+                <option value="collaboration">協働・パートナーシップについて</option>
+                <option value="project">プロジェクトへの参加（プロボノ等）</option>
+                <option value="media">取材・講演のご依頼</option>
+                <option value="other">その他</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-xs font-bold text-gray-900 mb-2">メッセージ <span class="text-gray-400 font-normal ml-1">(必須)</span></label>
+            <textarea id="message" name="message" rows="6" required
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors resize-none"
+              placeholder="お問い合わせ内容をご記入ください。"></textarea>
+          </div>
+
+          <!-- Privacy Agreement -->
+          <div class="pt-2">
+            <label class="flex items-start gap-3 cursor-pointer group">
+              <input type="checkbox" required class="mt-0.5 w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900 rounded cursor-pointer">
+              <span class="text-xs text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
+                <a href="#" class="underline hover:text-gray-900">プライバシーポリシー</a>を確認し、同意しました。
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-4">
+            <button type="submit" class="w-full bg-gray-900 text-white font-bold text-sm py-4 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+              <span>送信する</span>
+              <span>→</span>
+            </button>
+          </div>
+
+        </form>
+      </section>
+
+      <!-- Back Link -->
+      <div class="text-center pt-8 border-t border-gray-100">
+        <a href="about.html" class="inline-flex items-center text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
+          <span class="mr-2">←</span>
+          Aboutページに戻る
+        </a>
+      </div>
+
+    </main>
+
+    <!-- Footer Navigation (共通) -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-100 z-50">
+      <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
+        <button class="text-center text-gray-400 hover:text-gray-900">📡 Signals</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📚 Knowledge</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📋 Projects</button>
+        <button class="text-center text-gray-900 font-bold">ⓘ About</button>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
