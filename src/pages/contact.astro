@@ -1,0 +1,160 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+---
+
+<BaseLayout title="Contact - nexs">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="nexs"
+      subtitle="次世代社会デザイン研究機構"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Hero Section -->
+      <section class="mb-8">
+        <h1 class="text-3xl font-bold leading-tight mb-4 text-gray-900">
+          お問い合わせ
+        </h1>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          協働のご提案、取材のご依頼、その他のお問い合わせはこちらから受け付けています。<br>
+          通常、3営業日以内に担当者より返信いたします。
+        </p>
+      </section>
+
+      <!-- Form Section -->
+      <section class="mb-12">
+        <form class="space-y-6" action="#" method="POST">
+          <!-- Name -->
+          <div>
+            <label for="name" class="block text-xs font-bold text-gray-900 mb-2">
+              お名前 <span class="text-gray-400 font-normal ml-1">(必須)</span>
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors"
+              placeholder="山田 太郎"
+            />
+          </div>
+
+          <!-- Organization -->
+          <div>
+            <label for="org" class="block text-xs font-bold text-gray-900 mb-2">
+              所属・組織名 <span class="text-gray-400 font-normal ml-1">(任意)</span>
+            </label>
+            <input
+              type="text"
+              id="org"
+              name="org"
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors"
+              placeholder="株式会社〇〇 / △△大学"
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-xs font-bold text-gray-900 mb-2">
+              メールアドレス <span class="text-gray-400 font-normal ml-1">(必須)</span>
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors"
+              placeholder="your-email@example.com"
+            />
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label for="category" class="block text-xs font-bold text-gray-900 mb-2">
+              お問い合わせ種別 <span class="text-gray-400 font-normal ml-1">(必須)</span>
+            </label>
+            <div class="relative">
+              <select
+                id="category"
+                name="category"
+                required
+                class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors appearance-none cursor-pointer"
+              >
+                <option value="" disabled selected>選択してください</option>
+                <option value="collaboration">協働・パートナーシップについて</option>
+                <option value="project">プロジェクトへの参加（プロボノ等）</option>
+                <option value="media">取材・講演のご依頼</option>
+                <option value="other">その他</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Message -->
+          <div>
+            <label for="message" class="block text-xs font-bold text-gray-900 mb-2">
+              メッセージ <span class="text-gray-400 font-normal ml-1">(必須)</span>
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={6}
+              required
+              class="w-full bg-gray-50 border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-900 focus:outline-none focus:border-gray-900 transition-colors resize-none"
+              placeholder="お問い合わせ内容をご記入ください。"
+            ></textarea>
+          </div>
+
+          <!-- Privacy Agreement -->
+          <div class="pt-2">
+            <label class="flex items-start gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                required
+                class="mt-0.5 w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900 rounded cursor-pointer"
+              />
+              <span class="text-xs text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
+                <a href="/privacy" class="underline hover:text-gray-900">プライバシーポリシー</a>を確認し、同意しました。
+              </span>
+            </label>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="pt-4">
+            <button
+              type="submit"
+              class="w-full bg-gray-900 text-white font-bold text-sm py-4 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
+            >
+              <span>送信する</span>
+              <span>→</span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Back Link -->
+      <div class="text-center pt-8 border-t border-gray-100">
+        <a href="/about" class="inline-flex items-center text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
+          <span class="mr-2">←</span>
+          Aboutページに戻る
+        </a>
+      </div>
+    </main>
+
+    <BottomNav client:load />
+  </div>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    @apply bg-white;
+  }
+</style>
