@@ -56,7 +56,7 @@ export default function BottomNav({ activeTab }: BottomNavProps) {
               )}
               <span
                 className={`text-[10px] font-bold tracking-tight ${
-                  isActive ? 'opacity-100' : tab.id === 'about' ? 'opacity-100' : 'opacity-0'
+                  isActive ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 {tab.label}
