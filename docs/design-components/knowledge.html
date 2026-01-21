@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge - nexs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+  <div class="min-h-screen bg-white flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div class="max-w-md mx-auto px-5 py-6">
+        <h1 class="text-xl font-bold text-gray-900 mb-1">Knowledge</h1>
+        <p class="text-xs text-gray-500">仮説から社会の更新まで。リンク可能な知識コンポーネント</p>
+      </div>
+    </header>
+
+    <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
+      <!-- Category Filter -->
+      <section class="mb-6">
+        <div class="flex flex-wrap gap-2">
+          <button class="category-pill is-active text-[11px] font-bold text-white bg-gray-900 border border-gray-900 rounded-full px-3 py-1.5" type="button" data-category="foundation">基礎知識</button>
+          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="thesis">仮説</button>
+          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="protocol">プロトコル</button>
+          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="evidence">エビデンス</button>
+          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="update">アップデート</button>
+        </div>
+      </section>
+
+      <!-- Knowledge Items -->
+      <section class="space-y-3">
+        <!-- FOUNDATION 1 -->
+        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="foundation">
+          <div class="flex items-start justify-between mb-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-900 px-2 py-1 rounded">基礎知識</span>
+            <span class="text-xs font-mono text-gray-400">#F-001</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">適者生存の誤読</h3>
+          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            ダーウィン進化論がしばしば誤解される理由と、組織進化への影響について。
+          </p>
+        </div>
+
+        <!-- FOUNDATION 2 -->
+        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="foundation">
+          <div class="flex items-start justify-between mb-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-900 px-2 py-1 rounded">基礎知識</span>
+            <span class="text-xs font-mono text-gray-400">#F-002</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">贈与経済の再定義</h3>
+          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            デジタル社会における相互扶助と価値交換の新しい形態について。
+          </p>
+        </div>
+
+        <!-- THESIS -->
+        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="thesis">
+          <div class="flex items-start justify-between mb-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-700 px-2 py-1 rounded">仮説</span>
+            <span class="text-xs font-mono text-gray-400">#T-001</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">分散型自律組織の可能性</h3>
+          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            DAO技術を社会的インパクト組織に応用する際の課題と機会。
+          </p>
+        </div>
+
+        <!-- PROTOCOL -->
+        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="protocol">
+          <div class="flex items-start justify-between mb-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-600 px-2 py-1 rounded">プロトコル</span>
+            <span class="text-xs font-mono text-gray-400">#P-001</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">地域通貨実証実験</h3>
+          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            AI価格推定システムを用いた地域通貨導入パイロット。期間・対象・KPI。
+          </p>
+        </div>
+
+        <!-- EVIDENCE -->
+        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="evidence">
+          <div class="flex items-start justify-between mb-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-500 px-2 py-1 rounded">エビデンス</span>
+            <span class="text-xs font-mono text-gray-400">#E-001</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">3ヶ月間の交換頻度推移</h3>
+          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            パイロットコミュニティにおける通貨流通速度の変化データと分析。
+          </p>
+        </div>
+
+        <!-- UPDATE -->
+        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="update">
+          <div class="flex items-start justify-between mb-2">
+            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-400 px-2 py-1 rounded">アップデート</span>
+            <span class="text-xs font-mono text-gray-400">#U-001</span>
+          </div>
+          <h3 class="text-sm font-bold text-gray-900 mb-1">新たな共助モデルの提言</h3>
+          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
+            実証結果に基づく、デジタル時代の地域共助システム再構築への提案。
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Navigation -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+      <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
+        <button class="text-center text-gray-400 hover:text-gray-900">📡 Signals</button>
+        <button class="text-center text-gray-900 font-bold">📚 Knowledge</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📋 Projects</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">ⓘ About</button>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Category filter
+    document.querySelectorAll('.category-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        const category = this.dataset.category;
+
+        // Update active button
+        document.querySelectorAll('.category-pill').forEach(p => {
+          p.classList.remove('is-active', 'bg-gray-900', 'text-white');
+          p.classList.add('text-gray-500', 'border', 'border-gray-200');
+        });
+        this.classList.add('is-active', 'bg-gray-900', 'text-white');
+        this.classList.remove('text-gray-500', 'border', 'border-gray-200');
+
+        // Update visible items
+        document.querySelectorAll('.knowledge-item').forEach(item => {
+          if (item.dataset.category === category) {
+            item.classList.remove('hidden');
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

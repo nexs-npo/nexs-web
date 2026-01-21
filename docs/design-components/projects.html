@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects - nexs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+  <div class="min-h-screen bg-white flex flex-col">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div class="max-w-md mx-auto px-5 py-6">
+        <h1 class="text-xl font-bold text-gray-900 mb-1">Projects</h1>
+        <p class="text-xs text-gray-500">進行中の社会実装プロジェクトと検証項目</p>
+      </div>
+    </header>
+
+    <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
+      <!-- Active Projects -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">稼働中</h2>
+          <span class="text-[10px] text-gray-400 font-mono">Active</span>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Shared Service Project -->
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
+                Shared Service
+              </span>
+              <div class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
+              みんなの事務局
+            </h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+              NPO事務局のシェアードサービス化を通じた、評価経済社会の実装実験。
+            </p>
+
+            <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
+              <p class="text-[10px] text-gray-400 font-bold uppercase mb-2 flex items-center gap-1">
+                Research Items
+              </p>
+              <ul class="space-y-1.5">
+                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
+                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
+                  資本主義外での評価経済の可能性検証
+                </li>
+                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
+                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
+                  ミッション第一組織における人材評価モデルの再構築
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Core Product Project -->
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-900 text-white">
+                Core Product
+              </span>
+              <div class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
+              nexsアプリ（本アプリ）
+            </h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+              情報が増え続ける時代に、AIが「適切に減らす」ことで中立なシグナルを抽出できるかを検証。
+            </p>
+
+            <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
+              <p class="text-[10px] text-gray-400 font-bold uppercase mb-2 flex items-center gap-1">
+                Research Items
+              </p>
+              <ul class="space-y-1.5">
+                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
+                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
+                  AIによる情報削減が偏りを抑えられるかの検証（Signals）
+                </li>
+                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
+                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
+                  エンジニア不在でもAIと協働した開発運用は成立するか
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Preparing Projects -->
+      <section class="mb-10">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">準備中</h2>
+          <span class="text-[10px] text-gray-400 font-mono">In Prep</span>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Platform Project -->
+          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+            <div class="flex justify-between items-start mb-3">
+              <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
+                Platform
+              </span>
+              <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+            </div>
+            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
+              open issue
+            </h3>
+            <p class="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+              課題の「定義」と「解決」を分散的に行う、課題駆動型AI実装プラットフォーム。
+            </p>
+
+            <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
+              <p class="text-[10px] text-gray-400 font-bold uppercase mb-2 flex items-center gap-1">
+                Research Items
+              </p>
+              <ul class="space-y-1.5">
+                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
+                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
+                  良き課題（Issue）を生み出すための教育プログラム開発
+                </li>
+                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
+                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
+                  新人育成の場としてのAIワークフロー検証
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer Navigation -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+      <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
+        <button class="text-center text-gray-400 hover:text-gray-900">📡 Signals</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📚 Knowledge</button>
+        <button class="text-center text-gray-900 font-bold">📋 Projects</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">ⓘ About</button>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
