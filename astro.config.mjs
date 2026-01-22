@@ -7,7 +7,7 @@ import clerk from '@clerk/astro';
 export default defineConfig({
   site: 'https://nexs.or.jp',
   output: 'static',
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   integrations: [
     react(),
     tailwind({
