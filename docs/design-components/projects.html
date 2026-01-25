@@ -6,6 +6,10 @@
   このコンポーネントは Projects ページのデザインリファレンスです。
   スタッフがこれを編集し、開発AIが参照して実装します。
 
+  【変更内容】
+    - 2026-01-26: プロジェクト説明文（本文）の文字サイズを text-xs (12px) から text-sm (14px) に変更
+    - 2026-01-26: 左上のカテゴリタグの色をすべて統一（bg-gray-100 text-gray-900）
+
   【編集ガイド】
   ✏️ 変更OK:
     - プロジェクト名・説明文
@@ -53,7 +57,7 @@
 
         <div class="space-y-6">
           <!-- Shared Service Project -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+          <a href="/projects/shared-service/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
                 Shared Service
@@ -63,7 +67,7 @@
             <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
               みんなの事務局
             </h3>
-            <p class="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+            <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">
               NPO事務局のシェアードサービス化を通じた、評価経済社会の実装実験。
             </p>
 
@@ -82,20 +86,21 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </a>
 
           <!-- Core Product Project -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+          <a href="/projects/nexs-app/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
-              <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-900 text-white">
+              <!-- 変更: bg-gray-900 text-white -> bg-gray-100 text-gray-900 -->
+              <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
                 Core Product
               </span>
               <div class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
-              nexsアプリ（本アプリ）
+              nexsアプリ
             </h3>
-            <p class="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+            <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">
               情報が増え続ける時代に、AIが「適切に減らす」ことで中立なシグナルを抽出できるかを検証。
             </p>
 
@@ -114,7 +119,7 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </a>
         </div>
       </section>
 
@@ -127,7 +132,7 @@
 
         <div class="space-y-6">
           <!-- Platform Project -->
-          <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+          <a href="/projects/open-issue/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
                 Platform
@@ -137,7 +142,7 @@
             <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
               open issue
             </h3>
-            <p class="text-xs text-gray-500 leading-relaxed mb-4 line-clamp-2">
+            <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">
               課題の「定義」と「解決」を分散的に行う、課題駆動型AI実装プラットフォーム。
             </p>
 
@@ -156,7 +161,7 @@
                 </li>
               </ul>
             </div>
-          </div>
+          </a>
         </div>
       </section>
     </main>

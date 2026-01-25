@@ -1,0 +1,129 @@
+<!--
+  Design Component: Signal Detail Page
+  対応する実装ファイル: src/pages/signals/001.astro (example)
+
+  【このファイルについて】
+  このコンポーネントは Signal詳細ページのデザインリファレンスです。
+  スタッフがこれを編集し、開発AIが参照して実装します。
+
+  【デザイン原則 (Design Principles)】
+  1. Minimal & Mono: 白黒・グレーを基調とし、知性的で落ち着いたトーンを維持してください。
+  2. Lightweight: 過剰な装飾や重いアニメーションを避け、標準的なTailwindクラスで完結させてください。
+  3. Implementable: 実装（Astro/React等）への移行が容易な、素直なDOM構造を保ってください。
+
+  【編集ガイド】
+  ✏️ 変更OK:
+    - タイトル、本文、タグ内容
+    - アイコンの種類・色
+    - セクション内の余白調整
+
+  🔒 変更NG:
+    - ページ全体の骨格（Header, Footer、セクション構造）
+    - 有彩色（赤、青などの原色）の使用
+    - 独自のCSS（<style>タグ）や外部ライブラリの追加
+
+  【変更内容】
+  スタッフが編集するときは、ここに何を変更したかを記録してください。
+    - 2026-01-26: 初回作成（フォントサイズ: タイトルtext-2xl、本文text-sm、メタデータtext-xs）
+-->
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Signal Detail - nexs</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+  <div class="min-h-screen bg-white flex flex-col">
+    <!-- Header (共通コンポーネント) -->
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <div class="max-w-md mx-auto px-5 py-6">
+        <h1 class="text-xl font-bold text-gray-900 mb-1">Signal Details</h1>
+      </div>
+    </header>
+
+    <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
+      <!-- Signal Header -->
+      <section class="mb-8">
+        <div class="flex items-start gap-4 mb-6">
+          <div class="shrink-0">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-black text-white text-lg">
+              ⚡
+            </div>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">AI News</span>
+              <span class="text-xs text-gray-400">2 hours ago</span>
+            </div>
+            <h1 class="text-2xl font-bold text-gray-900 mb-3">OpenAI DevDay Keynote</h1>
+            <p class="text-sm text-gray-600 leading-relaxed">
+              さむ・あるとまんの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
+            </p>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="flex items-center gap-4 py-4 border-t border-b border-gray-100">
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">★ 12</span>
+            <span class="text-xs text-gray-500">Stars</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">💬 5</span>
+            <span class="text-xs text-gray-500">Comments</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8">
+        <h2 class="text-sm font-bold text-gray-900 mb-4">Context</h2>
+        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
+          <p>
+            OpenAI DevDay 2024において、CEOの Sam Altman が発表した新しいエージェント指向のAIアーキテクチャは、従来のプロンプト駆動型から大きく転換します。
+          </p>
+          <p>
+            このアプローチは、AIエージェントに対して複数のタスクを並行処理させ、自律的に意思決定を行わせることを可能にします。これにより、組織のガバナンスや意思決定プロセス自体が根本的に変わる可能性があります。
+          </p>
+          <p>
+            特にNPOや社会的インパクトを志向する組織にとって、透明性と説明可能性を備えたエージェント型AIの導入は、新しい組織運営モデルの創出につながるかもしれません。
+          </p>
+        </div>
+      </section>
+
+      <!-- Tags -->
+      <section class="mb-8">
+        <h2 class="text-sm font-bold text-gray-900 mb-3">Tags</h2>
+        <div class="flex flex-wrap gap-2">
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#OpenAI</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#AI</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Agent</span>
+          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Analysis</span>
+        </div>
+      </section>
+
+      <!-- Back Button -->
+      <div class="flex gap-3">
+        <a
+          href="/signals"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          ← Back to Signals
+        </a>
+      </div>
+    </main>
+
+    <!-- Footer Navigation (共通) -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-100 z-50">
+      <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
+        <button class="text-center text-gray-900 font-bold">📡 Signals</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📚 Knowledge</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">📋 Projects</button>
+        <button class="text-center text-gray-400 hover:text-gray-900">ⓘ About</button>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -21,6 +21,15 @@
     - Header要素（固定）
     - ページレイアウト
 
+  【変更内容】
+    - 2026-01-26: フォントサイズ全体を拡大（タイトルtext-base、本文text-sm、メタデータtext-xs）
+    - 2026-01-26: スタッツ・タグを白背景カプセル型に統一（px-2.5 py-1 rounded-full）
+    - 2026-01-26: カード内パディングをp-5に拡大
+    - 2026-01-25: スタッツ・タグのデザインを「白背景・カプセル型(rounded-full)・枠線あり」に戻しました（Knowledgeページと統一）
+    - 2026-01-25: 行間を再調整（leading-loose -> leading-normal）してリストの視認性を向上
+    - 2026-01-25: 全体的な可読性向上（本文text-sm、タイトルtext-baseへ拡大）
+    - 2026-01-25: 独自アニメーションクラスを除去し、標準的なTailwindクラスのみで構成
+
   【実装者（AI）へ】
   このファイルを参照するときは、docs/DESIGN_WORKFLOW.md を確認。
   特に「コンポーネント間の統一性」に注意してください。
@@ -43,102 +52,110 @@
       </div>
     </header>
 
-    <main class="flex-1 pt-2 pb-24 animate-fade-in-up">
+    <main class="flex-1 pt-2 pb-24">
       <!-- Sort Controls -->
       <div class="px-5 max-w-md mx-auto pt-2 pb-3">
         <div class="flex items-center gap-2 text-xs font-bold text-gray-500">
           <div class="flex gap-2">
+            <!-- 
+              Knowledgeページと統一されたソートボタンデザイン
+              rounded-full / px-3 py-1.5 / border
+            -->
             <button class="sort-pill is-active px-3 py-1.5 bg-gray-900 text-white rounded-full" type="button">新着順</button>
-            <button class="sort-pill px-3 py-1.5 border border-gray-200 text-gray-500 rounded-full hover:border-gray-300" type="button">スター数順</button>
-            <button class="sort-pill px-3 py-1.5 border border-gray-200 text-gray-500 rounded-full hover:border-gray-300" type="button">コメント数順</button>
+            <button class="sort-pill px-3 py-1.5 border border-gray-200 bg-white text-gray-500 rounded-full hover:border-gray-300 transition-colors" type="button">スター数順</button>
+            <button class="sort-pill px-3 py-1.5 border border-gray-200 bg-white text-gray-500 rounded-full hover:border-gray-300 transition-colors" type="button">コメント数順</button>
           </div>
         </div>
       </div>
 
       <div class="bg-white border-t border-gray-100 max-w-md mx-auto">
         <!-- Signal 1 -->
-        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+        <a href="/signals/001/" class="flex gap-4 p-5 border-b border-gray-50 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
           <div class="shrink-0 pt-1">
             <div class="w-10 h-10 rounded-full flex items-center justify-center bg-black text-white text-lg">
               ⚡
             </div>
           </div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-[10px] font-bold text-gray-500">AI News</span>
-              <span class="text-[10px] text-gray-300">•</span>
-              <span class="text-[10px] text-gray-400 font-mono">2h ago</span>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-gray-500">AI News</span>
+              <span class="text-xs text-gray-300">•</span>
+              <span class="text-xs text-gray-400 font-mono">2h ago</span>
             </div>
-            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
+            <h4 class="text-base font-bold text-gray-900 mb-2 leading-snug">
               OpenAI DevDay Keynote
             </h4>
-            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
+            <p class="text-sm text-gray-600 leading-normal line-clamp-2 mb-4">
               さむ・あるとまんの発言から見る、次世代のエージェント指向。自律型AIが組織運営に与える影響について分析しました。
             </p>
-            <div class="flex items-center gap-3">
+
+            <div class="flex items-center gap-2">
               <div class="flex items-center gap-1">
-                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                <span class="text-xs px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-600 font-medium">
                   ★ 12
                 </span>
               </div>
               <div class="flex items-center gap-1">
-                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                <span class="text-xs px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-600 font-medium">
                   💬 5
                 </span>
               </div>
+
               <div class="flex flex-wrap gap-1 ml-auto">
-                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                <span class="text-xs px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-500">
                   #OpenAI
                 </span>
               </div>
             </div>
           </div>
-        </div>
+        </a>
 
         <!-- Signal 2 -->
-        <div class="flex gap-4 p-4 border-b border-gray-50 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+        <a href="/signals/002/" class="flex gap-4 p-5 border-b border-gray-50 bg-white hover:bg-gray-50 transition-colors cursor-pointer">
           <div class="shrink-0 pt-1">
             <div class="w-10 h-10 rounded-full flex items-center justify-center bg-gray-100 text-gray-500 text-lg">
               📝
             </div>
           </div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-1">
-              <span class="text-[10px] font-bold text-gray-500">Log</span>
-              <span class="text-[10px] text-gray-300">•</span>
-              <span class="text-[10px] text-gray-400 font-mono">5h ago</span>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-xs font-bold text-gray-500">Log</span>
+              <span class="text-xs text-gray-300">•</span>
+              <span class="text-xs text-gray-400 font-mono">5h ago</span>
             </div>
-            <h4 class="text-sm font-bold text-gray-900 mb-1 leading-snug">
-              AI倫理ガイドラインの動向
+            <h4 class="text-base font-bold text-gray-900 mb-2 leading-snug">
+              みんなの事務局 PoC開始
             </h4>
-            <p class="text-xs text-gray-600 leading-relaxed line-clamp-2 mb-2">
-              EU AI Actの実装フェーズに入りました。組織内の意思決定をどう透明化するかが課題です。
+            <p class="text-sm text-gray-600 leading-normal line-clamp-2 mb-4">
+              初期導入3団体において、経理業務のAI自動化率の測定を開始しました。想定より高い精度が出ています。
             </p>
-            <div class="flex items-center gap-3">
+
+            <div class="flex items-center gap-2">
               <div class="flex items-center gap-1">
-                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                <span class="text-xs px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-600 font-medium">
                   ★ 8
                 </span>
               </div>
               <div class="flex items-center gap-1">
-                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
+                <span class="text-xs px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-600 font-medium">
                   💬 3
                 </span>
               </div>
               <div class="flex flex-wrap gap-1 ml-auto">
-                <span class="text-[9px] px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-gray-500">
-                  #AI倫理
+                <span class="text-xs px-2.5 py-1 bg-white border border-gray-200 rounded-full text-gray-500">
+                  #Experiment
                 </span>
               </div>
             </div>
           </div>
-        </div>
+        </a>
       </div>
     </main>
 
     <!-- Footer Navigation -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-50">
       <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
+        <!-- Active Page: Signals -->
         <button class="text-center text-gray-900 font-bold">📡 Signals</button>
         <button class="text-center text-gray-400 hover:text-gray-900">📚 Knowledge</button>
         <button class="text-center text-gray-400 hover:text-gray-900">📋 Projects</button>
@@ -153,10 +170,10 @@
       pill.addEventListener('click', function() {
         document.querySelectorAll('.sort-pill').forEach(p => {
           p.classList.remove('is-active', 'bg-gray-900', 'text-white');
-          p.classList.add('border', 'border-gray-200', 'text-gray-500');
+          p.classList.add('border', 'border-gray-200', 'bg-white', 'text-gray-500');
         });
         this.classList.add('is-active', 'bg-gray-900', 'text-white');
-        this.classList.remove('border', 'border-gray-200', 'text-gray-500');
+        this.classList.remove('border', 'border-gray-200', 'bg-white', 'text-gray-500');
       });
     });
   </script>
