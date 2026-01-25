@@ -1,28 +1,13 @@
 <!--
-  Design Component: Knowledge Page
+  Design Component: Knowledge Page (Minimal Tags Version)
   対応する実装ファイル: src/pages/knowledge.astro
 
-  【このファイルについて】
-  このコンポーネントは Knowledge ページのデザインリファレンスです。
-  スタッフがこれを編集し、開発AIが参照して実装します。
-
-  【編集ガイド】
-  ✏️ 変更OK:
-    - Knowledge アイテムのテキスト（タイトル、説明文）
-    - カテゴリフィルターのラベル
-    - ID番号（#F-001など）
-    - 色（class値：bg-gray-*, text-* など）
-
-  🔒 変更NG:
-    - Knowledge カード全体の構造
-    - カテゴリフィルターのJavaScript動作
-    - data-category属性（フィルター機能に必須）
-    - フッターナビゲーション（固定）
-    - Header要素（固定）
-
-  【実装者（AI）へ】
-  このファイルを参照するときは、docs/DESIGN_WORKFLOW.md を確認。
-  category フィルターの動作を確認してから実装してください。
+  【変更点】
+  - 2026-01-26: カード内下部に投稿者・日付デザインを追加（border-t区切り、アバター+名前+日付）
+  - 2026-01-26: フォントサイズ全体を拡大（タイトルtext-base、本文text-sm）
+  - 2026-01-26: カテゴリ名を更新（基礎知識→基盤認識、仮説→仮説・問い、プロトコル→実装計画、エビデンス→経過・検証、アップデート→デザイン提言）
+  - 2026-01-26: カード内左上のカテゴリタグの装飾（枠線・背景・カプセル形状）を削除し、
+    シンプルなテキスト表示に変更（"text-xs font-bold text-gray-500"）
 -->
 <!DOCTYPE html>
 <html lang="ja">
@@ -44,94 +29,142 @@
 
     <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
       <!-- Category Filter -->
-      <section class="mb-6">
-        <div class="flex flex-wrap gap-2">
-          <button class="category-pill is-active text-[11px] font-bold text-white bg-gray-900 border border-gray-900 rounded-full px-3 py-1.5" type="button" data-category="foundation">基礎知識</button>
-          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="thesis">仮説</button>
-          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="protocol">プロトコル</button>
-          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="evidence">エビデンス</button>
-          <button class="category-pill text-[11px] font-bold text-gray-500 border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 hover:text-gray-700" type="button" data-category="update">アップデート</button>
+      <section class="mb-8">
+        <div class="flex flex-wrap gap-2" id="filter-container">
+          <button class="category-pill text-xs font-bold text-white bg-gray-900 border border-gray-900 rounded-full px-3 py-1.5 transition-colors" type="button" data-category="recognition">認識</button>
+          <button class="category-pill text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-category="hypothesis">仮説</button>
+          <button class="category-pill text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-category="implementation">実装</button>
+          <button class="category-pill text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-category="verification">検証</button>
+          <button class="category-pill text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-category="proposal">提言</button>
         </div>
       </section>
 
       <!-- Knowledge Items -->
       <section class="space-y-3">
-        <!-- FOUNDATION 1 -->
-        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="foundation">
+        <!-- Item 1: 認識 -> 基盤認識 -->
+        <a href="/knowledge/f-001/" class="knowledge-item block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="recognition">
           <div class="flex items-start justify-between mb-2">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-900 px-2 py-1 rounded">基礎知識</span>
-            <span class="text-xs font-mono text-gray-400">#F-001</span>
+            <span class="text-xs font-bold text-gray-500">基盤認識</span>
+            <span class="text-sm font-mono text-gray-400">#F-001</span>
           </div>
-          <h3 class="text-sm font-bold text-gray-900 mb-1">適者生存の誤読</h3>
-          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
-            ダーウィン進化論がしばしば誤解される理由と、組織進化への影響について。
+          <h3 class="text-base font-bold text-gray-900 mb-1">適者生存の誤読</h3>
+          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+            ダーウィン進化論がしばしば誤解される理由と、組織進化への影響について。競争ではなく適応のプロセスとして再解釈を試みます。
           </p>
-        </div>
+          <!-- Author & Date -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">N</div>
+              <span class="text-xs text-gray-500">nexs Research</span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono">2024.10.05</span>
+          </div>
+        </a>
 
-        <!-- FOUNDATION 2 -->
-        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="foundation">
+        <!-- Item 2: 認識 -> 基盤認識 -->
+        <a href="/knowledge/f-002/" class="knowledge-item block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="recognition">
           <div class="flex items-start justify-between mb-2">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-900 px-2 py-1 rounded">基礎知識</span>
-            <span class="text-xs font-mono text-gray-400">#F-002</span>
+            <span class="text-xs font-bold text-gray-500">基盤認識</span>
+            <span class="text-sm font-mono text-gray-400">#F-002</span>
           </div>
-          <h3 class="text-sm font-bold text-gray-900 mb-1">贈与経済の再定義</h3>
-          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
-            デジタル社会における相互扶助と価値交換の新しい形態について。
+          <h3 class="text-base font-bold text-gray-900 mb-1">贈与経済の再定義</h3>
+          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+            デジタル社会における相互扶助と価値交換の新しい形態について。金銭的リターンを前提としない貢献が、いかにして持続可能なシステムを形成するかを分析します。
           </p>
-        </div>
+          <!-- Author & Date -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">S</div>
+              <span class="text-xs text-gray-500">K. Suzuki</span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono">2024.11.12</span>
+          </div>
+        </a>
 
-        <!-- THESIS -->
-        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="thesis">
+        <!-- Item 3: 仮説 -> 仮説・問い -->
+        <a href="/knowledge/t-001/" class="knowledge-item block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="hypothesis">
           <div class="flex items-start justify-between mb-2">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-700 px-2 py-1 rounded">仮説</span>
-            <span class="text-xs font-mono text-gray-400">#T-001</span>
+            <span class="text-xs font-bold text-gray-500">仮説・問い</span>
+            <span class="text-sm font-mono text-gray-400">#T-001</span>
           </div>
-          <h3 class="text-sm font-bold text-gray-900 mb-1">分散型自律組織の可能性</h3>
-          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
-            DAO技術を社会的インパクト組織に応用する際の課題と機会。
+          <h3 class="text-base font-bold text-gray-900 mb-1">分散型自律組織の可能性</h3>
+          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+            DAO技術を社会的インパクト組織に応用する際の課題と機会。意思決定コストと透明性のトレードオフをどう設計するか。
           </p>
-        </div>
+          <!-- Author & Date -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">D</div>
+              <span class="text-xs text-gray-500">DAO Lab</span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono">2024.12.01</span>
+          </div>
+        </a>
 
-        <!-- PROTOCOL -->
-        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="protocol">
+        <!-- Item 4: 実装 -> 実装計画 -->
+        <a href="/knowledge/p-001/" class="knowledge-item block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="implementation">
           <div class="flex items-start justify-between mb-2">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-600 px-2 py-1 rounded">プロトコル</span>
-            <span class="text-xs font-mono text-gray-400">#P-001</span>
+            <span class="text-xs font-bold text-gray-500">実装計画</span>
+            <span class="text-sm font-mono text-gray-400">#P-001</span>
           </div>
-          <h3 class="text-sm font-bold text-gray-900 mb-1">地域通貨実証実験</h3>
-          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
-            AI価格推定システムを用いた地域通貨導入パイロット。期間・対象・KPI。
+          <h3 class="text-base font-bold text-gray-900 mb-1">地域通貨実証実験</h3>
+          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+            AI価格推定システムを用いた地域通貨導入パイロット。期間・対象・KPIの設定詳細と運用ルールについて。
           </p>
-        </div>
+          <!-- Author & Date -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">P</div>
+              <span class="text-xs text-gray-500">Project Team A</span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono">2025.01.10</span>
+          </div>
+        </a>
 
-        <!-- EVIDENCE -->
-        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="evidence">
+        <!-- Item 5: 検証 -> 経過・検証 -->
+        <a href="/knowledge/e-001/" class="knowledge-item block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="verification">
           <div class="flex items-start justify-between mb-2">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-500 px-2 py-1 rounded">エビデンス</span>
-            <span class="text-xs font-mono text-gray-400">#E-001</span>
+            <span class="text-xs font-bold text-gray-500">経過・検証</span>
+            <span class="text-sm font-mono text-gray-400">#E-001</span>
           </div>
-          <h3 class="text-sm font-bold text-gray-900 mb-1">3ヶ月間の交換頻度推移</h3>
-          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
-            パイロットコミュニティにおける通貨流通速度の変化データと分析。
+          <h3 class="text-base font-bold text-gray-900 mb-1">3ヶ月間の交換頻度推移</h3>
+          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+            パイロットコミュニティにおける通貨流通速度の変化データと分析。初期の停滞期を脱した要因についての考察。
           </p>
-        </div>
+          <!-- Author & Date -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">A</div>
+              <span class="text-xs text-gray-500">Analytics Unit</span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono">2025.04.15</span>
+          </div>
+        </a>
 
-        <!-- UPDATE -->
-        <div class="knowledge-item block bg-white rounded-xl border border-gray-100 p-4 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer hidden" data-category="update">
+        <!-- Item 6: 提言 -> デザイン提言 -->
+        <a href="/knowledge/u-001/" class="knowledge-item block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer" data-category="proposal">
           <div class="flex items-start justify-between mb-2">
-            <span class="text-[9px] font-bold uppercase tracking-widest text-white bg-gray-400 px-2 py-1 rounded">アップデート</span>
-            <span class="text-xs font-mono text-gray-400">#U-001</span>
+            <span class="text-xs font-bold text-gray-500">デザイン提言</span>
+            <span class="text-sm font-mono text-gray-400">#U-001</span>
           </div>
-          <h3 class="text-sm font-bold text-gray-900 mb-1">新たな共助モデルの提言</h3>
-          <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">
-            実証結果に基づく、デジタル時代の地域共助システム再構築への提案。
+          <h3 class="text-base font-bold text-gray-900 mb-1">新たな共助モデルの提言</h3>
+          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+            実証結果に基づく、デジタル時代の地域共助システム再構築への提案。既存の社会保障を補完する第3のセーフティネットとして。
           </p>
-        </div>
+          <!-- Author & Date -->
+          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+            <div class="flex items-center gap-2">
+              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">N</div>
+              <span class="text-xs text-gray-500">nexs Research</span>
+            </div>
+            <span class="text-xs text-gray-400 font-mono">2025.05.20</span>
+          </div>
+        </a>
       </section>
     </main>
 
     <!-- Footer Navigation -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-100">
+    <footer class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm border-t border-gray-100 z-50">
       <div class="max-w-md mx-auto px-5 py-4 flex justify-around text-xs">
         <button class="text-center text-gray-400 hover:text-gray-900">📡 Signals</button>
         <button class="text-center text-gray-900 font-bold">📚 Knowledge</button>
@@ -142,25 +175,35 @@
   </div>
 
   <script>
-    // Category filter
+    // プレビュー用: 複数選択可能なフィルタリングロジック
     document.querySelectorAll('.category-pill').forEach(pill => {
       pill.addEventListener('click', function() {
-        const category = this.dataset.category;
+        // Active State: bg-gray-900 text-white border-gray-900
+        this.classList.toggle('bg-gray-900');
+        this.classList.toggle('text-white');
+        this.classList.toggle('border-gray-900');
+        
+        // Inactive State: bg-white text-gray-500 border-gray-200
+        this.classList.toggle('bg-white');
+        this.classList.toggle('text-gray-500');
+        this.classList.toggle('border-gray-200');
 
-        // Update active button
-        document.querySelectorAll('.category-pill').forEach(p => {
-          p.classList.remove('is-active', 'bg-gray-900', 'text-white');
-          p.classList.add('text-gray-500', 'border', 'border-gray-200');
-        });
-        this.classList.add('is-active', 'bg-gray-900', 'text-white');
-        this.classList.remove('text-gray-500', 'border', 'border-gray-200');
+        // Collect active categories
+        const activeCategories = Array.from(document.querySelectorAll('.category-pill.bg-gray-900'))
+          .map(p => p.dataset.category);
 
-        // Update visible items
+        // Filter items
         document.querySelectorAll('.knowledge-item').forEach(item => {
-          if (item.dataset.category === category) {
+          if (activeCategories.length === 0) {
+            // 何も選択されていない場合は全表示
             item.classList.remove('hidden');
           } else {
-            item.classList.add('hidden');
+            // 選択されたカテゴリのいずれかに該当すれば表示 (OR条件)
+            if (activeCategories.includes(item.dataset.category)) {
+              item.classList.remove('hidden');
+            } else {
+              item.classList.add('hidden');
+            }
           }
         });
       });

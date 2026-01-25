@@ -24,9 +24,8 @@
 
   【変更内容】
   スタッフが編集するときは、ここに何を変更したかを記録してください。
-  例：
-    - 2026-01-21: メッセージフィールドを6行→8行に変更
-    - 2026-01-20: 「お問い合わせ種別」のオプションを修正
+    - 2026-01-26: フォントサイズ調整（タイトルtext-3xl、説明文text-sm）
+    - 2026-01-26: プライバシーポリシーリンクを/privacyに更新、Aboutページリンクを/aboutに更新
 -->
 <!DOCTYPE html>
 <html lang="ja">
@@ -49,10 +48,10 @@
     <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
       <!-- Hero Section -->
       <section class="mb-8">
-        <h1 class="text-2xl font-bold leading-tight mb-4 text-gray-900">
+        <h1 class="text-3xl font-bold leading-tight mb-4 text-gray-900">
           お問い合わせ
         </h1>
-        <p class="text-xs text-gray-600 leading-relaxed">
+        <p class="text-sm text-gray-600 leading-relaxed">
           協働のご提案、取材のご依頼、その他のお問い合わせはこちらから受け付けています。<br>
           通常、3営業日以内に担当者より返信いたします。
         </p>
@@ -119,7 +118,7 @@
             <label class="flex items-start gap-3 cursor-pointer group">
               <input type="checkbox" required class="mt-0.5 w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900 rounded cursor-pointer">
               <span class="text-xs text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
-                <a href="#" class="underline hover:text-gray-900">プライバシーポリシー</a>を確認し、同意しました。
+                <a href="/privacy" class="underline hover:text-gray-900">プライバシーポリシー</a>を確認し、同意しました。
               </span>
             </label>
           </div>
@@ -137,7 +136,7 @@
 
       <!-- Back Link -->
       <div class="text-center pt-8 border-t border-gray-100">
-        <a href="about.html" class="inline-flex items-center text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
+        <a href="/about" class="inline-flex items-center text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
           <span class="mr-2">←</span>
           Aboutページに戻る
         </a>
