@@ -1,7 +1,44 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
+
+const allKnowledge = await getCollection('knowledge');
+
+// Sort by category order and then by id
+const categoryOrder = ['foundation', 'thesis', 'protocol', 'evidence', 'update'];
+const sortedKnowledge = allKnowledge.sort((a, b) => {
+  const catDiff = categoryOrder.indexOf(a.data.category) - categoryOrder.indexOf(b.data.category);
+  if (catDiff !== 0) return catDiff;
+  return a.data.id.localeCompare(b.data.id);
+});
+
+// Group by category
+const byCategory = {
+  foundation: sortedKnowledge.filter((k) => k.data.category === 'foundation'),
+  thesis: sortedKnowledge.filter((k) => k.data.category === 'thesis'),
+  protocol: sortedKnowledge.filter((k) => k.data.category === 'protocol'),
+  evidence: sortedKnowledge.filter((k) => k.data.category === 'evidence'),
+  update: sortedKnowledge.filter((k) => k.data.category === 'update'),
+};
+
+const categoryLabels: Record<string, string> = {
+  foundation: '基盤認識',
+  thesis: '仮説・問い',
+  protocol: '実装計画',
+  evidence: '経過・検証',
+  update: 'デザイン提言',
+};
+
+const authorInitials: Record<string, string> = {
+  'nexs Research': 'N',
+  'nexs Research Team': 'N',
+  'K. Suzuki': 'S',
+  'DAO Lab': 'D',
+  'Project Team A': 'P',
+  'Analytics Unit': 'A',
+};
 ---
 
 <BaseLayout title="Knowledge - nexs">
@@ -26,125 +63,35 @@ import BottomNav from '@/components/BottomNav';
 
       <!-- Knowledge Items -->
       <section class="space-y-3">
-        <!-- FOUNDATION -->
-        <a href="/knowledge/f-001/" class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item" data-category="foundation">
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-gray-500">基盤認識</span>
-            <span class="text-sm font-mono text-gray-400">#F-001</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900 mb-1">適者生存の誤読</h3>
-          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
-            ダーウィン進化論がしばしば誤解される理由と、組織進化への影響について。競争ではなく適応のプロセスとして再解釈を試みます。
-          </p>
-          <!-- Author & Date -->
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">N</div>
-              <span class="text-xs text-gray-500">nexs Research</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">2024.10.05</span>
-          </div>
-        </a>
+        {sortedKnowledge.map((entry) => {
+          const { data, slug } = entry;
+          const initial = authorInitials[data.author] || data.author.charAt(0).toUpperCase();
+          const isFoundation = data.category === 'foundation';
 
-        <!-- FOUNDATION -->
-        <a href="/knowledge/f-002/" class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item" data-category="foundation">
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-gray-500">基盤認識</span>
-            <span class="text-sm font-mono text-gray-400">#F-002</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900 mb-1">贈与経済の再定義</h3>
-          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
-            デジタル社会における相互扶助と価値交換の新しい形態について。金銭的リターンを前提としない貢献が、いかにして持続可能なシステムを形成するかを分析します。
-          </p>
-          <!-- Author & Date -->
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">S</div>
-              <span class="text-xs text-gray-500">K. Suzuki</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">2024.11.12</span>
-          </div>
-        </a>
-
-        <!-- THESIS -->
-        <a href="/knowledge/t-001/" class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item hidden" data-category="thesis">
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-gray-500">仮説・問い</span>
-            <span class="text-sm font-mono text-gray-400">#T-001</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900 mb-1">分散型自律組織の可能性</h3>
-          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
-            DAO技術を社会的インパクト組織に応用する際の課題と機会。意思決定コストと透明性のトレードオフをどう設計するか。
-          </p>
-          <!-- Author & Date -->
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">D</div>
-              <span class="text-xs text-gray-500">DAO Lab</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">2024.12.01</span>
-          </div>
-        </a>
-
-        <!-- PROTOCOL -->
-        <a href="/knowledge/p-001/" class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item hidden" data-category="protocol">
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-gray-500">実装計画</span>
-            <span class="text-sm font-mono text-gray-400">#P-001</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900 mb-1">地域通貨実証実験</h3>
-          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
-            AI価格推定システムを用いた地域通貨導入パイロット。期間・対象・KPIの設定詳細と運用ルールについて。
-          </p>
-          <!-- Author & Date -->
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">P</div>
-              <span class="text-xs text-gray-500">Project Team A</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">2025.01.10</span>
-          </div>
-        </a>
-
-        <!-- EVIDENCE -->
-        <a href="/knowledge/e-001/" class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item hidden" data-category="evidence">
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-gray-500">経過・検証</span>
-            <span class="text-sm font-mono text-gray-400">#E-001</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900 mb-1">3ヶ月間の交換頻度推移</h3>
-          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
-            パイロットコミュニティにおける通貨流通速度の変化データと分析。初期の停滞期を脱した要因についての考察。
-          </p>
-          <!-- Author & Date -->
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">A</div>
-              <span class="text-xs text-gray-500">Analytics Unit</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">2025.04.15</span>
-          </div>
-        </a>
-
-        <!-- UPDATE -->
-        <a href="/knowledge/u-001/" class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item hidden" data-category="update">
-          <div class="flex items-start justify-between mb-2">
-            <span class="text-xs font-bold text-gray-500">デザイン提言</span>
-            <span class="text-sm font-mono text-gray-400">#U-001</span>
-          </div>
-          <h3 class="text-base font-bold text-gray-900 mb-1">新たな共助モデルの提言</h3>
-          <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
-            実証結果に基づく、デジタル時代の地域共助システム再構築への提案。既存の社会保障を補完する第3のセーフティネットとして。
-          </p>
-          <!-- Author & Date -->
-          <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
-            <div class="flex items-center gap-2">
-              <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">N</div>
-              <span class="text-xs text-gray-500">nexs Research</span>
-            </div>
-            <span class="text-xs text-gray-400 font-mono">2025.05.20</span>
-          </div>
-        </a>
+          return (
+            <a
+              href={`/knowledge/${slug}/`}
+              class={`block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item ${!isFoundation ? 'hidden' : ''}`}
+              data-category={data.category}
+            >
+              <div class="flex items-start justify-between mb-2">
+                <span class="text-xs font-bold text-gray-500">{categoryLabels[data.category]}</span>
+                <span class="text-sm font-mono text-gray-400">#{data.id}</span>
+              </div>
+              <h3 class="text-base font-bold text-gray-900 mb-1">{data.title}</h3>
+              <p class="text-sm text-gray-600 leading-normal line-clamp-3 mb-1">
+                {data.summary}
+              </p>
+              <div class="flex items-center justify-between mt-3 pt-3 border-t border-gray-50">
+                <div class="flex items-center gap-2">
+                  <div class="w-5 h-5 rounded-full bg-gray-100 flex items-center justify-center text-[9px] text-gray-500 font-bold">{initial}</div>
+                  <span class="text-xs text-gray-500">{data.author}</span>
+                </div>
+                <span class="text-xs text-gray-400 font-mono">{data.date}</span>
+              </div>
+            </a>
+          );
+        })}
       </section>
     </main>
 
@@ -153,15 +100,18 @@ import BottomNav from '@/components/BottomNav';
 </BaseLayout>
 
 <script is:inline>
+(function() {
   const categoryButtons = document.querySelectorAll('.category-pill');
   const knowledgeItems = document.querySelectorAll('.knowledge-item');
 
   categoryButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      // Update active button
-      categoryButtons.forEach((b) => b.classList.remove('is-active'));
-      button.classList.add('is-active');
-      button.classList.add('text-white', 'bg-gray-900', 'border-gray-900');
+      // Update active button styling
+      categoryButtons.forEach((b) => {
+        b.classList.remove('is-active', 'text-white', 'bg-gray-900', 'border-gray-900');
+        b.classList.add('text-gray-500', 'border-gray-200');
+      });
+      button.classList.add('is-active', 'text-white', 'bg-gray-900', 'border-gray-900');
       button.classList.remove('text-gray-500', 'border-gray-200');
 
       // Update item visibility
@@ -175,6 +125,7 @@ import BottomNav from '@/components/BottomNav';
       });
     });
   });
+})();
 </script>
 
 <style>

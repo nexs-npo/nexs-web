@@ -20,6 +20,7 @@
   "author": "nexs - 次世代社会デザイン研究機構",
   "license": "MIT",
   "dependencies": {
+    "@astrojs/mdx": "^3.1.9",
     "@astrojs/react": "^3.6.2",
     "@astrojs/tailwind": "^5.1.1",
     "@clerk/astro": "^1.4.0",
