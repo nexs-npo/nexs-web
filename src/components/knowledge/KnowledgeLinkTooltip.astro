@@ -1,0 +1,103 @@
+---
+// This component adds tooltip functionality to KnowledgeLink elements
+// Tap/click to show tooltip, with navigation link inside
+---
+
+<div id="knowledge-tooltip" class="fixed z-50 hidden max-w-xs bg-white border border-gray-200 text-gray-900 text-xs rounded-xl px-4 py-3 shadow-lg">
+  <p id="knowledge-tooltip-title" class="font-bold text-gray-900 mb-1"></p>
+  <p id="knowledge-tooltip-summary" class="text-gray-600 leading-relaxed mb-3"></p>
+  <div class="text-right">
+    <a id="knowledge-tooltip-link" href="#" class="inline-flex items-center gap-1 text-blue-600 font-bold hover:underline">
+      記事を読む &rarr;
+    </a>
+  </div>
+</div>
+
+<script is:inline>
+(function() {
+  const tooltip = document.getElementById('knowledge-tooltip');
+  const tooltipTitle = document.getElementById('knowledge-tooltip-title');
+  const tooltipSummary = document.getElementById('knowledge-tooltip-summary');
+  const tooltipLink = document.getElementById('knowledge-tooltip-link');
+
+  if (!tooltip || !tooltipTitle || !tooltipSummary || !tooltipLink) return;
+
+  let activeLink = null;
+
+  function showTooltip(link, event) {
+    const title = link.getAttribute('data-title');
+    const summary = link.getAttribute('data-summary');
+    const id = link.getAttribute('data-id');
+    const href = link.getAttribute('href');
+
+    if (!title || !summary) return;
+
+    tooltipTitle.textContent = `#${id} ${title}`;
+    tooltipSummary.textContent = summary;
+    tooltipLink.href = href;
+
+    // Position tooltip
+    const rect = link.getBoundingClientRect();
+
+    let top = rect.bottom + 8;
+    let left = rect.left;
+
+    // Adjust if tooltip would go off-screen
+    if (left + 280 > window.innerWidth) {
+      left = window.innerWidth - 290;
+    }
+    if (left < 10) {
+      left = 10;
+    }
+    if (top + 120 > window.innerHeight) {
+      top = rect.top - 120;
+    }
+
+    tooltip.style.top = `${top}px`;
+    tooltip.style.left = `${left}px`;
+    tooltip.classList.remove('hidden');
+    activeLink = link;
+  }
+
+  function hideTooltip() {
+    tooltip.classList.add('hidden');
+    activeLink = null;
+  }
+
+  // Click/tap to show tooltip (prevent navigation)
+  document.addEventListener('click', function(e) {
+    const link = e.target.closest('.knowledge-link');
+
+    if (link) {
+      // If clicking the same link, toggle
+      if (activeLink === link) {
+        hideTooltip();
+      } else {
+        e.preventDefault();
+        showTooltip(link, e);
+      }
+      return;
+    }
+
+    // If clicking inside tooltip, don't hide
+    if (e.target.closest('#knowledge-tooltip')) {
+      return;
+    }
+
+    // Otherwise hide tooltip
+    hideTooltip();
+  });
+
+  // Hide on scroll
+  document.addEventListener('scroll', function() {
+    hideTooltip();
+  }, { passive: true });
+
+  // Hide on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      hideTooltip();
+    }
+  });
+})();
+</script>

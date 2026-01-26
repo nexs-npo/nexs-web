@@ -1,0 +1,116 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
+import KnowledgeLinkTooltip from '@/components/knowledge/KnowledgeLinkTooltip.astro';
+import CopyForAI from '@/components/knowledge/CopyForAI';
+
+interface Props {
+  id: string;
+  title: string;
+  summary: string;
+  category: 'foundation' | 'thesis' | 'protocol' | 'evidence' | 'update';
+  author: string;
+  date: string;
+  contentText: string;
+}
+
+const { id, title, summary, category, author, date, contentText } = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+  foundation: 'FOUNDATION',
+  thesis: 'THESIS',
+  protocol: 'PROTOCOL',
+  evidence: 'EVIDENCE',
+  update: 'UPDATE',
+};
+
+const categoryColors: Record<string, string> = {
+  foundation: 'bg-blue-600',
+  thesis: 'bg-green-600',
+  protocol: 'bg-purple-600',
+  evidence: 'bg-orange-600',
+  update: 'bg-red-600',
+};
+---
+
+<BaseLayout title={`${title} - Knowledge`} description={summary}>
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title={`Knowledge: ${categoryLabels[category]}`}
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Article Header -->
+      <section class="mb-8">
+        <div class="mb-3">
+          <span class={`text-[9px] font-bold uppercase tracking-widest text-white ${categoryColors[category]} px-2 py-1 rounded`}>
+            {categoryLabels[category]}
+          </span>
+          <span class="text-xs font-mono text-gray-400 ml-2">#{id}</span>
+        </div>
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">{title}</h1>
+        <p class="text-sm text-gray-600 leading-relaxed">{summary}</p>
+        <div class="flex items-center gap-2 text-xs text-gray-500 mt-3">
+          <span>{date}</span>
+          <span>&bull;</span>
+          <span>{author}</span>
+        </div>
+      </section>
+
+      <!-- Content -->
+      <section class="mb-8 prose prose-sm max-w-none knowledge-content">
+        <slot />
+      </section>
+
+      <!-- Actions -->
+      <div class="flex gap-3 mb-8">
+        <a
+          href="/knowledge/"
+          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+        >
+          &larr; Back to Knowledge
+        </a>
+        <CopyForAI
+          articleId={id}
+          articleTitle={title}
+          articleSummary={summary}
+          articleContent={contentText}
+          client:load
+        />
+      </div>
+    </main>
+
+    <BottomNav activeTab="knowledge" client:load />
+  </div>
+
+  <KnowledgeLinkTooltip />
+</BaseLayout>
+
+<style is:global>
+  .knowledge-content h2 {
+    @apply text-base font-bold text-gray-900 mb-4 mt-6;
+  }
+
+  .knowledge-content p {
+    @apply text-sm text-gray-600 leading-relaxed mb-4;
+  }
+
+  .knowledge-content ul {
+    @apply text-sm text-gray-600 leading-relaxed space-y-2 ml-4 mb-4;
+  }
+
+  .knowledge-content li {
+    @apply list-disc;
+  }
+
+  .knowledge-content strong {
+    @apply font-bold text-gray-900;
+  }
+
+  .knowledge-content blockquote {
+    @apply border-l-4 border-blue-200 pl-4 italic text-gray-500 my-4;
+  }
+</style>

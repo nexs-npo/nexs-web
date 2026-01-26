@@ -1,0 +1,31 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import KnowledgeArticleLayout from '@/layouts/KnowledgeArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('knowledge');
+  return entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await entry.render();
+
+// Extract plain text content for CopyForAI
+// We'll pass the raw body text for copying
+const contentText = entry.body;
+---
+
+<KnowledgeArticleLayout
+  id={entry.data.id}
+  title={entry.data.title}
+  summary={entry.data.summary}
+  category={entry.data.category}
+  author={entry.data.author}
+  date={entry.data.date}
+  contentText={contentText}
+>
+  <Content />
+</KnowledgeArticleLayout>

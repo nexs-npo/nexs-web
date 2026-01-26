@@ -1,0 +1,26 @@
+---
+import { getEntry } from 'astro:content';
+
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+const slug = id.toLowerCase();
+
+const entry = await getEntry('knowledge', slug);
+
+if (!entry) {
+  throw new Error(`Knowledge entry not found: ${id}`);
+}
+
+const { data } = entry;
+---
+
+<a
+  href={`/knowledge/${slug}/`}
+  class="knowledge-link text-blue-600 hover:underline"
+  data-id={data.id}
+  data-title={data.title}
+  data-summary={data.summary}
+>#{data.id} {data.title}</a>
