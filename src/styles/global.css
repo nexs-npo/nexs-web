@@ -64,3 +64,70 @@
     overflow: hidden;
   }
 }
+
+/* =========================================
+   Knowledge Article Styles
+   =========================================
+
+   MDXで書かれたKnowledge記事のMarkdownスタイル。
+   適用場所: src/layouts/KnowledgeArticleLayout.astro の .knowledge-content クラス内
+
+   編集時の注意:
+   - ここを変更すると全てのKnowledge記事に影響します
+   - 特定の記事だけ変えたい場合は、その記事のMDX内に直接スタイルを書いてください
+   ========================================= */
+
+/* 見出し (H2) - 記事内の大見出し */
+.knowledge-content h2 {
+  @apply text-xl font-bold text-gray-900 mt-8 mb-4;
+}
+
+/* 見出し (H3) - 記事内の中見出し */
+.knowledge-content h3 {
+  @apply text-lg font-bold text-gray-800 mt-6 mb-3;
+}
+
+/* 段落 (P) - 本文テキスト */
+.knowledge-content p {
+  @apply text-sm leading-relaxed text-gray-600 mb-4 text-justify;
+}
+
+/* 箇条書き・点 (UL) */
+.knowledge-content ul {
+  @apply list-disc list-outside ml-5 mb-4 text-sm text-gray-600;
+}
+
+/* 箇条書き・数字 (OL) */
+.knowledge-content ol {
+  @apply list-decimal list-outside ml-5 mb-4 text-sm text-gray-600;
+}
+
+/* リストアイテム (LI) */
+.knowledge-content li {
+  @apply mb-1 pl-1;
+}
+
+/* 引用 (Blockquote) */
+.knowledge-content blockquote {
+  @apply border-l-4 border-blue-200 pl-4 py-1 my-4 text-gray-500 italic text-sm;
+}
+
+/* 太字 (Strong) */
+.knowledge-content strong {
+  @apply font-bold text-gray-900;
+}
+
+/* リンク (A) - KnowledgeLink以外の通常リンク */
+.knowledge-content a:not(.knowledge-link) {
+  @apply text-blue-600 underline hover:text-blue-800 transition-colors;
+}
+
+/* インラインコード (Code) */
+.knowledge-content code {
+  @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs font-mono;
+}
+
+/* 水平線 (HR) */
+.knowledge-content hr {
+  @apply my-8 border-gray-200;
+}
