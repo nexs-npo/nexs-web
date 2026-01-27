@@ -43,6 +43,7 @@ nexsは、テクノロジーと社会システムの交差点における新た�
 | Layer | Technology | Role |
 |-------|-----------|------|
 | **Frontend** | [Astro](https://astro.build) | SSG Framework (Islands Architecture) |
+| **Content** | [MDX](https://mdxjs.com/) | Markdown + Components |
 | **UI Library** | [React](https://react.dev) | Interactive Components |
 | **Styling** | [Tailwind CSS](https://tailwindcss.com) | Utility-first CSS |
 | **Hosting** | [Cloudflare Pages](https://pages.cloudflare.com) | CDN + Edge Network |
@@ -66,7 +67,7 @@ nexsは、テクノロジーと社会システムの交差点における新た�
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/nexs-web.git
+git clone https://github.com/shinkkhs/nexs-web.git
 cd nexs-web
 
 # Install dependencies
@@ -77,11 +78,6 @@ cp .env.example .env
 
 # Edit .env and fill in your credentials
 # (Clerk, Supabase, etc.)
-
-# IMPORTANT: Commit package-lock.json if it was generated
-# This ensures consistent builds in Docker/Coolify
-git add package-lock.json
-git commit -m "chore: Add package-lock.json for reproducible builds"
 
 # Run development server
 npm run dev
@@ -112,36 +108,162 @@ Open [http://localhost:8080](http://localhost:8080) in your browser.
 
 ---
 
-## 📁 Project Structure
+## 📁 ディレクトリ構造（詳細）
 
 ```
 nexs-web/
-├── docs/                      # Project Documentation
-│   ├── 00_READ_ME_FIRST.md   # AI & Developer Context Map
-│   ├── 01_PHILOSOPHY.md      # Core Values & Decision Making
-│   ├── 02_ARCHITECTURE.md    # Tech Stack & Infrastructure
-│   ├── 03_DATA_SCHEMA.md     # Database Schema (ER Diagram)
-│   ├── 04_UI_UX_GUIDELINES.md # Design System
-│   ├── 05_ENVIRONMENT_SETUP.md # Setup Guide
-│   ├── 06_PWA_STRATEGY.md    # PWA Implementation
-│   └── 07_DEPLOYMENT_GUIDE.md # Deployment (Coolify, Docker, Cloudflare)
-├── src/
-│   ├── components/           # React Components (Islands)
-│   ├── layouts/              # Astro Layouts
-│   ├── pages/                # Astro Pages (Routing)
-│   ├── lib/                  # Shared Utilities
-│   └── styles/               # Global Styles
-├── public/
-│   ├── llms.txt              # AI Agent Sitemap
-│   └── manifest.json         # PWA Manifest
-├── supabase/
-│   └── migrations/           # Database Migrations
-├── mockups/                  # UI Prototypes
-├── Dockerfile                # Docker image definition
-├── docker-compose.yml        # Docker Compose configuration
-├── nginx.conf                # Nginx server configuration
-└── .env.example              # Environment Variables Template
+├── 📄 astro.config.mjs          # Astro設定ファイル（プラグイン追加時に編集）
+├── 📄 package.json              # 依存パッケージ一覧
+├── 📄 tailwind.config.mjs       # Tailwind CSS設定（色・フォント変更時）
+├── 📄 tsconfig.json             # TypeScript設定
+│
+├── 📂 docs/                     # プロジェクトドキュメント
+│   ├── 00_READ_ME_FIRST.md     # AI・開発者向けコンテキスト
+│   ├── 01_PHILOSOPHY.md        # 開発哲学・意思決定基準
+│   ├── 02_ARCHITECTURE.md      # 技術アーキテクチャ
+│   ├── 03_DATA_SCHEMA.md       # データベース設計
+│   ├── 04_UI_UX_GUIDELINES.md  # デザインシステム
+│   ├── 05_ENVIRONMENT_SETUP.md # 環境構築ガイド
+│   ├── 06_PWA_STRATEGY.md      # PWA実装方針
+│   └── 07_DEPLOYMENT_GUIDE.md  # デプロイ手順
+│
+├── 📂 public/                   # 静的ファイル（そのまま配信される）
+│   ├── favicon.svg             # ブラウザタブのアイコン
+│   ├── llms.txt                # AIエージェント向けサイトマップ
+│   ├── manifest.json           # PWA設定（アプリ名・アイコン）
+│   └── robots.txt              # 検索エンジン向け設定
+│
+└── 📂 src/                      # ソースコード（★主な編集対象）
+    │
+    ├── 📂 components/           # 再利用可能なUIパーツ
+    │   ├── BottomNav.tsx       # 画面下部のナビゲーションバー
+    │   ├── Header.tsx          # 画面上部のヘッダー
+    │   ├── Icons.tsx           # アイコン集（SVG）
+    │   │
+    │   └── 📂 knowledge/        # Knowledge専用コンポーネント
+    │       ├── CopyForAI.tsx           # 「Copy for AI」ボタン
+    │       ├── KnowledgeLink.astro     # 記事内参照リンク
+    │       └── KnowledgeLinkTooltip.astro  # ツールチップ表示
+    │
+    ├── 📂 content/              # コンテンツ管理（★記事編集はここ）
+    │   ├── config.ts           # コンテンツスキーマ定義
+    │   │
+    │   └── 📂 knowledge/        # Knowledge記事（MDX形式）
+    │       ├── f-001.mdx       # F-001: 適者生存の誤読
+    │       ├── f-002.mdx       # F-002: 贈与経済の再定義
+    │       ├── t-001.mdx       # T-001: 分散型自律組織の可能性
+    │       ├── p-001.mdx       # P-001: 地域通貨実証実験
+    │       ├── e-001.mdx       # E-001: 3ヶ月間の交換頻度推移
+    │       └── u-001.mdx       # U-001: 新たな共助モデルの提言
+    │
+    ├── 📂 layouts/              # ページの共通レイアウト
+    │   ├── BaseLayout.astro            # 全ページ共通（head, meta等）
+    │   └── KnowledgeArticleLayout.astro # Knowledge記事専用
+    │
+    ├── 📂 lib/                  # ユーティリティ関数
+    │   └── supabase.ts         # Supabase接続設定
+    │
+    ├── 📂 pages/                # ページファイル（★URL構造に対応）
+    │   ├── index.astro         # トップページ (/)
+    │   ├── about.astro         # nexsについて (/about)
+    │   ├── contact.astro       # お問い合わせ (/contact)
+    │   ├── collaboration.astro # 協働参加 (/collaboration)
+    │   │
+    │   ├── signals.astro       # Signals一覧 (/signals)
+    │   ├── 📂 signals/
+    │   │   ├── 001.astro       # Signal詳細 (/signals/001)
+    │   │   ├── 002.astro       # Signal詳細 (/signals/002)
+    │   │   └── 003.astro       # Signal詳細 (/signals/003)
+    │   │
+    │   ├── knowledge.astro     # Knowledge一覧 (/knowledge)
+    │   ├── 📂 knowledge/
+    │   │   └── [slug].astro    # Knowledge詳細（動的ルート）
+    │   │                       # → /knowledge/f-001, /knowledge/t-001 等
+    │   │
+    │   ├── projects.astro      # Projects一覧 (/projects)
+    │   └── 📂 projects/
+    │       ├── shared-service.astro  # みんなの事務局 (/projects/shared-service)
+    │       ├── nexs-app.astro        # nexsアプリ (/projects/nexs-app)
+    │       └── open-issue.astro      # open issue (/projects/open-issue)
+    │
+    └── 📂 styles/
+        └── global.css          # 全体に適用されるCSS
 ```
+
+---
+
+## ✏️ 編集ガイド（素人向け）
+
+### 🔸 Knowledge記事を追加・編集したい
+
+**場所:** `src/content/knowledge/` フォルダ内の `.mdx` ファイル
+
+**手順:**
+1. 既存ファイル（例: `f-001.mdx`）をコピー
+2. ファイル名を変更（例: `f-003.mdx`）
+3. 上部の `---` で囲まれた部分（frontmatter）を編集:
+
+```yaml
+---
+id: "F-003"                    # 記事ID（大文字）
+title: "記事タイトル"           # タイトル
+summary: "要約文..."           # 一覧ページに表示される説明
+category: "foundation"         # foundation/thesis/protocol/evidence/update
+author: "著者名"
+date: "2025年1月"
+relatedIds: ["f-001", "t-001"] # 関連記事のID（小文字）
+---
+```
+
+4. `---` より下に本文をMarkdown形式で記述
+
+**他の記事へのリンク:**
+```mdx
+import KnowledgeLink from '@/components/knowledge/KnowledgeLink.astro';
+
+本仮説は<KnowledgeLink id="f-001" />に基づいています。
+```
+
+---
+
+### 🔸 Signalsページを追加したい
+
+**場所:** `src/pages/signals/` フォルダ
+
+**手順:**
+1. 既存ファイル（例: `001.astro`）をコピー
+2. ファイル名を変更（例: `004.astro`）
+3. 内容を編集
+
+**注意:** `src/pages/signals.astro`（一覧ページ）にも新しい記事へのリンクを追加してください。
+
+---
+
+### 🔸 Projectsページを追加したい
+
+**場所:** `src/pages/projects/` フォルダ
+
+**手順:**
+1. 既存ファイル（例: `shared-service.astro`）をコピー
+2. ファイル名を変更（例: `new-project.astro`）
+3. 内容を編集
+
+**注意:** `src/pages/projects.astro`（一覧ページ）にも新しいプロジェクトへのリンクを追加してください。
+
+---
+
+### 🔸 ヘッダーやナビゲーションを編集したい
+
+- **ヘッダー:** `src/components/Header.tsx`
+- **下部ナビ:** `src/components/BottomNav.tsx`
+- **アイコン:** `src/components/Icons.tsx`
+
+---
+
+### 🔸 全体のスタイル（色・フォント）を変更したい
+
+- **Tailwind設定:** `tailwind.config.mjs`
+- **グローバルCSS:** `src/styles/global.css`
 
 ---
 
@@ -156,7 +278,7 @@ nexs-web/
 - **signals** - AIニュース + 実験ログ
 - **project_members** - プロジェクトメンバーシップ
 
-詳細は [`docs/03_DATA_SCHEMA.md`](./docs/03_DATA_SCHEMA.md) とマイグレーションファイル [`supabase/migrations/001_initial_schema.sql`](./supabase/migrations/001_initial_schema.sql) を参照してください。
+詳細は [`docs/03_DATA_SCHEMA.md`](./docs/03_DATA_SCHEMA.md) を参照してください。
 
 ---
 
@@ -221,10 +343,10 @@ nexs-web/
 
 ## 🔗 Links
 
-- **Website**: https://nexs.jp (準備中)
-- **GitHub**: https://github.com/your-org/nexs-web
+- **Website**: https://nexs.or.jp
+- **GitHub**: https://github.com/shinkkhs/nexs-web
 - **Documentation**: [docs/](./docs/)
-- **Contact**: info@nexs.jp
+- **Contact**: info@nexs.or.jp
 
 ---
 
