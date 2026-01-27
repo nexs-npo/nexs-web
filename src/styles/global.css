@@ -131,3 +131,13 @@
 .knowledge-content hr {
   @apply my-8 border-gray-200;
 }
+
+/* チェックリストの丸ポチを消す */
+.knowledge-content li:has(input[type="checkbox"]) {
+  list-style-type: none; /* 丸ポチをなしにする */
+  margin-left: -1.25rem; /* インデントを戻して左揃えにする */
+}
+
+.knowledge-content input[type="checkbox"] {
+  margin-right: 0.5rem; /* チェックボックスと文字の間隔 */
+}
