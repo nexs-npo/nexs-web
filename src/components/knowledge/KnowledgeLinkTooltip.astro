@@ -1,6 +1,6 @@
 ---
 // This component adds tooltip functionality to KnowledgeLink elements
-// Tap/click to show tooltip, with navigation link inside
+// Tap/click to show tooltip, navigation only through tooltip link
 ---
 
 <div id="knowledge-tooltip" class="fixed z-50 hidden max-w-xs bg-white border border-gray-200 text-gray-900 text-xs rounded-xl px-4 py-3 shadow-lg">
@@ -24,7 +24,7 @@
 
   let activeLink = null;
 
-  function showTooltip(link, event) {
+  function showTooltip(link) {
     const title = link.getAttribute('data-title');
     const summary = link.getAttribute('data-summary');
     const id = link.getAttribute('data-id');
@@ -32,7 +32,7 @@
 
     if (!title || !summary) return;
 
-    tooltipTitle.textContent = `#${id} ${title}`;
+    tooltipTitle.textContent = '#' + id + ' ' + title;
     tooltipSummary.textContent = summary;
     tooltipLink.href = href;
 
@@ -53,8 +53,8 @@
       top = rect.top - 120;
     }
 
-    tooltip.style.top = `${top}px`;
-    tooltip.style.left = `${left}px`;
+    tooltip.style.top = top + 'px';
+    tooltip.style.left = left + 'px';
     tooltip.classList.remove('hidden');
     activeLink = link;
   }
@@ -64,28 +64,45 @@
     activeLink = null;
   }
 
-  // Click/tap to show tooltip (prevent navigation)
-  document.addEventListener('click', function(e) {
-    const link = e.target.closest('.knowledge-link');
+  // Prevent default link behavior on knowledge-link clicks
+  document.querySelectorAll('.knowledge-link').forEach(function(link) {
+    // Click handler
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (link) {
-      // If clicking the same link, toggle
       if (activeLink === link) {
         hideTooltip();
       } else {
-        e.preventDefault();
-        showTooltip(link, e);
+        showTooltip(link);
       }
-      return;
-    }
+    });
 
-    // If clicking inside tooltip, don't hide
-    if (e.target.closest('#knowledge-tooltip')) {
-      return;
-    }
+    // Touch handler for mobile
+    link.addEventListener('touchend', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    // Otherwise hide tooltip
-    hideTooltip();
+      if (activeLink === link) {
+        hideTooltip();
+      } else {
+        showTooltip(link);
+      }
+    });
+  });
+
+  // Close tooltip when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.knowledge-link') && !e.target.closest('#knowledge-tooltip')) {
+      hideTooltip();
+    }
+  });
+
+  // Close tooltip when touching outside (mobile)
+  document.addEventListener('touchstart', function(e) {
+    if (!e.target.closest('.knowledge-link') && !e.target.closest('#knowledge-tooltip')) {
+      hideTooltip();
+    }
   });
 
   // Hide on scroll
