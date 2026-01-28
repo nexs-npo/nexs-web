@@ -141,3 +141,61 @@
 .knowledge-content input[type="checkbox"] {
   margin-right: 0.5rem; /* チェックボックスと文字の間隔 */
 }
+
+/* =========================================
+   Governance Styles
+   =========================================
+   ガバナンスページ専用スタイル。
+   アコーディオン、タイムライン、印刷スタイル等。
+   ========================================= */
+
+/* アコーディオンのデフォルトマーカーを消す */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 印刷時のスタイル（法的保存用） */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: white;
+    color: black;
+  }
+
+  details[open] {
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+
+  details {
+    display: block !important;
+  }
+
+  .shadow-lg,
+  .shadow-md,
+  .shadow-sm {
+    box-shadow: none !important;
+  }
+}
+
+/* タイムラインのドットアニメーション */
+@keyframes timeline-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.timeline-dot-active {
+  animation: timeline-pulse 2s ease-in-out infinite;
+}
