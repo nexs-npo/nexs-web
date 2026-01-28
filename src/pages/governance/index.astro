@@ -1,0 +1,144 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { FileCheck2, PieChart, BookOpen, Map, ArrowLeft, ArrowRight } from 'lucide-react';
+---
+
+<BaseLayout title="Governance - nexs">
+  <div class="min-h-screen bg-gray-50 flex flex-col pb-32">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+      <div class="max-w-md mx-auto px-5 py-4 flex justify-between items-center">
+        <div>
+          <h1 class="text-lg font-bold text-gray-900">nexs Governance</h1>
+          <p class="text-[10px] text-gray-500 tracking-wider font-mono">PROTOCOL V4.0 (MVP)</p>
+        </div>
+        <a href="/about" class="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
+          <ArrowLeft className="w-3 h-3" />
+          Exit
+        </a>
+      </div>
+    </header>
+
+    <main class="pt-24 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Hero Section -->
+      <section class="mb-12 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 border border-green-100 rounded-full text-[10px] font-mono font-bold mb-6">
+          <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+          PHASE 1: RESOLUTION PROTOCOL
+        </div>
+        <h1 class="text-2xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
+          意思決定を、<br />もっと自由に。
+        </h1>
+        <p class="text-xs text-gray-500 leading-loose mb-2">
+          nexsは「NPO 4.0」に向けたガバナンス移行プロセスを開始しました。<br />
+          まずは、Gitベースの透明な議決システムから公開します。
+        </p>
+      </section>
+
+      <!-- Active Module Section -->
+      <section class="mb-12">
+        <div class="flex items-center gap-2 mb-4 border-l-2 border-green-500 pl-2">
+          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest">Active Module</h2>
+        </div>
+
+        <a href="/governance/resolutions" class="block group relative">
+          <!-- Status Indicator -->
+          <div class="absolute -right-1 -top-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white z-10 shadow-sm"></div>
+
+          <div class="bg-white rounded-xl shadow-md border-2 border-gray-900 p-5 hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center text-white flex-shrink-0">
+                <FileCheck2 className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-gray-900 leading-tight">Resolutions</h3>
+                <p class="text-[10px] text-gray-500 font-mono mt-0.5">Status: <span class="text-green-600 font-bold">Online</span></p>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-3">
+              <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                非同期・分散型の意思決定プロトコル。<br />
+                議案の閲覧、議論ログの確認、電子署名はこちらから。
+              </p>
+              <div class="flex items-center gap-2 text-[10px] font-bold text-green-600 group-hover:underline">
+                <span>システムを利用する</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </div>
+          </div>
+        </a>
+      </section>
+
+      <!-- Coming Soon Section -->
+      <section class="mb-12">
+        <div class="flex items-center gap-2 mb-6 border-l-2 border-gray-200 pl-2">
+          <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Coming Soon</h2>
+        </div>
+
+        <div class="space-y-3">
+          <!-- Open Finance -->
+          <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/50 z-10"></div>
+            <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+              <PieChart className="w-5 h-5" />
+            </div>
+            <div class="flex-1">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-sm font-bold text-gray-500">Open Finance</h3>
+                <span class="text-[9px] font-bold bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded">PHASE 2</span>
+              </div>
+              <p class="text-[10px] text-gray-400 leading-tight">
+                リアルタイム予算管理・透明化システム
+              </p>
+            </div>
+          </div>
+
+          <!-- Living Handbook -->
+          <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/50 z-10"></div>
+            <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+              <BookOpen className="w-5 h-5" />
+            </div>
+            <div class="flex-1">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-sm font-bold text-gray-500">Living Handbook</h3>
+                <span class="text-[9px] font-bold bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded">PHASE 3</span>
+              </div>
+              <p class="text-[10px] text-gray-400 leading-tight">
+                Git管理された定款・規定集
+              </p>
+            </div>
+          </div>
+
+          <!-- Async Roadmap -->
+          <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
+            <div class="absolute inset-0 bg-white/50 z-10"></div>
+            <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+              <Map className="w-5 h-5" />
+            </div>
+            <div class="flex-1">
+              <div class="flex justify-between items-center mb-1">
+                <h3 class="text-sm font-bold text-gray-500">Async Roadmap</h3>
+                <span class="text-[9px] font-bold bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded">PHASE 3</span>
+              </div>
+              <p class="text-[10px] text-gray-400 leading-tight">
+                非同期チームのためのコンパス
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Footer Info -->
+      <section class="border-t border-gray-100 pt-8 text-center">
+        <p class="text-[10px] text-gray-400 font-mono mb-2">
+          nexs Open Governance Protocol
+        </p>
+        <p class="text-[10px] text-gray-400">
+          System Status: <span class="text-green-600 font-bold">Phase 1 Operational</span>
+        </p>
+      </section>
+    </main>
+  </div>
+</BaseLayout>

@@ -3,11 +3,16 @@ import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
 import clerk from '@clerk/astro';
 import mdx from '@astrojs/mdx';
+import keystatic from '@keystatic/astro';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nexs.or.jp',
-  output: 'static',
+  output: 'hybrid',
+  adapter: node({
+    mode: 'standalone',
+  }),
   trailingSlash: 'ignore',
   integrations: [
     mdx(),
@@ -19,6 +24,7 @@ export default defineConfig({
       afterSignInUrl: '/',
       afterSignUpUrl: '/',
     }),
+    keystatic(),
   ],
   vite: {
     optimizeDeps: {
