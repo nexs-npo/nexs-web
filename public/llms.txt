@@ -1,73 +1,44 @@
 # nexs - 次世代社会デザイン研究機構
 
+AI時代の社会システムを実証・還元するリサーチコレクティブのオープンソースWebプラットフォーム。
+
 ## About
 
-nexsは、AI時代の社会システムを実証・還元するリサーチコレクティブです。
-「仮説・実証・還元」のサイクルを通じ、持続可能な社会のプロトタイプを提示します。
+nexs（ネクサス）は、テクノロジーと社会システムの交差点における新たな価値創造を目指す実験場です。
+本サイトは、仮説検証、知見の蓄積、およびオープンディスカッションを提供します。
 
-**Philosophy:**
-1. 安全と信頼 (Zero PII Strategy)
-2. Open Source (Public Code)
-3. UX (Mobile First & AI-Readiness)
-4. 開発のしやすさ (Isolation & Resilience)
-5. コードの効率性 (WET over DRY)
+## Core Philosophy
 
-## Site Structure
+- **Zero PII Strategy:** 個人情報を極限まで持たない設計（Clerkによる分離）。
+- **AI-Readiness:** AIエージェントによる解釈と協働を前提とした構造。
+- **Open by Default:** ソースコードおよび議論データの公開。
+- **WET over DRY:** 疎結合と透明性を優先する開発指針。
 
-- Homepage: /
-- Projects: /projects
-- Signals: /signals
-- About: /about
+## Authentication (Clerk)
 
-## Active Projects
+認証基盤としてClerkを採用済みだが、現在は無効化されている。
+有効化するには `.env` に `PUBLIC_CLERK_PUBLISHABLE_KEY` と `CLERK_SECRET_KEY` を設定する。
+astro.config.mjs がキーの存在を確認し、あれば自動的にClerkインテグレーションをロードする。
+詳細: docs/02_ARCHITECTURE.md Section 6, .env.example
 
-### みんなの事務局
-- Category: Shared Service
-- Status: In Progress
-- URL: /projects/minna-jimukyoku
-- Description: NPO事務局のシェアードサービス化を通じた、評価経済社会の実装実験
-- Research Items:
-  - 資本主義外での評価経済の可能性検証
-  - ミッション第一組織における人材評価モデルの再構築
-  - NPO支援エコシステムの最適化
+## Key Sections
 
-### open issue
-- Category: Platform
-- Status: Prototype
-- URL: /projects/open-issue
-- Description: 課題の「定義」と「解決」を分散的に行う、課題駆動型AI実装プラットフォーム
-- Research Items:
-  - 良き課題（Issue）を生み出すための教育プログラム開発
-  - 新人育成の場としてのAIワークフロー検証
-  - ペインホルダー・デザイナー・ソルバーの三者間インセンティブ設計
+- **Knowledge (/knowledge):** 
+  - Foundation: 基盤となる思想や仮説
+  - Thesis: 実証に向けた論考
+  - Protocol: 具体的な実験手順
+  - Evidence: 実証データ
+  - Update: 社会への還元と更新
+- **Signals (/signals):** 日々の気づき、ニュース、実験ログ。
+- **Projects (/projects):** 進行中の社会実験プロジェクト。
 
-## API Endpoints
+## AI Interaction
 
-Note: Self-hosted Supabase may experience downtime. All data is public and read-accessible.
-
-- Projects: GET /api/projects
-- Signals: GET /api/signals
-- Discussions: GET /api/discussions?project_id={id}
-
-## Technology Stack
-
-- Frontend: Astro (SSG) + React Islands
-- UI: Tailwind CSS
-- Auth: Clerk (PII management)
-- Database: Supabase (Self-hosted PostgreSQL)
-- Hosting: Cloudflare Pages
-
-## License
-
-- Source Code: MIT License
-- Discussion Content: CC BY 4.0
+各Knowledge記事には「Copy for AI」ボタンが設置されており、記事内容と関連リファレンスをMarkdown形式で取得可能です。
+AIエージェントは、これらの情報を基にnexsの仮説を拡張し、議論に参加することが期待されています。
 
 ## Contact
 
-- Email: info@nexs.jp
-- GitHub: https://github.com/nexs-org/nexs-web
-- Website: https://nexs.jp
-
----
-
-Last updated: 2024-01-17
+- Website: https://nexs.or.jp
+- GitHub: https://github.com/shinkkhs/nexs-web
+- License: MIT (Code), CC BY 4.0 (Discussion)
