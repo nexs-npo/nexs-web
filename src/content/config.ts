@@ -26,7 +26,7 @@ const resolutionsCollection = defineCollection({
     id: z.string(),
     status: z.enum(['review', 'approved', 'rejected']),
     proposer: z.string(),
-    proposedAt: z.string(),
+    proposedAt: z.coerce.string(),
     attachments: z
       .array(
         z.object({
@@ -38,7 +38,7 @@ const resolutionsCollection = defineCollection({
     discussionLogs: z
       .array(
         z.object({
-          date: z.string().nullable(),
+          date: z.coerce.string().nullable(),
           type: z.enum(['slack', 'github', 'meeting']),
           summary: z.string(),
           detail: z.string(),
@@ -50,7 +50,7 @@ const resolutionsCollection = defineCollection({
       .array(
         z.object({
           name: z.string(),
-          date: z.string().nullable(),
+          date: z.coerce.string().nullable(),
         }),
       )
       .optional(),
