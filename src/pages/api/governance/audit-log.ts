@@ -1,5 +1,13 @@
 import type { APIRoute } from 'astro';
 
+interface GitHubCommit {
+  sha: string;
+  commit: {
+    message: string;
+    author: { date: string; name: string };
+  };
+}
+
 export const prerender = false;
 
 const REPO = 'shinkkhs/nexs-web';
@@ -7,10 +15,13 @@ const REPO = 'shinkkhs/nexs-web';
 export const GET: APIRoute = async ({ url }) => {
   const path = url.searchParams.get('path');
   if (!path) {
-    return new Response(JSON.stringify({ error: 'path parameter is required' }), {
-      status: 400,
-      headers: { 'Content-Type': 'application/json' },
-    });
+    return new Response(
+      JSON.stringify({ error: 'path parameter is required' }),
+      {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      },
+    );
   }
 
   // Validate path to prevent traversal — only allow resolution content files
@@ -46,9 +57,9 @@ export const GET: APIRoute = async ({ url }) => {
     );
   }
 
-  const data = await res.json();
+  const data: GitHubCommit[] = await res.json();
 
-  const commits = (data as any[]).map((item) => ({
+  const commits = data.map((item) => ({
     sha: item.sha,
     message: item.commit.message.split('\n')[0],
     date: item.commit.author.date,

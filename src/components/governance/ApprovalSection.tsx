@@ -1,8 +1,14 @@
+import {
+  CheckCircle2,
+  FileSearch,
+  Lock,
+  PenTool,
+  ShieldCheck,
+} from 'lucide-react';
 import { useState } from 'react';
-import { ShieldCheck, CheckCircle2, FileSearch, PenTool, Lock } from 'lucide-react';
 import AuditLogModal from './AuditLogModal';
 
-const TOTAL_REQUIRED = 3;
+const SLOTS = ['slot-1', 'slot-2', 'slot-3'] as const;
 
 interface Props {
   approvalCount: number;
@@ -13,7 +19,8 @@ export default function ApprovalSection({ approvalCount, slug }: Props) {
   const [auditOpen, setAuditOpen] = useState(false);
 
   const filePath = `src/content/resolutions/${slug}.mdx`;
-  const allApproved = approvalCount >= TOTAL_REQUIRED;
+  const totalRequired = SLOTS.length;
+  const allApproved = approvalCount >= totalRequired;
 
   return (
     <>
@@ -24,14 +31,18 @@ export default function ApprovalSection({ approvalCount, slug }: Props) {
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-5 h-5 text-gray-900" />
               <div>
-                <h3 className="text-sm font-bold text-gray-900">承認状況 (Approval Status)</h3>
-                <p className="text-[10px] text-gray-400 mt-0.5">承認者はGitコミット履歴で検証可能</p>
+                <h3 className="text-sm font-bold text-gray-900">
+                  承認状況 (Approval Status)
+                </h3>
+                <p className="text-[10px] text-gray-400 mt-0.5">
+                  承認者はGitコミット履歴で検証可能
+                </p>
               </div>
             </div>
             <div className="text-right">
               <span className="text-2xl font-mono font-bold text-gray-900">
                 {approvalCount}
-                <span className="text-sm text-gray-400">/{TOTAL_REQUIRED}</span>
+                <span className="text-sm text-gray-400">/{totalRequired}</span>
               </span>
             </div>
           </div>
@@ -39,9 +50,9 @@ export default function ApprovalSection({ approvalCount, slug }: Props) {
           {/* Progress */}
           <div className="mb-4">
             <div className="flex gap-1.5">
-              {Array.from({ length: TOTAL_REQUIRED }).map((_, i) => (
+              {SLOTS.map((key, i) => (
                 <div
-                  key={i}
+                  key={key}
                   className={`h-1.5 flex-1 rounded-full ${
                     i < approvalCount ? 'bg-gray-900' : 'bg-gray-200'
                   }`}
@@ -51,15 +62,15 @@ export default function ApprovalSection({ approvalCount, slug }: Props) {
             <p className="text-[10px] text-gray-400 mt-1.5 font-mono">
               {allApproved
                 ? '必要な承認が完了しています'
-                : `あと${TOTAL_REQUIRED - approvalCount}件の承認が必要です`}
+                : `あと${totalRequired - approvalCount}件の承認が必要です`}
             </p>
           </div>
 
           {/* Signatures */}
           <div className="space-y-2 mb-4">
-            {Array.from({ length: TOTAL_REQUIRED }).map((_, i) => (
+            {SLOTS.map((key, i) => (
               <div
-                key={i}
+                key={key}
                 className={`flex items-center gap-2 p-2 rounded ${
                   i < approvalCount ? 'bg-gray-50' : ''
                 }`}
@@ -84,6 +95,7 @@ export default function ApprovalSection({ approvalCount, slug }: Props) {
 
           {/* Audit Log Button */}
           <button
+            type="button"
             onClick={() => setAuditOpen(true)}
             className="w-full flex items-center justify-center gap-2 py-2.5 border border-gray-200 rounded-lg text-xs text-gray-500 hover:bg-gray-50 hover:text-gray-900 transition-colors"
           >

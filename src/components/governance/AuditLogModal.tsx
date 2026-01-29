@@ -1,5 +1,5 @@
+import { ExternalLink, GitCommitHorizontal, Info, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
-import { GitCommitHorizontal, X, Info, ExternalLink } from 'lucide-react';
 
 interface Commit {
   sha: string;
@@ -40,7 +40,10 @@ export default function AuditLogModal({ open, onClose, filePath }: Props) {
     fetch(`/api/governance/audit-log?path=${encodeURIComponent(filePath)}`)
       .then((res) => {
         if (!res.ok) {
-          if (res.status === 503) throw new Error('監査ログは現在利用できません（GITHUB_TOKEN未設定）');
+          if (res.status === 503)
+            throw new Error(
+              '監査ログは現在利用できません（GITHUB_TOKEN未設定）',
+            );
           throw new Error(`API error: ${res.status}`);
         }
         return res.json();
@@ -78,9 +81,12 @@ export default function AuditLogModal({ open, onClose, filePath }: Props) {
         <div className="flex items-center justify-between mb-4 pb-3 border-b border-gray-100">
           <div className="flex items-center gap-2">
             <GitCommitHorizontal className="w-4 h-4 text-gray-600" />
-            <h2 className="text-sm font-bold text-gray-900">監査ログ (Audit Log)</h2>
+            <h2 className="text-sm font-bold text-gray-900">
+              監査ログ (Audit Log)
+            </h2>
           </div>
           <button
+            type="button"
             onClick={onClose}
             className="p-1 rounded hover:bg-gray-100 transition-colors"
           >
@@ -164,6 +170,7 @@ export default function AuditLogModal({ open, onClose, filePath }: Props) {
             GitHub で確認
           </a>
           <button
+            type="button"
             onClick={onClose}
             className="text-xs text-gray-500 hover:text-gray-900 transition-colors px-3 py-1"
           >
