@@ -1,7 +1,14 @@
 import { collection, config, fields } from '@keystatic/core';
 
+const isProd = import.meta.env.PROD;
+
 export default config({
-  storage: { kind: 'local' },
+  storage: isProd
+    ? {
+        kind: 'github',
+        repo: 'shinkkhs/nexs-web',
+      }
+    : { kind: 'local' },
   collections: {
     resolutions: collection({
       label: 'Resolutions (議案)',
