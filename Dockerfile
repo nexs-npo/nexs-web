@@ -8,7 +8,6 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Install dependencies
-# Use npm ci if package-lock.json exists, otherwise npm install
 RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 # Copy source code
@@ -27,24 +26,23 @@ ENV PUBLIC_CLERK_PUBLISHABLE_KEY=$PUBLIC_CLERK_PUBLISHABLE_KEY
 # Build the application
 RUN npm run build
 
-# Stage 2: Production
-FROM nginx:alpine
+# Stage 2: Production (Node.js standalone)
+FROM node:20-alpine
 
-# Remove default nginx config that listens on port 80
-RUN rm /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copy built output and dependencies
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
 
-# Copy built static files from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+ENV HOST=0.0.0.0
+ENV PORT=8080
 
-# Expose port
 EXPOSE 8080
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://localhost:8080/health || exit 1
+    CMD wget --quiet --tries=1 --spider http://localhost:8080/ || exit 1
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "./dist/server/entry.mjs"]
