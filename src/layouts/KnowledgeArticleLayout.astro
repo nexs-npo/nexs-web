@@ -32,9 +32,32 @@ const categoryColors: Record<string, string> = {
   evidence: 'bg-orange-600',
   update: 'bg-red-600',
 };
+
+// Structured Data (JSON-LD) for the article
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  headline: title,
+  description: summary,
+  identifier: id,
+  author: {
+    '@type': 'Person',
+    name: author,
+  },
+  datePublished: date,
+  genre: categoryLabels[category],
+  publisher: {
+    '@type': 'Organization',
+    name: '次世代社会デザイン研究機構',
+    url: 'https://nexs.or.jp',
+  },
+};
 ---
 
 <BaseLayout title={`${title} - Knowledge`} description={summary}>
+  <!-- Structured Data for Article -->
+  <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} slot="head" />
+
   <div class="min-h-screen bg-white flex flex-col">
     <Header
       title="Knowledge"
