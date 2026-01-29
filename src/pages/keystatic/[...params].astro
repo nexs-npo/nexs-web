@@ -1,0 +1,30 @@
+---
+// Custom Keystatic UI page that bypasses Clerk's before-hydration script.
+// Clerk injects a before-hydration script on all Astro island pages,
+// which throws if PUBLIC_CLERK_PUBLISHABLE_KEY is missing, blocking hydration.
+// This page loads React/Keystatic directly via <script type="module"> instead.
+export const prerender = false;
+---
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Keystatic</title>
+</head>
+<body>
+  <div id="keystatic-root"></div>
+  <script>
+    // @ts-nocheck
+    import { makePage } from '@keystatic/astro/ui';
+    import { createRoot } from 'react-dom/client';
+    import { createElement } from 'react';
+    import config from '../../../keystatic.config';
+
+    const Keystatic = makePage(config);
+    const root = createRoot(document.getElementById('keystatic-root'));
+    root.render(createElement(Keystatic));
+  </script>
+</body>
+</html>
