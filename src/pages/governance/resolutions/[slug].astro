@@ -1,11 +1,12 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import Header from '@/components/Header';
+import BottomNav from '@/components/BottomNav';
 import { getCollection } from 'astro:content';
 import StatusBadge from '@/components/governance/StatusBadge.astro';
 import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
 import AttachmentAccordion from '@/components/governance/AttachmentAccordion.astro';
 import SignatureList from '@/components/governance/SignatureList.astro';
-import { X } from 'lucide-react';
 
 export async function getStaticPaths() {
   const resolutions = await getCollection('resolutions');
@@ -23,21 +24,15 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
 ---
 
 <BaseLayout title={`${resolution.data.title} - nexs Governance`}>
-  <div class="min-h-screen bg-gray-50 flex flex-col pb-32">
-    <!-- Header -->
-    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100 no-print">
-      <div class="max-w-md mx-auto px-5 py-4 flex justify-between items-center">
-        <div>
-          <h1 class="text-lg font-bold text-gray-900">nexs Governance</h1>
-          <p class="text-[10px] text-gray-500 tracking-wider font-mono">OPEN RESOLUTION PROTOCOL</p>
-        </div>
-        <a href="/resolutions" class="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
-          <X className="w-4 h-4" />
-        </a>
-      </div>
-    </header>
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Resolution"
+      subtitle="OPEN RESOLUTION PROTOCOL"
+      showSearch={false}
+      client:load
+    />
 
-    <main class="pt-24 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
       <!-- Meta Info Section -->
       <section class="mb-8 pb-6 border-b border-gray-100">
         <div class="flex items-center justify-between mb-4">
@@ -65,7 +60,7 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
         <div class="mb-6">
           <div class="flex items-center gap-2 mb-2">
             <span class="block w-1 h-4 bg-gray-400"></span>
-            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Proposal</span>
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">審議事項</span>
           </div>
         </div>
 
@@ -80,7 +75,7 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
           <div class="mb-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="block w-1 h-4 bg-gray-400"></span>
-              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Attachments</span>
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">関連資料</span>
             </div>
           </div>
           <AttachmentAccordion attachments={resolution.data.attachments} />
@@ -93,9 +88,8 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
           <div class="mb-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="block w-1 h-4 bg-gray-400"></span>
-              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Process Log</span>
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">議論履歴</span>
             </div>
-            <p class="text-xs text-gray-400">意思決定に至るまでの議論履歴</p>
           </div>
           <ProcessTimeline logs={resolution.data.discussionLogs} />
         </section>
@@ -107,7 +101,7 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
           <div class="mb-4">
             <div class="flex items-center gap-2 mb-2">
               <span class="block w-1 h-4 bg-gray-900"></span>
-              <span class="text-xs font-bold text-gray-900 uppercase tracking-widest">Final Resolution</span>
+              <span class="text-xs font-bold text-gray-900 uppercase tracking-widest">決議事項</span>
             </div>
           </div>
 
@@ -149,10 +143,16 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
         </p>
       </section>
     </main>
+
+    <BottomNav activeTab="about" client:load />
   </div>
 </BaseLayout>
 
 <style>
+  :global(body) {
+    @apply bg-white;
+  }
+
   /* Resolution Content Styles */
   .resolution-content :global(p) {
     @apply text-sm text-gray-600 leading-relaxed mb-4;

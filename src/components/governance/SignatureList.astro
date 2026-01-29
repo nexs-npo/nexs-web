@@ -28,7 +28,7 @@ function formatDate(dateStr: string | null): string {
     {approvals.map((approval) => (
       <div class="flex items-center justify-between text-xs">
         <div class="flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-green-500" />
+          <CheckCircle2 className="w-4 h-4 text-gray-900" />
           <span class="font-bold text-gray-900">{approval.name}</span>
         </div>
         <span class="font-mono text-gray-400 text-[10px]">{formatDate(approval.date)}</span>
