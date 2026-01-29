@@ -1,8 +1,14 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header';
+import {
+  ArrowRight,
+  BookOpen,
+  FileCheck2,
+  Map as MapIcon,
+  PieChart,
+} from 'lucide-react';
 import BottomNav from '@/components/BottomNav';
-import { FileCheck2, PieChart, BookOpen, Map, ArrowRight } from 'lucide-react';
+import Header from '@/components/Header';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout title="Governance - nexs">
@@ -110,7 +116,7 @@ import { FileCheck2, PieChart, BookOpen, Map, ArrowRight } from 'lucide-react';
           <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
             <div class="absolute inset-0 bg-white/50 z-10"></div>
             <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
-              <Map className="w-5 h-5" />
+              <MapIcon className="w-5 h-5" />
             </div>
             <div class="flex-1">
               <div class="flex justify-between items-center mb-1">

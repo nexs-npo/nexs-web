@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header';
-import BottomNav from '@/components/BottomNav';
 import { getCollection } from 'astro:content';
-import StatusBadge from '@/components/governance/StatusBadge.astro';
 import { FileCheck2 } from 'lucide-react';
+import BottomNav from '@/components/BottomNav';
+import StatusBadge from '@/components/governance/StatusBadge.astro';
+import Header from '@/components/Header';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 
 const resolutions = await getCollection('resolutions');
 

@@ -44,8 +44,8 @@ export default {
         },
       },
       boxShadow: {
-        'soft': '0 2px 8px rgba(0, 0, 0, 0.04)',
-        'nav': '0 -2px 8px rgba(0, 0, 0, 0.04)',
+        soft: '0 2px 8px rgba(0, 0, 0, 0.04)',
+        nav: '0 -2px 8px rgba(0, 0, 0, 0.04)',
       },
     },
   },

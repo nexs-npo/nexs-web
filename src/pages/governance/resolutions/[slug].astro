@@ -1,12 +1,12 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header';
-import BottomNav from '@/components/BottomNav';
 import { getCollection } from 'astro:content';
-import StatusBadge from '@/components/governance/StatusBadge.astro';
-import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
+import BottomNav from '@/components/BottomNav';
 import AttachmentAccordion from '@/components/governance/AttachmentAccordion.astro';
+import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
 import SignatureList from '@/components/governance/SignatureList.astro';
+import StatusBadge from '@/components/governance/StatusBadge.astro';
+import Header from '@/components/Header';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 
 export async function getStaticPaths() {
   const resolutions = await getCollection('resolutions');

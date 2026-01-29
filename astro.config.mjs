@@ -1,9 +1,9 @@
-import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
-import tailwind from '@astrojs/tailwind';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
-import { mkdirSync, writeFileSync } from 'node:fs';
+import react from '@astrojs/react';
+import tailwind from '@astrojs/tailwind';
+import { defineConfig } from 'astro/config';
 
 // ============================================================
 // Clerk (Authentication) - 環境変数で有効化
@@ -15,10 +15,12 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 // ============================================================
 const clerkEnabled = !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 const clerkIntegration = clerkEnabled
-  ? [(await import('@clerk/astro')).default({
-      afterSignInUrl: '/',
-      afterSignUpUrl: '/',
-    })]
+  ? [
+      (await import('@clerk/astro')).default({
+        afterSignInUrl: '/',
+        afterSignUpUrl: '/',
+      }),
+    ]
   : [];
 
 // Keystatic integration (Vite plugin only, no route injection).
@@ -32,28 +34,30 @@ function keystatic() {
       'astro:config:setup': ({ updateConfig, config }) => {
         updateConfig({
           vite: {
-            plugins: [{
-              name: 'keystatic-vite',
-              resolveId(id) {
-                if (id === 'virtual:keystatic-config') {
-                  return this.resolve('./keystatic.config', './a');
-                }
-                return null;
-              }
-            }],
+            plugins: [
+              {
+                name: 'keystatic-vite',
+                resolveId(id) {
+                  if (id === 'virtual:keystatic-config') {
+                    return this.resolve('./keystatic.config', './a');
+                  }
+                  return null;
+                },
+              },
+            ],
             optimizeDeps: {
-              entries: ['keystatic.config.*', '.astro/keystatic-imports.js']
-            }
-          }
+              entries: ['keystatic.config.*', '.astro/keystatic-imports.js'],
+            },
+          },
         });
         const dotAstroDir = new URL('./.astro/', config.root);
         mkdirSync(dotAstroDir, { recursive: true });
         writeFileSync(
           new URL('keystatic-imports.js', dotAstroDir),
-          `import "@keystatic/astro/ui";\nimport "@keystatic/astro/api";\nimport "@keystatic/core/ui";\n`
+          `import "@keystatic/astro/ui";\nimport "@keystatic/astro/api";\nimport "@keystatic/core/ui";\n`,
         );
-      }
-    }
+      },
+    },
   };
 }
 

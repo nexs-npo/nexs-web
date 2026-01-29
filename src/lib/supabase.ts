@@ -21,8 +21,13 @@ export type Database = {
           role: 'admin' | 'researcher' | 'member' | 'visitor';
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['public_profiles']['Row'], 'created_at'>;
-        Update: Partial<Database['public']['Tables']['public_profiles']['Insert']>;
+        Insert: Omit<
+          Database['public']['Tables']['public_profiles']['Row'],
+          'created_at'
+        >;
+        Update: Partial<
+          Database['public']['Tables']['public_profiles']['Insert']
+        >;
       };
       projects: {
         Row: {
@@ -39,7 +44,10 @@ export type Database = {
           created_at: string;
           updated_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['projects']['Row'], 'id' | 'created_at' | 'updated_at'>;
+        Insert: Omit<
+          Database['public']['Tables']['projects']['Row'],
+          'id' | 'created_at' | 'updated_at'
+        >;
         Update: Partial<Database['public']['Tables']['projects']['Insert']>;
       };
       hypotheses: {
@@ -63,7 +71,10 @@ export type Database = {
           likes_count: number;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['discussions']['Row'], 'id' | 'created_at' | 'likes_count'>;
+        Insert: Omit<
+          Database['public']['Tables']['discussions']['Row'],
+          'id' | 'created_at' | 'likes_count'
+        >;
         Update: Partial<Database['public']['Tables']['discussions']['Insert']>;
       };
       signals: {
@@ -76,7 +87,10 @@ export type Database = {
           source_url: string | null;
           created_at: string;
         };
-        Insert: Omit<Database['public']['Tables']['signals']['Row'], 'id' | 'created_at'>;
+        Insert: Omit<
+          Database['public']['Tables']['signals']['Row'],
+          'id' | 'created_at'
+        >;
         Update: Partial<Database['public']['Tables']['signals']['Insert']>;
       };
     };
