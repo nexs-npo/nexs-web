@@ -10,15 +10,32 @@ type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
 type Tab =
   | { id: string; label: string; href: string; icon: IconComponent }
-  | { id: string; label: string; href: string; imageSrc: string; imageAlt: string };
+  | {
+      id: string;
+      label: string;
+      href: string;
+      imageSrc: string;
+      imageAlt: string;
+    };
 
 const tabs: Tab[] = [
   { id: 'signals', icon: Icons.Signals, label: 'Signals', href: '/signals/' },
-  { id: 'knowledge', icon: Icons.Library, label: 'Knowledge', href: '/knowledge/' },
-  { id: 'projects', icon: Icons.Projects, label: 'Projects', href: '/projects/' },
+  {
+    id: 'knowledge',
+    icon: Icons.Library,
+    label: 'Knowledge',
+    href: '/knowledge/',
+  },
+  {
+    id: 'projects',
+    icon: Icons.Projects,
+    label: 'Projects',
+    href: '/projects/',
+  },
   {
     id: 'about',
-    imageSrc: 'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
+    imageSrc:
+      'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
     imageAlt: 'nexs logo',
     label: 'nexs',
     href: '/about/',
