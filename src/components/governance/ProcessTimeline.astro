@@ -1,0 +1,53 @@
+---
+interface LogEntry {
+  date: string | null;
+  type: 'slack' | 'github' | 'meeting';
+  summary: string;
+  detail: string;
+}
+
+interface Props {
+  logs: LogEntry[];
+}
+
+const { logs } = Astro.props;
+
+const typeLabels = {
+  slack: 'Slack',
+  github: 'Github PR',
+  meeting: 'Meeting',
+};
+
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  const h = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+  return `${y}.${m}.${d} ${h}:${min}`;
+}
+---
+
+{logs && logs.length > 0 ? (
+  <div class="relative pl-4 border-l border-gray-200 space-y-6">
+    {logs.map((log) => (
+      <div class="relative">
+        <div class="absolute -left-[21px] top-1.5 w-2.5 h-2.5 rounded-full bg-gray-300 border-2 border-white"></div>
+        <div class="text-[10px] font-mono text-gray-400 mb-1">{formatDate(log.date)}</div>
+        <div class="bg-white border border-gray-100 rounded-lg p-3 shadow-sm">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-bold text-gray-900">{log.summary}</span>
+            <span class="px-1.5 py-0.5 bg-gray-50 border border-gray-100 rounded text-[9px] text-gray-500 font-mono">
+              {typeLabels[log.type]}
+            </span>
+          </div>
+          <p class="text-xs text-gray-600 leading-relaxed whitespace-pre-wrap">{log.detail}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+) : (
+  <p class="text-xs text-gray-400">議論ログはまだありません</p>
+)}

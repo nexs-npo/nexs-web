@@ -1,0 +1,45 @@
+---
+interface Props {
+  status: 'review' | 'approved' | 'rejected';
+  size?: 'sm' | 'md';
+}
+
+const { status, size = 'sm' } = Astro.props;
+
+const statusConfig = {
+  review: {
+    label: 'Reviewing',
+    bgClass: 'bg-gray-900',
+    textClass: 'text-white',
+    dotClass: 'bg-white animate-pulse',
+  },
+  approved: {
+    label: 'Approved',
+    bgClass: 'bg-gray-200',
+    textClass: 'text-gray-700',
+    dotClass: 'bg-gray-500',
+  },
+  rejected: {
+    label: 'Rejected',
+    bgClass: 'bg-red-100',
+    textClass: 'text-red-700',
+    dotClass: 'bg-red-400',
+  },
+};
+
+const config = statusConfig[status];
+const sizeClass =
+  size === 'sm' ? 'px-2 py-0.5 text-[9px]' : 'px-2.5 py-1 text-[10px]';
+---
+
+<span
+  class:list={[
+    'inline-flex items-center gap-1.5 rounded font-bold tracking-widest uppercase',
+    config.bgClass,
+    config.textClass,
+    sizeClass,
+  ]}
+>
+  <span class:list={['w-1.5 h-1.5 rounded-full', config.dotClass]}></span>
+  {config.label}
+</span>
