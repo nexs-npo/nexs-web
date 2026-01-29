@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BottomNav from '@/components/BottomNav';
 import AttachmentAccordion from '@/components/governance/AttachmentAccordion.astro';
 import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
-import SignatureList from '@/components/governance/SignatureList.astro';
+import ApprovalSection from '@/components/governance/ApprovalSection';
 import StatusBadge from '@/components/governance/StatusBadge.astro';
 import Header from '@/components/Header';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -120,20 +120,11 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
       )}
 
       <!-- Approval Section -->
-      {resolution.data.approvals && resolution.data.approvals.length > 0 && (
-        <section class="mb-8 no-print">
-          <div class="bg-white border-2 border-gray-900 rounded-lg p-5 shadow-lg">
-            <div class="flex justify-between items-end mb-4 border-b border-gray-100 pb-4">
-              <div>
-                <h3 class="text-sm font-bold text-gray-900">承認状況 (Signatures)</h3>
-                <p class="text-[10px] text-gray-400 mt-1">署名済みの承認者</p>
-              </div>
-              <span class="text-xl font-mono font-bold text-gray-900">{resolution.data.approvals.length}</span>
-            </div>
-            <SignatureList approvals={resolution.data.approvals} />
-          </div>
-        </section>
-      )}
+      <ApprovalSection
+        approvalCount={resolution.data.approvals?.filter(a => a.approved).length ?? 0}
+        slug={resolution.slug}
+        client:load
+      />
 
       <!-- Footer Info -->
       <section class="text-center border-t border-gray-100 pt-8 pb-4">
