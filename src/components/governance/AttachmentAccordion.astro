@@ -1,0 +1,50 @@
+---
+import { ChevronDown, FileText } from 'lucide-react';
+
+interface Attachment {
+  label: string;
+  file: string | null;
+}
+
+interface Props {
+  attachments: Attachment[];
+}
+
+const { attachments } = Astro.props;
+---
+
+{attachments && attachments.length > 0 ? (
+  <div class="space-y-3">
+    {attachments.map((attachment) => (
+      <details class="group bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
+        <summary class="flex justify-between items-center p-3 cursor-pointer select-none bg-gray-50 hover:bg-gray-100 transition-colors">
+          <div class="flex items-center gap-2">
+            <FileText className="w-4 h-4 text-gray-500" />
+            <span class="text-xs font-bold text-gray-900">{attachment.label}</span>
+          </div>
+          <ChevronDown className="w-4 h-4 text-gray-400 transform transition-transform duration-200 group-open:rotate-180" />
+        </summary>
+
+        <div class="p-4 border-t border-gray-100 bg-white">
+          {attachment.file ? (
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] text-gray-400 font-mono">FILE</span>
+              <a
+                href={attachment.file}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs text-blue-600 font-bold underline hover:text-blue-800"
+              >
+                Download
+              </a>
+            </div>
+          ) : (
+            <p class="text-xs text-gray-400">ファイルがアップロードされていません</p>
+          )}
+        </div>
+      </details>
+    ))}
+  </div>
+) : (
+  <p class="text-xs text-gray-400">添付ファイルはありません</p>
+)}

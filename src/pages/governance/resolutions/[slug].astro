@@ -1,0 +1,209 @@
+---
+import { getCollection } from 'astro:content';
+import BottomNav from '@/components/BottomNav';
+import AttachmentAccordion from '@/components/governance/AttachmentAccordion.astro';
+import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
+import SignatureList from '@/components/governance/SignatureList.astro';
+import StatusBadge from '@/components/governance/StatusBadge.astro';
+import Header from '@/components/Header';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const resolutions = await getCollection('resolutions');
+  return resolutions.map((resolution) => ({
+    params: { slug: resolution.slug },
+    props: { resolution },
+  }));
+}
+
+const { resolution } = Astro.props;
+const { Content } = await resolution.render();
+
+const formattedDate = resolution.data.proposedAt.replace(/-/g, '.');
+const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
+---
+
+<BaseLayout title={`${resolution.data.title} - nexs Governance`}>
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Resolution"
+      subtitle="OPEN RESOLUTION PROTOCOL"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Meta Info Section -->
+      <section class="mb-8 pb-6 border-b border-gray-100">
+        <div class="flex items-center justify-between mb-4">
+          <StatusBadge status={resolution.data.status} size="md" />
+          <span class="text-xs font-mono text-gray-400">#{resolution.data.id}</span>
+        </div>
+
+        <h1 class="text-2xl font-bold leading-tight mb-4 text-gray-900">
+          {resolution.data.title}
+        </h1>
+
+        <div class="flex items-center justify-between text-xs text-gray-500 font-mono">
+          <div class="flex items-center gap-2">
+            <div class="w-5 h-5 rounded-full bg-gray-200 flex items-center justify-center text-[10px] font-bold text-gray-600">
+              {proposerInitial}
+            </div>
+            <span>Proposed by {resolution.data.proposer}</span>
+          </div>
+          <time datetime={resolution.data.proposedAt}>{formattedDate}</time>
+        </div>
+      </section>
+
+      <!-- Proposal Body Section -->
+      <section class="mb-8">
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="block w-1 h-4 bg-gray-400"></span>
+            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">審議事項</span>
+          </div>
+        </div>
+
+        <div class="prose prose-sm prose-gray max-w-none text-gray-600 leading-loose text-justify resolution-content">
+          <Content />
+        </div>
+      </section>
+
+      <!-- Attachments Section -->
+      {resolution.data.attachments && resolution.data.attachments.length > 0 && (
+        <section class="mb-12">
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="block w-1 h-4 bg-gray-400"></span>
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">関連資料</span>
+            </div>
+          </div>
+          <AttachmentAccordion attachments={resolution.data.attachments} />
+        </section>
+      )}
+
+      <!-- Process Log Section -->
+      {resolution.data.discussionLogs && resolution.data.discussionLogs.length > 0 && (
+        <section class="mb-12">
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="block w-1 h-4 bg-gray-400"></span>
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">議論履歴</span>
+            </div>
+          </div>
+          <ProcessTimeline logs={resolution.data.discussionLogs} />
+        </section>
+      )}
+
+      <!-- Final Resolution Section -->
+      {resolution.data.resolutionText && (
+        <section class="mb-12">
+          <div class="mb-4">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="block w-1 h-4 bg-gray-900"></span>
+              <span class="text-xs font-bold text-gray-900 uppercase tracking-widest">決議事項</span>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 border-l-4 border-gray-900 p-5 rounded-r-lg">
+            <h3 class="text-sm font-bold text-gray-900 mb-3">
+              {resolution.data.title}
+            </h3>
+            <p class="text-xs text-gray-600 leading-relaxed text-justify whitespace-pre-wrap">
+              {resolution.data.resolutionText}
+            </p>
+            <div class="text-[10px] text-gray-400 font-mono text-right mt-4">
+              Drafted by: {resolution.data.proposer} / {formattedDate}
+            </div>
+          </div>
+        </section>
+      )}
+
+      <!-- Approval Section -->
+      {resolution.data.approvals && resolution.data.approvals.length > 0 && (
+        <section class="mb-8 no-print">
+          <div class="bg-white border-2 border-gray-900 rounded-lg p-5 shadow-lg">
+            <div class="flex justify-between items-end mb-4 border-b border-gray-100 pb-4">
+              <div>
+                <h3 class="text-sm font-bold text-gray-900">承認状況 (Signatures)</h3>
+                <p class="text-[10px] text-gray-400 mt-1">署名済みの承認者</p>
+              </div>
+              <span class="text-xl font-mono font-bold text-gray-900">{resolution.data.approvals.length}</span>
+            </div>
+            <SignatureList approvals={resolution.data.approvals} />
+          </div>
+        </section>
+      )}
+
+      <!-- Footer Info -->
+      <section class="text-center border-t border-gray-100 pt-8 pb-4">
+        <p class="text-[10px] text-gray-400 font-mono">
+          Document ID: {resolution.slug}<br />
+          Last Updated: {resolution.data.proposedAt}
+        </p>
+      </section>
+    </main>
+
+    <BottomNav activeTab="about" client:load />
+  </div>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    @apply bg-white;
+  }
+
+  /* Resolution Content Styles */
+  .resolution-content :global(p) {
+    @apply text-sm text-gray-600 leading-relaxed mb-4;
+  }
+
+  .resolution-content :global(h2) {
+    @apply text-base font-bold text-gray-900 mt-6 mb-3;
+  }
+
+  .resolution-content :global(h3) {
+    @apply text-sm font-bold text-gray-800 mt-4 mb-2;
+  }
+
+  .resolution-content :global(ul) {
+    @apply list-disc list-inside mb-4 text-sm text-gray-600;
+  }
+
+  .resolution-content :global(ol) {
+    @apply list-decimal list-inside mb-4 text-sm text-gray-600;
+  }
+
+  .resolution-content :global(li) {
+    @apply mb-1;
+  }
+
+  .resolution-content :global(strong) {
+    @apply font-bold text-gray-900;
+  }
+
+  .resolution-content :global(code) {
+    @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs font-mono;
+  }
+
+  .resolution-content :global(blockquote) {
+    @apply border-l-4 border-gray-200 pl-4 my-4 text-gray-500 italic text-sm;
+  }
+
+  /* Budget Table Style */
+  .resolution-content :global(table) {
+    @apply w-full text-xs font-mono my-4 border border-gray-100 rounded;
+  }
+
+  .resolution-content :global(th) {
+    @apply bg-gray-50 text-gray-900 font-bold text-left p-2 border-b border-gray-200;
+  }
+
+  .resolution-content :global(td) {
+    @apply p-2 border-b border-gray-100;
+  }
+
+  .resolution-content :global(tr:last-child td) {
+    @apply border-b-0;
+  }
+</style>

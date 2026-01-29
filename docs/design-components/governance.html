@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Governance (MVP) - nexs Design Component</title>
+    
+    <!-- 
+      === DESIGN COMPONENT METADATA ===
+      ID: GOV-001-MVP
+      Name: Governance Top Page (MVP Edition)
+      Status: Final
+      Description: ガバナンス機能のポータルページ（MVP版）。意思決定機能のみを有効化し、他機能はComing Soonとする。
+      
+      === EDITING GUIDE ===
+      1. テキスト変更: "EDITABLE" コメントの箇所を変更してください。
+      2. アイコン変更: <i data-lucide="icon-name"></i> を使用してください。
+      3. 色の変更: 状態を示す色は text-green-600 (Active) / text-gray-400 (Inactive) で統一。
+      
+      === RELATED FILES ===
+      - Logic: src/pages/governance/index.astro
+      - Data: src/content/config.ts (resolutions collection)
+    -->
+
+    <!-- Tailwind CSS (CDN for Prototyping) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-black': '#111827', // gray-900
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                        mono: ['Space Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-50 text-gray-900 font-sans pb-32">
+
+    <!-- 
+      === HEADER AREA ===
+      固定ヘッダー。ガバナンス専用のコンテキストを表示。
+    -->
+    <header class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-md mx-auto px-5 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-lg font-bold text-gray-900">nexs Governance</h1>
+                <!-- EDITABLE: バージョン表記 -->
+                <p class="text-[10px] text-gray-500 tracking-wider font-mono">PROTOCOL V4.0 (MVP)</p>
+            </div>
+            <!-- COMPONENT: LinkButton (Back) -->
+            <a href="/" class="flex items-center gap-1 text-xs font-bold text-gray-400 hover:text-gray-900 transition-colors">
+                <i data-lucide="arrow-left" class="w-3 h-3"></i>
+                Exit
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-24 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+
+        <!-- 
+          === HERO SECTION ===
+          マニフェスト（宣言）を表示するエリア。
+        -->
+        <section class="mb-12 text-center">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-green-50 text-green-700 border border-green-100 rounded-full text-[10px] font-mono font-bold mb-6">
+                <span class="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                PHASE 1: RESOLUTION PROTOCOL
+            </div>
+            <!-- EDITABLE: キャッチコピー -->
+            <h1 class="text-2xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
+                意思決定を、<br>もっと自由に。
+            </h1>
+            <p class="text-xs text-gray-500 leading-loose mb-2">
+                nexsは「NPO 4.0」に向けたガバナンス移行プロセスを開始しました。<br>
+                まずは、Gitベースの透明な議決システムから公開します。
+            </p>
+        </section>
+
+        <!-- 
+          === ACTIVE MODULE SECTION ===
+          現在利用可能な機能を強調表示。
+        -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-4 border-l-2 border-green-500 pl-2">
+                <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest">Active Module</h2>
+            </div>
+
+            <!-- COMPONENT: FeatureCard (Active) -->
+            <a href="/governance/resolutions" class="block group relative">
+                <!-- Status Indicator -->
+                <div class="absolute -right-1 -top-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white z-10 shadow-sm"></div>
+                
+                <div class="bg-white rounded-xl shadow-md border-2 border-brand-black p-5 hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-lg bg-brand-black flex items-center justify-center text-white flex-shrink-0">
+                            <!-- Icon: File Check -->
+                            <i data-lucide="file-check-2" class="w-6 h-6"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-base font-bold text-gray-900 leading-tight">Resolutions</h3>
+                            <p class="text-[10px] text-gray-500 font-mono mt-0.5">Status: <span class="text-green-600 font-bold">Online</span></p>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-100 pt-3">
+                        <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                            非同期・分散型の意思決定プロトコル。<br>
+                            議案の閲覧、議論ログの確認、電子署名はこちらから。
+                        </p>
+                        <div class="flex items-center gap-2 text-[10px] font-bold text-green-600 group-hover:underline">
+                            <span>システムを利用する</span>
+                            <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </section>
+
+        <!-- 
+          === COMING SOON SECTION ===
+          未実装機能をグレーアウト表示。ロードマップとしての役割も兼ねる。
+        -->
+        <section class="mb-12">
+            <div class="flex items-center gap-2 mb-6 border-l-2 border-gray-200 pl-2">
+                <h2 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Coming Soon</h2>
+            </div>
+
+            <div class="space-y-3">
+                
+                <!-- COMPONENT: FeatureCard (Disabled / Finance) -->
+                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
+                    <!-- Click Blocker -->
+                    <div class="absolute inset-0 bg-white/50 z-10"></div>
+                    
+                    <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+                        <!-- Icon: Pie Chart -->
+                        <i data-lucide="pie-chart" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="text-sm font-bold text-gray-500">Open Finance</h3>
+                            <span class="text-[9px] font-bold bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded">PHASE 2</span>
+                        </div>
+                        <p class="text-[10px] text-gray-400 leading-tight">
+                            リアルタイム予算管理・透明化システム
+                        </p>
+                    </div>
+                </div>
+
+                <!-- COMPONENT: FeatureCard (Disabled / Handbook) -->
+                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/50 z-10"></div>
+                    
+                    <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+                        <!-- Icon: Book Open -->
+                        <i data-lucide="book-open" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="text-sm font-bold text-gray-500">Living Handbook</h3>
+                            <span class="text-[9px] font-bold bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded">PHASE 3</span>
+                        </div>
+                        <p class="text-[10px] text-gray-400 leading-tight">
+                            Git管理された定款・規定集
+                        </p>
+                    </div>
+                </div>
+
+                <!-- COMPONENT: FeatureCard (Disabled / Roadmap) -->
+                <div class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 bg-gray-50 opacity-60 grayscale cursor-not-allowed relative overflow-hidden">
+                    <div class="absolute inset-0 bg-white/50 z-10"></div>
+                    
+                    <div class="w-10 h-10 rounded-lg bg-gray-200 flex items-center justify-center text-gray-400 flex-shrink-0">
+                        <!-- Icon: Map -->
+                        <i data-lucide="map" class="w-5 h-5"></i>
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex justify-between items-center mb-1">
+                            <h3 class="text-sm font-bold text-gray-500">Async Roadmap</h3>
+                            <span class="text-[9px] font-bold bg-gray-200 text-gray-500 px-1.5 py-0.5 rounded">PHASE 3</span>
+                        </div>
+                        <p class="text-[10px] text-gray-400 leading-tight">
+                            非同期チームのためのコンパス
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 
+          === FOOTER INFO ===
+          システムステータス表示エリア。
+        -->
+        <section class="border-t border-gray-100 pt-8 text-center">
+            <p class="text-[10px] text-gray-400 font-mono mb-2">
+                nexs Open Governance Protocol
+            </p>
+            <p class="text-[10px] text-gray-400">
+                System Status: <span class="text-green-600 font-bold">Phase 1 Operational</span>
+            </p>
+        </section>
+
+    </main>
+
+    <!-- Icons Initialization -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

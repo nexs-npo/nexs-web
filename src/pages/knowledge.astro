@@ -1,15 +1,23 @@
 ---
 import { getCollection } from 'astro:content';
-import BaseLayout from '@/layouts/BaseLayout.astro';
-import Header from '@/components/Header';
 import BottomNav from '@/components/BottomNav';
+import Header from '@/components/Header';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 
 const allKnowledge = await getCollection('knowledge');
 
 // Sort by category order and then by id
-const categoryOrder = ['foundation', 'thesis', 'protocol', 'evidence', 'update'];
+const categoryOrder = [
+  'foundation',
+  'thesis',
+  'protocol',
+  'evidence',
+  'update',
+];
 const sortedKnowledge = allKnowledge.sort((a, b) => {
-  const catDiff = categoryOrder.indexOf(a.data.category) - categoryOrder.indexOf(b.data.category);
+  const catDiff =
+    categoryOrder.indexOf(a.data.category) -
+    categoryOrder.indexOf(b.data.category);
   if (catDiff !== 0) return catDiff;
   return a.data.id.localeCompare(b.data.id);
 });

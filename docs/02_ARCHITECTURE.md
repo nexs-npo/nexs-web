@@ -11,7 +11,7 @@
 | **Frontend** | **Astro** | Web Framework | 基本を静的HTMLとして出力し、高速表示とSEO/AI可読性を最大化する。必要な箇所（議論機能）のみReactをロードする（Islands Architecture）。 |
 | **UI Library** | **React** | Component | 複雑なインタラクション（議論、フォーム）の実装に使用。 |
 | **Hosting** | **Cloudflare Pages** | Web Hosting | 帯域無制限、商用利用可、グローバルCDNによる高速配信。静的アセットの配信を担当。 |
-| **Auth** | **Clerk** | Authentication | **【重要】** 個人情報（PII）の管理・認証UIの提供。自宅サーバーへのPII保存を回避するために採用。 |
+| **Auth** | **Clerk** | Authentication | **【現在無効】** 個人情報（PII）の管理・認証UIの提供。自宅サーバーへのPII保存を回避するために採用。現在は `.env` にキーを設定するまで無効化されている（詳細は下記 Section 6）。 |
 | **Backend** | **Supabase** | DB / Realtime | **【Self-Hosted】** 議論データ、仮説データ、ログの保存。自宅サーバー（Coolify）上で運用。 |
 | **Network** | **Cloudflare Tunnel** | Secure Tunneling | 自宅サーバーを安全に公開するためのトンネリング技術。ポート開放不要。 |
 
@@ -81,3 +81,32 @@ graph TD
 
 * **No Hardcoded Secrets:** APIキーや接続URLがコードに含まれていないか、コミット前に必ずチェックする（pre-commit hook等の導入推奨）。
 * **Documentation:** 自宅サーバー環境を第三者が再現できるよう、docker-compose.yml などの設定ファイルも（IPやPasswordを変数化した上で）公開する。
+
+## **6. Clerk 認証の有効化手順**
+
+Clerkは **環境変数によるオプトイン方式** で管理されている。
+キーが設定されていなければ、Clerkインテグレーションは読み込まれず、サイトは認証なしで動作する。
+
+### 現在の状態: **無効（Disabled）**
+
+### 有効化の手順
+
+1. [Clerk Dashboard](https://dashboard.clerk.com) でアプリケーションを作成し、キーを取得
+2. `.env` ファイルに以下を追加（`.env.example` を参照）:
+   ```
+   PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_key_here
+   CLERK_SECRET_KEY=sk_test_your_key_here
+   ```
+3. 開発サーバーを再起動（`npm run dev`）
+
+### 仕組み
+
+- `astro.config.mjs` が `PUBLIC_CLERK_PUBLISHABLE_KEY` の存在を確認
+- 存在すれば `@clerk/astro` インテグレーションを動的にロード
+- 存在しなければスキップ（エラーなし）
+
+### Keystatic との共存
+
+Keystatic管理画面（`/keystatic`）は、Clerkの有効/無効に関わらず独立して動作する。
+Clerk有効時でも Keystatic にClerkの認証スクリプトが干渉しないよう、
+Astro islandを使わず直接Reactをマウントする専用ページ（`src/pages/keystatic/[...params].astro`）を使用している。

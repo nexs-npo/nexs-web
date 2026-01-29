@@ -1,0 +1,148 @@
+---
+import { getCollection } from 'astro:content';
+import { FileCheck2 } from 'lucide-react';
+import BottomNav from '@/components/BottomNav';
+import StatusBadge from '@/components/governance/StatusBadge.astro';
+import Header from '@/components/Header';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const resolutions = await getCollection('resolutions');
+
+// Sort by proposedAt date (newest first)
+const sortedResolutions = resolutions.sort((a, b) => {
+  const dateA = new Date(a.data.proposedAt);
+  const dateB = new Date(b.data.proposedAt);
+  return dateB.getTime() - dateA.getTime();
+});
+
+// Group by status
+const reviewing = sortedResolutions.filter((r) => r.data.status === 'review');
+const approved = sortedResolutions.filter((r) => r.data.status === 'approved');
+const rejected = sortedResolutions.filter((r) => r.data.status === 'rejected');
+---
+
+<BaseLayout title="Resolutions - nexs Governance">
+  <div class="min-h-screen bg-white flex flex-col">
+    <Header
+      title="Resolutions"
+      subtitle="議案一覧"
+      showSearch={false}
+      client:load
+    />
+
+    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      {sortedResolutions.length === 0 ? (
+        <div class="text-center py-16">
+          <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+            <FileCheck2 className="w-8 h-8 text-gray-400" />
+          </div>
+          <p class="text-sm text-gray-500 mb-2">まだ議案がありません</p>
+          <p class="text-xs text-gray-400">
+            /keystatic から新しい議案を作成してください
+          </p>
+        </div>
+      ) : (
+        <>
+          {/* Reviewing Section */}
+          {reviewing.length > 0 && (
+            <section class="mb-8">
+              <div class="flex items-center gap-2 mb-4 border-l-2 border-gray-900 pl-2">
+                <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest">審議中</h2>
+                <span class="text-[10px] font-mono text-gray-400">({reviewing.length})</span>
+              </div>
+              <div class="space-y-3">
+                {reviewing.map((resolution) => (
+                  <a
+                    href={`/governance/resolutions/${resolution.slug}`}
+                    class="block bg-white rounded-lg border border-gray-200 p-4 hover:shadow-md transition-all hover:-translate-y-0.5"
+                  >
+                    <div class="flex items-start justify-between mb-2">
+                      <StatusBadge status={resolution.data.status} />
+                      <span class="text-[10px] font-mono text-gray-400">#{resolution.data.id}</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-900 mb-2 leading-snug">{resolution.data.title}</h3>
+                    <div class="flex items-center justify-between text-[10px] text-gray-500 font-mono">
+                      <span>by {resolution.data.proposer}</span>
+                      <time datetime={resolution.data.proposedAt}>{resolution.data.proposedAt.replace(/-/g, '.')}</time>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Approved Section */}
+          {approved.length > 0 && (
+            <section class="mb-8">
+              <div class="flex items-center gap-2 mb-4 border-l-2 border-gray-400 pl-2">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">可決済</h2>
+                <span class="text-[10px] font-mono text-gray-400">({approved.length})</span>
+              </div>
+              <div class="space-y-3">
+                {approved.map((resolution) => (
+                  <a
+                    href={`/governance/resolutions/${resolution.slug}`}
+                    class="block bg-white rounded-lg border border-gray-100 p-4 hover:shadow-md transition-all hover:-translate-y-0.5"
+                  >
+                    <div class="flex items-start justify-between mb-2">
+                      <StatusBadge status={resolution.data.status} />
+                      <span class="text-[10px] font-mono text-gray-400">#{resolution.data.id}</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-700 mb-2 leading-snug">{resolution.data.title}</h3>
+                    <div class="flex items-center justify-between text-[10px] text-gray-400 font-mono">
+                      <span>by {resolution.data.proposer}</span>
+                      <time datetime={resolution.data.proposedAt}>{resolution.data.proposedAt.replace(/-/g, '.')}</time>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* Rejected Section */}
+          {rejected.length > 0 && (
+            <section class="mb-8">
+              <div class="flex items-center gap-2 mb-4 border-l-2 border-red-300 pl-2">
+                <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">否決</h2>
+                <span class="text-[10px] font-mono text-gray-400">({rejected.length})</span>
+              </div>
+              <div class="space-y-3">
+                {rejected.map((resolution) => (
+                  <a
+                    href={`/governance/resolutions/${resolution.slug}`}
+                    class="block bg-gray-50 rounded-lg border border-gray-100 p-4 opacity-60 hover:opacity-100 transition-all"
+                  >
+                    <div class="flex items-start justify-between mb-2">
+                      <StatusBadge status={resolution.data.status} />
+                      <span class="text-[10px] font-mono text-gray-400">#{resolution.data.id}</span>
+                    </div>
+                    <h3 class="text-sm font-bold text-gray-500 mb-2 leading-snug line-through">{resolution.data.title}</h3>
+                    <div class="flex items-center justify-between text-[10px] text-gray-400 font-mono">
+                      <span>by {resolution.data.proposer}</span>
+                      <time datetime={resolution.data.proposedAt}>{resolution.data.proposedAt.replace(/-/g, '.')}</time>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
+        </>
+      )}
+
+      <!-- Footer -->
+      <section class="border-t border-gray-100 pt-8 text-center">
+        <p class="text-[10px] text-gray-400 font-mono">
+          nexs Open Resolution Protocol
+        </p>
+      </section>
+    </main>
+
+    <BottomNav activeTab="about" client:load />
+  </div>
+</BaseLayout>
+
+<style>
+  :global(body) {
+    @apply bg-white;
+  }
+</style>

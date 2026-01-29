@@ -29,9 +29,7 @@ const jsonLd = {
     '@type': 'ImageObject',
     url: 'https://nexs.jp/icons/icon-512x512.png',
   },
-  sameAs: [
-    'https://github.com/nexs-org',
-  ],
+  sameAs: ['https://github.com/nexs-org'],
 };
 ---
 
@@ -80,6 +78,8 @@ const jsonLd = {
 
     <!-- View Transitions -->
     <ViewTransitions />
+
+    <slot name="head" />
   </head>
   <body class="min-h-screen bg-gray-50">
     <slot />
