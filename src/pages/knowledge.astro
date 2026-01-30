@@ -58,6 +58,19 @@ const authorInitials: Record<string, string> = {
     />
 
     <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      {sortedKnowledge.length === 0 ? (
+        <div class="flex flex-col items-center justify-center pt-16 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">まだ記事がありません</h2>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Knowledge記事は準備中です。
+          </p>
+        </div>
+      ) : (
+      <Fragment>
       <!-- Category Filter -->
       <section class="mb-8">
         <div class="flex flex-wrap gap-2">
@@ -101,6 +114,8 @@ const authorInitials: Record<string, string> = {
           );
         })}
       </section>
+      </Fragment>
+      )}
     </main>
 
     <BottomNav activeTab="knowledge" client:load />
