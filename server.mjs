@@ -1,12 +1,12 @@
 import { createServer } from 'node:http';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { handler as ssrHandler } from './dist/server/entry.mjs';
 import sirv from 'sirv';
+import { handler as ssrHandler } from './dist/server/entry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const host = process.env.HOST || '0.0.0.0';
-const port = parseInt(process.env.PORT || '8080');
+const port = parseInt(process.env.PORT || '8080', 10);
 
 const authUser = process.env.PREVIEW_AUTH_USER || 'preview';
 const authPassword = process.env.PREVIEW_AUTH_PASSWORD;
