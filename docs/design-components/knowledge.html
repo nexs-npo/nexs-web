@@ -3,6 +3,7 @@
   対応する実装ファイル: src/pages/knowledge.astro
 
   【変更点】
+  - 2026-01-30: 空状態セクションを追加（実装との同期）
   - 2026-01-26: カード内下部に投稿者・日付デザインを追加（border-t区切り、アバター+名前+日付）
   - 2026-01-26: フォントサイズ全体を拡大（タイトルtext-base、本文text-sm）
   - 2026-01-26: カテゴリ名を更新（基礎知識→基盤認識、仮説→仮説・問い、プロトコル→実装計画、エビデンス→経過・検証、アップデート→デザイン提言）
@@ -28,6 +29,26 @@
     </header>
 
     <main class="flex-1 pt-6 pb-24 px-5 max-w-md mx-auto w-full">
+
+      <!-- 空状態 (記事が0件の場合) -->
+      <section class="mb-8">
+        <div class="flex flex-col items-center justify-center pt-16 text-center">
+          <!-- Book icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">まだ記事がありません</h2>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            Knowledge記事は準備中です。
+          </p>
+        </div>
+      </section>
+
+      <hr class="border-gray-200 mb-8">
+
+      <!-- 記事がある場合 -->
+
       <!-- Category Filter -->
       <section class="mb-8">
         <div class="flex flex-wrap gap-2" id="filter-container">
@@ -182,7 +203,7 @@
         this.classList.toggle('bg-gray-900');
         this.classList.toggle('text-white');
         this.classList.toggle('border-gray-900');
-        
+
         // Inactive State: bg-white text-gray-500 border-gray-200
         this.classList.toggle('bg-white');
         this.classList.toggle('text-gray-500');
