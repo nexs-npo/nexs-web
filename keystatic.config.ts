@@ -1,15 +1,11 @@
 import { collection, config, fields } from '@keystatic/core';
 
-const isProd = import.meta.env.PROD;
-
 export default config({
-  storage: isProd
-    ? {
-        kind: 'github',
-        repo: 'shinkkhs/nexs-web',
-        branchPrefix: 'proposal/',
-      }
-    : { kind: 'local' },
+  storage: {
+    kind: 'github',
+    repo: 'shinkkhs/nexs-web',
+    branchPrefix: 'proposal/',
+  },
   collections: {
     resolutions: collection({
       label: 'Resolutions (議案)',
