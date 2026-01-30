@@ -36,3 +36,6 @@ coverage/
 # Misc
 .cache/
 .temp/
+
+# Local notes (not pushed to remote)
+.local/
