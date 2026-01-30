@@ -33,10 +33,11 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Copy built output and dependencies
+# Copy built output, server entry, and dependencies
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
+COPY --from=builder /app/server.mjs ./
 
 ENV HOST=0.0.0.0
 ENV PORT=8080
@@ -44,6 +45,6 @@ ENV PORT=8080
 EXPOSE 8080
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-    CMD wget --quiet --tries=1 --spider http://127.0.0.1:8080/ || exit 1
+    CMD wget --quiet --tries=1 --spider http://127.0.0.1:8080/health || exit 1
 
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["node", "./server.mjs"]
