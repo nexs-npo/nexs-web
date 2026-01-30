@@ -66,7 +66,7 @@ export default defineConfig({
   site: 'https://nexs.or.jp',
   output: 'hybrid',
   adapter: node({
-    mode: 'standalone',
+    mode: 'middleware',
   }),
   server: {
     host: '0.0.0.0',
