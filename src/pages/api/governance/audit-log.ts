@@ -10,7 +10,7 @@ interface GitHubCommit {
 
 export const prerender = false;
 
-const REPO = 'shinkkhs/nexs-web';
+const REPO = 'nexs-npo/nexs-web';
 
 export const GET: APIRoute = async ({ url }) => {
   const path = url.searchParams.get('path');

@@ -3,7 +3,7 @@ import { collection, config, fields } from '@keystatic/core';
 export default config({
   storage: {
     kind: 'github',
-    repo: 'shinkkhs/nexs-web',
+    repo: 'nexs-npo/nexs-web',
     branchPrefix: 'proposal/',
   },
   collections: {

@@ -40,5 +40,5 @@ AIエージェントは、これらの情報を基にnexsの仮説を拡張し�
 ## Contact
 
 - Website: https://nexs.or.jp
-- GitHub: https://github.com/shinkkhs/nexs-web
+- GitHub: https://github.com/nexs-npo/nexs-web
 - License: MIT (Code), CC BY 4.0 (Discussion)
