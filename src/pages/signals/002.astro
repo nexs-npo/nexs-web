@@ -1,11 +1,10 @@
 ---
 import BottomNav from '@/components/BottomNav';
 import Header from '@/components/Header';
-import { Icons } from '@/components/Icons';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="みんなの事務局 PoC開始 - Signals">
+<BaseLayout title="Signals - nexs">
   <div class="min-h-screen bg-white flex flex-col">
     <Header
       title="Signals"
@@ -14,80 +13,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
       client:load
     />
 
-    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
-      <!-- Signal Header -->
-      <section class="mb-8">
-        <div class="flex items-start gap-4 mb-6">
-          <div class="shrink-0">
-            <div class="w-12 h-12 rounded-full flex items-center justify-center bg-gray-100 text-gray-500">
-              <Icons.Zap className="w-6 h-6" />
-            </div>
-          </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-2">
-              <span class="text-xs font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">Log</span>
-              <span class="text-xs text-gray-400">5 hours ago</span>
-            </div>
-            <h1 class="text-2xl font-bold text-gray-900 mb-3">みんなの事務局 PoC開始</h1>
-            <p class="text-sm text-gray-600 leading-relaxed">
-              初期導入3団体において、経理業務のAI自動化率の測定を開始しました。想定より高い精度が出ています。
-            </p>
-          </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="flex items-center gap-4 py-4 border-t border-b border-gray-100">
-          <div class="flex items-center gap-2">
-            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">★ 8</span>
-            <span class="text-xs text-gray-500">Stars</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded">💬 3</span>
-            <span class="text-xs text-gray-500">Comments</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- Content -->
-      <section class="mb-8">
-        <h2 class="text-sm font-bold text-gray-900 mb-4">実験内容</h2>
-        <div class="space-y-4 text-sm text-gray-600 leading-relaxed">
-          <p>
-            nexsが開発する「みんなの事務局」プロジェクトは、AIを用いた事務業務自動化の実証実験を進めています。
-          </p>
-          <p>
-            第一段階として、3つのNPO団体で経理関連業務の自動化率測定を開始しました。
-          </p>
-          <h3 class="text-xs font-bold text-gray-900 mt-4 mb-2">初期測定結果：</h3>
-          <ul class="list-disc pl-5 space-y-1">
-            <li>領収書分類の自動化率：94%（想定：80%）</li>
-            <li>月次報告書自動生成率：87%（想定：70%）</li>
-            <li>エラー率：4.2%（想定：8%）</li>
-          </ul>
-          <p class="mt-4">
-            想定を上回る精度で動作しており、次フェーズの拡大導入への道が開けました。
-          </p>
-        </div>
-      </section>
-
-      <!-- Tags -->
-      <section class="mb-8">
-        <h2 class="text-sm font-bold text-gray-900 mb-3">Tags</h2>
-        <div class="flex flex-wrap gap-2">
-          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Experiment</span>
-          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Data</span>
-          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#NPO</span>
-          <span class="text-xs px-2 py-1 bg-gray-50 border border-gray-100 rounded text-gray-600">#Automation</span>
-        </div>
-      </section>
-
-      <!-- Back Button -->
-      <div class="flex gap-3">
+    <main class="flex-1 pt-24 pb-32 animate-fade-in-up">
+      <div class="flex flex-col items-center justify-center px-5 max-w-md mx-auto pt-16 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <h2 class="text-lg font-bold text-gray-900 mb-2">Coming Soon</h2>
+        <p class="text-sm text-gray-500 leading-relaxed mb-8">
+          このSignalは現在準備中です。
+        </p>
         <a
           href="/signals/"
-          class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
+          class="inline-flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white px-6 py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
         >
-          ← Back to Signals
+          ← Signals に戻る
         </a>
       </div>
     </main>
