@@ -27,7 +27,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
       <!-- Form Section -->
       <section class="mb-12">
-        <form class="space-y-6" action="#" method="POST">
+        <form id="contact-form" class="space-y-6">
           <!-- Name -->
           <div>
             <label for="name" class="block text-xs font-bold text-gray-900 mb-2">
@@ -118,6 +118,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             <label class="flex items-start gap-3 cursor-pointer group">
               <input
                 type="checkbox"
+                name="privacy"
                 required
                 class="mt-0.5 w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900 rounded cursor-pointer"
               />
@@ -131,11 +132,17 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <div class="pt-4">
             <button
               type="submit"
+              id="submit-btn"
               class="w-full bg-gray-900 text-white font-bold text-sm py-4 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2"
             >
-              <span>送信する</span>
-              <span>→</span>
+              <span id="submit-text">送信する</span>
+              <span id="submit-arrow">→</span>
             </button>
+          </div>
+
+          <!-- Result Message -->
+          <div id="form-result" class="hidden pt-4">
+            <div id="form-result-inner" class="rounded-lg px-4 py-3 text-sm"></div>
           </div>
         </form>
       </section>
@@ -152,6 +159,59 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     <BottomNav client:load />
   </div>
 </BaseLayout>
+
+<script is:inline>
+(function() {
+  var form = document.getElementById('contact-form');
+  var btn = document.getElementById('submit-btn');
+  var submitText = document.getElementById('submit-text');
+  var submitArrow = document.getElementById('submit-arrow');
+  var resultDiv = document.getElementById('form-result');
+  var resultInner = document.getElementById('form-result-inner');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    btn.disabled = true;
+    submitText.textContent = '送信中...';
+    submitArrow.textContent = '';
+    resultDiv.classList.add('hidden');
+
+    var formData = new FormData(form);
+
+    fetch('/api/contact', {
+      method: 'POST',
+      body: formData,
+    })
+    .then(function(res) {
+      return res.json().then(function(data) {
+        return { ok: res.ok, data: data };
+      });
+    })
+    .then(function(result) {
+      resultDiv.classList.remove('hidden');
+      if (result.ok) {
+        resultInner.className = 'rounded-lg px-4 py-3 text-sm bg-gray-50 border border-gray-200 text-gray-900';
+        resultInner.textContent = 'お問い合わせを送信しました。3営業日以内に返信いたします。';
+        form.reset();
+      } else {
+        resultInner.className = 'rounded-lg px-4 py-3 text-sm bg-red-50 border border-red-200 text-red-800';
+        resultInner.textContent = result.data.error || '送信に失敗しました。';
+      }
+    })
+    .catch(function() {
+      resultDiv.classList.remove('hidden');
+      resultInner.className = 'rounded-lg px-4 py-3 text-sm bg-red-50 border border-red-200 text-red-800';
+      resultInner.textContent = '通信エラーが発生しました。しばらく後に再度お試しください。';
+    })
+    .finally(function() {
+      btn.disabled = false;
+      submitText.textContent = '送信する';
+      submitArrow.textContent = '→';
+    });
+  });
+})();
+</script>
 
 <style>
   :global(body) {
