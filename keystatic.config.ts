@@ -7,6 +7,7 @@ export default config({
     ? {
         kind: 'github',
         repo: 'shinkkhs/nexs-web',
+        branchPrefix: 'proposal/',
       }
     : { kind: 'local' },
   collections: {
@@ -88,12 +89,18 @@ export default config({
         }),
         approvals: fields.array(
           fields.object({
-            name: fields.text({ label: 'Approver Name' }),
-            date: fields.datetime({ label: 'Signed At' }),
+            approved: fields.checkbox({
+              label: '承認する',
+              defaultValue: true,
+            }),
+            date: fields.date({ label: '確認日' }),
           }),
           {
             label: 'Approvals / Signatures',
-            itemLabel: (props) => props.fields.name.value || 'Approval',
+            itemLabel: (props) => {
+              const date = props.fields.date.value;
+              return date ? `承認済み - ${date}` : '承認';
+            },
           },
         ),
       },

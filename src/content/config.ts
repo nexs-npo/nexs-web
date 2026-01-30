@@ -49,7 +49,7 @@ const resolutionsCollection = defineCollection({
     approvals: z
       .array(
         z.object({
-          name: z.string(),
+          approved: z.boolean(),
           date: z.coerce.string().nullable(),
         }),
       )
