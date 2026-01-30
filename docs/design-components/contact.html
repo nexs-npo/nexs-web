@@ -21,9 +21,11 @@
     - ページ全体の骨格（Header, Footerコンポーネントの配置）
     - サイトのトーンを逸脱する有彩色
     - 独自のCSS（<style>タグ）や外部ライブラリの追加
+    - id属性（JavaScript連携に使用）
 
   【変更内容】
   スタッフが編集するときは、ここに何を変更したかを記録してください。
+    - 2026-01-30: fetch送信 + 結果表示エリアを追加（実装との同期）
     - 2026-01-26: フォントサイズ調整（タイトルtext-3xl、説明文text-sm）
     - 2026-01-26: プライバシーポリシーリンクを/privacyに更新、Aboutページリンクを/aboutに更新
 -->
@@ -59,7 +61,7 @@
 
       <!-- Form Section -->
       <section class="mb-12">
-        <form class="space-y-6" onsubmit="event.preventDefault(); alert('これはデモ画面です。実際には送信されません。');">
+        <form id="contact-form" class="space-y-6">
 
           <!-- Name -->
           <div>
@@ -116,7 +118,7 @@
           <!-- Privacy Agreement -->
           <div class="pt-2">
             <label class="flex items-start gap-3 cursor-pointer group">
-              <input type="checkbox" required class="mt-0.5 w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900 rounded cursor-pointer">
+              <input type="checkbox" name="privacy" required class="mt-0.5 w-4 h-4 border-gray-300 text-gray-900 focus:ring-gray-900 rounded cursor-pointer">
               <span class="text-xs text-gray-500 leading-relaxed group-hover:text-gray-800 transition-colors">
                 <a href="/privacy" class="underline hover:text-gray-900">プライバシーポリシー</a>を確認し、同意しました。
               </span>
@@ -125,10 +127,15 @@
 
           <!-- Submit Button -->
           <div class="pt-4">
-            <button type="submit" class="w-full bg-gray-900 text-white font-bold text-sm py-4 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
-              <span>送信する</span>
-              <span>→</span>
+            <button type="submit" id="submit-btn" class="w-full bg-gray-900 text-white font-bold text-sm py-4 rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2">
+              <span id="submit-text">送信する</span>
+              <span id="submit-arrow">→</span>
             </button>
+          </div>
+
+          <!-- Result Message -->
+          <div id="form-result" class="hidden pt-4">
+            <div id="form-result-inner" class="rounded-lg px-4 py-3 text-sm"></div>
           </div>
 
         </form>
@@ -154,5 +161,40 @@
       </div>
     </footer>
   </div>
+
+  <script>
+    // デモ用: 送信結果表示のプレビュー
+    // 実装では /api/contact への fetch 送信に置き換わります
+    (function() {
+      var form = document.getElementById('contact-form');
+      var btn = document.getElementById('submit-btn');
+      var submitText = document.getElementById('submit-text');
+      var submitArrow = document.getElementById('submit-arrow');
+      var resultDiv = document.getElementById('form-result');
+      var resultInner = document.getElementById('form-result-inner');
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Loading state
+        btn.disabled = true;
+        submitText.textContent = '送信中...';
+        submitArrow.textContent = '';
+        resultDiv.classList.add('hidden');
+
+        // デモ: 1秒後に成功表示
+        setTimeout(function() {
+          resultDiv.classList.remove('hidden');
+          resultInner.className = 'rounded-lg px-4 py-3 text-sm bg-gray-50 border border-gray-200 text-gray-900';
+          resultInner.textContent = 'お問い合わせを送信しました。3営業日以内に返信いたします。';
+
+          btn.disabled = false;
+          submitText.textContent = '送信する';
+          submitArrow.textContent = '→';
+          form.reset();
+        }, 1000);
+      });
+    })();
+  </script>
 </body>
 </html>
