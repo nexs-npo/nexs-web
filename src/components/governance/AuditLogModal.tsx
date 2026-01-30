@@ -161,7 +161,7 @@ export default function AuditLogModal({ open, onClose, filePath }: Props) {
         {/* Footer */}
         <div className="mt-4 pt-3 border-t border-gray-100 flex justify-between items-center">
           <a
-            href="https://github.com/shinkkhs/nexs-web"
+            href="https://github.com/nexs-npo/nexs-web"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1 text-[10px] text-gray-400 hover:text-gray-600 transition-colors"
