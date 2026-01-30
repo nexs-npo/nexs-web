@@ -2,7 +2,7 @@
 
 nexs のデザイン実装用、スタンドアロン HTML コンポーネント集です。
 
-## 📖 はじめに
+## はじめに
 
 このフォルダ内のHTMLファイルは、**スタッフがデザインを編集** → **開発AIが参照して実装** するワークフローの中核です。
 
@@ -10,20 +10,28 @@ nexs のデザイン実装用、スタンドアロン HTML コンポーネント
 
 ---
 
-## 🗂️ コンポーネント一覧
+## コンポーネント一覧
 
-| ファイル | ページ | 対応する実装 | 主な学習対象 | 難度 |
+| ファイル | ページ | 対応する実装 | 説明 | 難度 |
 |---|---|---|---|---|
-| **about.html** | About | src/pages/about.astro | Hero、Process Cycle（4ステップ）、Values セクション | ⭐ 初級 |
-| **signals.html** | Signals | src/pages/signals.astro | ソートボタン、Signal カード、カウント表示 | ⭐⭐ 中級 |
-| **knowledge.html** | Knowledge | src/pages/knowledge.astro | カテゴリフィルター、動的表示切り替え | ⭐⭐ 中級 |
-| **projects.html** | Projects | src/pages/projects.astro | セクション分け、プロジェクトカード | ⭐ 初級 |
+| **about.html** | About | src/pages/about.astro | Hero、Process Cycle（4ステップ）、Values セクション | 初級 |
+| **signals.html** | Signals | src/pages/signals.astro | Coming Soon プレースホルダー | 初級 |
+| **knowledge.html** | Knowledge | src/pages/knowledge.astro | 空状態表示、カテゴリフィルター、動的表示切り替え | 中級 |
+| **projects.html** | Projects | src/pages/projects.astro | セクション分け、プロジェクトカード | 初級 |
+| **collaboration.html** | Collaboration | src/pages/collaboration.astro | 協働ガイドライン、基本姿勢、参加形態 | 初級 |
+| **contact.html** | Contact | src/pages/contact.astro | フォーム、送信結果表示 | 中級 |
+| **signal-detail.html** | Signal 詳細 | src/pages/signals/001.astro | Coming Soon + 戻るリンク | 初級 |
+| **knowledge-detail.html** | Knowledge 詳細 | src/pages/knowledge/[slug].astro | 記事コンテンツ、関連リンク | 初級 |
+| **project-detail.html** | Project 詳細 | src/pages/projects/*.astro | プロジェクト説明（汎用テンプレート） | 初級 |
+| **governance.html** | Governance Top | src/pages/governance/index.astro | ガバナンスポータル、Lucide アイコン | 中級 |
+| **resolutions-list.html** | 議案一覧 | src/pages/governance/resolutions/index.astro | ステータス別グループ、空状態表示 | 中級 |
+| **gov-resolution.html** | 議案詳細 | src/pages/governance/resolutions/[slug].astro | 議案本文、タイムライン、承認アクション | 上級 |
 
 ---
 
-## 🚀 使い方
+## 使い方
 
-### 1️⃣ ファイルを開く
+### 1. ファイルを開く
 
 ブラウザで対応するHTMLを開きます：
 
@@ -38,7 +46,7 @@ python -m http.server 8000
 # ブラウザで http://localhost:8000/design-components/about.html
 ```
 
-### 2️⃣ DevTools で確認しながら編集
+### 2. DevTools で確認しながら編集
 
 **F12** キーで DevTools を開きます。
 
@@ -51,11 +59,11 @@ python -m http.server 8000
 4. テキストを変更したければ内容を編集
 ```
 
-### 3️⃣ ファイルを保存
+### 3. ファイルを保存
 
 編集後、**Ctrl+S** または **Cmd+S** で保存します。
 
-### 4️⃣ 確認・報告
+### 4. 確認・報告
 
 スクリーンショットを撮って、開発AIに報告します：
 
@@ -71,7 +79,7 @@ python -m http.server 8000
 
 ---
 
-## ✏️ 編集ルール
+## 編集ルール
 
 ### 各ファイルの先頭に書かれてます
 
@@ -88,24 +96,25 @@ python -m http.server 8000
 
 ### 共通ルール
 
-#### ✏️ 絶対に変更してOK な項目
+#### 変更OK な項目
 
 - **テキスト内容**（見出し、説明文、ボタンラベル）
 - **色**（class 値：bg-gray-*, text-gray-* など）
 - **サイズ**（text-sm, text-lg など）
 - **セクション内の要素の微調整**
 
-#### 🔒 絶対に変更してはいけない項目
+#### 変更NG な項目
 
 - **HTML全体の構造**（div の階層、section の削除など）
 - **フッターナビゲーション**（全ページ共通なので固定）
 - **Header要素**
 - **class="animate-fade-in-up"** など、アニメーション定義
 - **data-category** など、JavaScriptが依存している属性
+- **id属性**（JavaScriptが依存）
 
 ---
 
-## 🎨 Tailwind CSS クラス早見表
+## Tailwind CSS クラス早見表
 
 デザイン編集で使われる主要なクラス：
 
@@ -153,7 +162,7 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 
 ---
 
-## 🤖 開発AI向け実装ガイド
+## 開発AI向け実装ガイド
 
 ### 確認すべきポイント
 
@@ -175,7 +184,7 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 
 ---
 
-## ❓ よくある質問
+## よくある質問
 
 ### Q. HTMLを直接編集していいの？
 
@@ -199,7 +208,7 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 
 ---
 
-## 📋 チェックリスト（スタッフ向け）
+## チェックリスト（スタッフ向け）
 
 コンポーネントを編集したら、以下を確認してから報告します：
 
@@ -213,7 +222,7 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 
 ---
 
-## 📞 トラブル対応
+## トラブル対応
 
 ### ブラウザで表示されない
 
@@ -240,4 +249,4 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 ---
 
 **最終更新：** 2026年1月
-**バージョン：** 1.0
+**バージョン：** 1.1
