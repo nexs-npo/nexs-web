@@ -8,9 +8,8 @@ dist/
 
 # Environment variables
 .env
-.env.local
-.env.production
-.env.*.local
+.env.*
+!.env.example
 
 # IDE
 .vscode/
@@ -36,6 +35,9 @@ coverage/
 # Misc
 .cache/
 .temp/
+
+# Claude Code
+.claude/
 
 # Local notes (not pushed to remote)
 .local/
