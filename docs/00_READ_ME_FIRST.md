@@ -15,6 +15,14 @@
 | **03** | **DATA_SCHEMA** | データ構造・スキーマ | Supabase (PostgreSQL) のER図。Clerk IDとの連携、RLSポリシー。 |
 | **04** | **UI_UX_GUIDELINES** | デザインガイドライン | モバイルファーストUI、Tailwind設定、カラーパレット、アニメーション定義。 |
 
+## **Operational Guides**
+
+`docs/guides/` には、nexs メンバー向けの運用ガイドがあります。開発者でなくても読める内容です。
+
+| File | Description |
+| :---- | :---- |
+| **guides/RESOLUTIONS_GUIDE.md** | 議案（Resolutions）の運用ルール。議案ID、ブランチ運用、PR マージルール、Git 履歴の保護。 |
+
 ## **Directory Structure (Planned)**
 
 /
