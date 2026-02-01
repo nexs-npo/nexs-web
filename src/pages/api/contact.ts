@@ -8,7 +8,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (!RESEND_API_KEY) {
     return new Response(
       JSON.stringify({ error: 'メール送信サービスが設定されていません。' }),
-      { status: 503, headers: { 'Content-Type': 'application/json' } }
+      { status: 503, headers: { 'Content-Type': 'application/json' } },
     );
   }
 
@@ -18,7 +18,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch {
     return new Response(
       JSON.stringify({ error: 'リクエストの形式が正しくありません。' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
+      { status: 400, headers: { 'Content-Type': 'application/json' } },
     );
   }
 
@@ -31,7 +31,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (!name || !email || !category || !message) {
     return new Response(
       JSON.stringify({ error: '必須項目をすべて入力してください。' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
+      { status: 400, headers: { 'Content-Type': 'application/json' } },
     );
   }
 
@@ -39,7 +39,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return new Response(
       JSON.stringify({ error: 'メールアドレスの形式が正しくありません。' }),
-      { status: 400, headers: { 'Content-Type': 'application/json' } }
+      { status: 400, headers: { 'Content-Type': 'application/json' } },
     );
   }
 
@@ -82,20 +82,24 @@ export const POST: APIRoute = async ({ request }) => {
       const errorData = await res.text();
       console.error('Resend API error:', res.status, errorData);
       return new Response(
-        JSON.stringify({ error: 'メール送信に失敗しました。しばらく後に再度お試しください。' }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        JSON.stringify({
+          error: 'メール送信に失敗しました。しばらく後に再度お試しください。',
+        }),
+        { status: 500, headers: { 'Content-Type': 'application/json' } },
       );
     }
 
-    return new Response(
-      JSON.stringify({ success: true }),
-      { status: 200, headers: { 'Content-Type': 'application/json' } }
-    );
+    return new Response(JSON.stringify({ success: true }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
   } catch (err) {
     console.error('Contact form error:', err);
     return new Response(
-      JSON.stringify({ error: 'メール送信に失敗しました。しばらく後に再度お試しください。' }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      JSON.stringify({
+        error: 'メール送信に失敗しました。しばらく後に再度お試しください。',
+      }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } },
     );
   }
 };
