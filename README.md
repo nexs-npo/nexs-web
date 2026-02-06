@@ -33,7 +33,7 @@ Docker でのデプロイは `Dockerfile` を参照してください。
 - **Keystatic** — Governance 議案の CMS（GitHub storage + `proposal/` branch prefix）
 - **Clerk** — 認証（オプション。環境変数未設定時はスキップ）
 
-詳細は [docs/02_ARCHITECTURE.md](./docs/02_ARCHITECTURE.md) を参照してください。
+詳細は [docs/11_SYSTEM_ARCHITECTURE.md](./docs/11_SYSTEM_ARCHITECTURE.md) を参照してください。
 
 ## Design principles
 
@@ -51,8 +51,8 @@ Docker でのデプロイは `Dockerfile` を参照してください。
 |---|---|
 | [docs/00_READ_ME_FIRST.md](./docs/00_READ_ME_FIRST.md) | プロジェクト概要（AI・開発者向け） |
 | [docs/01_PHILOSOPHY.md](./docs/01_PHILOSOPHY.md) | 設計哲学・意思決定の優先順位 |
-| [docs/02_ARCHITECTURE.md](./docs/02_ARCHITECTURE.md) | 技術アーキテクチャ |
-| [docs/04_UI_UX_GUIDELINES.md](./docs/04_UI_UX_GUIDELINES.md) | デザインシステム |
+| [docs/11_SYSTEM_ARCHITECTURE.md](./docs/11_SYSTEM_ARCHITECTURE.md) | 技術アーキテクチャ |
+| [docs/13_UI_STYLE_GUIDE.md](./docs/13_UI_STYLE_GUIDE.md) | デザインシステム |
 
 ## Contributing
 

@@ -14,7 +14,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-nexs (次世代社会デザイン研究機構) — An open-source Astro web platform for a research collective. Read `docs/00_READ_ME_FIRST.md` first, then `docs/01_PHILOSOPHY.md` and `docs/02_ARCHITECTURE.md` for full context.
+nexs (次世代社会デザイン研究機構) — An open-source Astro web platform for a research collective. Read `docs/00_READ_ME_FIRST.md` first, then `docs/01_PHILOSOPHY.md` and `docs/11_SYSTEM_ARCHITECTURE.md` for full context.
 
 ## Commands
 
@@ -53,7 +53,7 @@ No linter or test framework is configured.
 
 ### Clerk Authentication
 
-Clerk is conditionally loaded in `astro.config.mjs` based on `PUBLIC_CLERK_PUBLISHABLE_KEY`. When the key is absent, the integration is skipped entirely. To enable: set keys in `.env` per `.env.example`. See `docs/02_ARCHITECTURE.md` Section 6.
+Clerk is conditionally loaded in `astro.config.mjs` based on `PUBLIC_CLERK_PUBLISHABLE_KEY`. When the key is absent, the integration is skipped entirely. To enable: set keys in `.env` per `.env.example`. See `docs/11_SYSTEM_ARCHITECTURE.md` Section 6.
 
 ### Database
 
@@ -110,7 +110,7 @@ Defined in `tsconfig.json`:
 | File | Purpose |
 |------|---------|
 | `docs/01_PHILOSOPHY.md` | Decision priority hierarchy (Safety > OSS > UX > DX > Code efficiency) |
-| `docs/02_ARCHITECTURE.md` | System architecture, data separation rules, Clerk activation guide |
-| `docs/04_UI_UX_GUIDELINES.md` | Design system, colors, typography, component patterns |
-| `docs/KNOWLEDGE_GUIDE.md` | Knowledge article categories and writing conventions |
+| `docs/11_SYSTEM_ARCHITECTURE.md` | System architecture, data separation rules, Clerk activation guide |
+| `docs/13_UI_STYLE_GUIDE.md` | Design system, colors, typography, component patterns |
+| `docs/21_KNOWLEDGE_GUIDE.md` | Knowledge article categories and writing conventions |
 | `public/llms.txt` | AI-readable site description |

@@ -127,8 +127,8 @@ nexs-web/
 （あなたは読めなくても、作業用AIは読める可能性があります）
 
 *   **開発哲学:** `docs/01_PHILOSOPHY.md`
-*   **DB設計:** `docs/03_DATA_SCHEMA.md`
-*   **UIガイド:** `docs/04_UI_UX_GUIDELINES.md`
+*   **DB設計:** `docs/12_DATA_SCHEMA.md`
+*   **UIガイド:** `docs/13_UI_STYLE_GUIDE.md`
 
 ---
 **このコンテキストに基づき、作業用AIが「一発で正解を出せる」最高品質のプロンプトを設計してください。**

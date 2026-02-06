@@ -163,7 +163,7 @@ HTML構造とCSSの class を確認しながら編集してください。
    -->
    ```
 
-4. **DESIGN_WORKFLOW.md の「コンポーネント間の統一性」チェック**
+4. **23_DESIGN_WORKFLOW.md の「コンポーネント間の統一性」チェック**
 
 ### 実装時の確認ポイント
 
@@ -278,10 +278,10 @@ inline style や id を追加しない。
 
 ```
 docs/
-├── KNOWLEDGE_GUIDE.md
+├── 21_KNOWLEDGE_GUIDE.md
 │   → Knowledge の 5-category 構造ガイド
 │
-├── DESIGN_WORKFLOW.md
+├── 23_DESIGN_WORKFLOW.md
 │   → 【このファイル】ワークフロー説明
 │
 ├── design-components/

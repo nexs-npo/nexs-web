@@ -8,20 +8,38 @@
 
 ## **Documentation Structure**
 
-| File | Title | Description | Key Focus |
-| :---- | :---- | :---- | :---- |
-| **01** | **PHILOSOPHY** | 開発哲学・マニフェスト | **最重要。** 意思決定の優先順位（安全＞OSS＞UX...）。AI-Readinessの定義。 |
-| **02** | **ARCHITECTURE** | システム構成・技術スタック | 自宅サーバーとクラウドの分離。OSSとしてのセキュアな構成（Secrets管理）。 |
-| **03** | **DATA_SCHEMA** | データ構造・スキーマ | Supabase (PostgreSQL) のER図。Clerk IDとの連携、RLSポリシー。 |
-| **04** | **UI_UX_GUIDELINES** | デザインガイドライン | モバイルファーストUI、Tailwind設定、カラーパレット、アニメーション定義。 |
-
-## **Operational Guides**
-
-`docs/guides/` には、nexs メンバー向けの運用ガイドがあります。開発者でなくても読める内容です。
+### 1. 概念と定義（Why & What）
 
 | File | Description |
 | :---- | :---- |
-| **guides/RESOLUTIONS_GUIDE.md** | 議案（Resolutions）の運用ルール。議案ID、ブランチ運用、PR マージルール、Git 履歴の保護。 |
+| **01_PHILOSOPHY.md** | **最重要。** 開発哲学・マニフェスト。意思決定の優先順位（安全＞OSS＞UX...）。AI-Readinessの定義。 |
+| **02_PRODUCT_DEFINITION.md** | nexs のプロダクト定義。対象ユーザー、解決する課題。 |
+
+### 2. 技術と設計（How）
+
+| File | Description |
+| :---- | :---- |
+| **10_DEV_ENVIRONMENT.md** | 開発環境構築手順。Clerk, Supabase, Cloudflare の設定。 |
+| **11_SYSTEM_ARCHITECTURE.md** | システム構成・技術スタック。自宅サーバーとクラウドの分離。OSSとしてのセキュアな構成。 |
+| **12_DATA_SCHEMA.md** | データ構造・スキーマ。Supabase (PostgreSQL) のER図。Clerk IDとの連携、RLSポリシー。 |
+| **13_UI_STYLE_GUIDE.md** | デザインガイドライン。モバイルファーストUI、Tailwind設定、カラーパレット。 |
+| **14_PWA_STRATEGY.md** | PWA戦略。オフライン対応、モバイルインストール、レジリエンス。 |
+| **15_CODING_RULES.md** | コーディング規約。 |
+
+### 3. 運用と進行（When & Where）
+
+| File | Description |
+| :---- | :---- |
+| **20_DEPLOYMENT_GUIDE.md** | デプロイ手順。Docker, Coolify, 環境変数設定。 |
+| **21_KNOWLEDGE_GUIDE.md** | Knowledge 記事の書き方。5カテゴリ構造と執筆規約。 |
+| **22_RESOLUTIONS_GUIDE.md** | 議案（Resolutions）の運用ルール。議案ID、ブランチ運用、PR マージルール。 |
+| **23_DESIGN_WORKFLOW.md** | デザインチーム ↔ 開発AI の協業ワークフロー。 |
+
+### 4. その他
+
+| File | Description |
+| :---- | :---- |
+| **99_DEV_LOG.md** | 開発ログ。設計判断の経緯を記録。 |
 
 ## **Directory Structure (Planned)**
 

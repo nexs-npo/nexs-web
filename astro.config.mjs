@@ -11,7 +11,7 @@ import { defineConfig } from 'astro/config';
 // 現在は無効化されています。有効にするには:
 //   1. .env に PUBLIC_CLERK_PUBLISHABLE_KEY と CLERK_SECRET_KEY を設定
 //   2. 開発サーバーを再起動
-// 詳細: docs/05_ENVIRONMENT_SETUP.md, .env.example
+// 詳細: docs/10_DEV_ENVIRONMENT.md, .env.example
 // ============================================================
 const clerkEnabled = !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 const clerkIntegration = clerkEnabled

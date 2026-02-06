@@ -173,7 +173,7 @@ hover:shadow-md /* ホバー時に影が濃くなる */
    - 対応する実装ファイル
    - 編集ガイド（変更OK/NG）
 
-3. **DESIGN_WORKFLOW.md の確認**
+3. **23_DESIGN_WORKFLOW.md の確認**
    - 特に「コンポーネント間の統一性」チェック
 
 4. **実装後のテスト**
@@ -192,7 +192,7 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 
 ただし、実装前に必ず以下を確認：
 - 各ファイルの先頭コメント（編集ガイド）
-- DESIGN_WORKFLOW.md の確認ポイント
+- 23_DESIGN_WORKFLOW.md の確認ポイント
 
 ### Q. JavaScriptを変更したい
 
@@ -200,11 +200,11 @@ hover:shadow-md /* ホバー時に影が濃くなる */
 
 ### Q. 新しいセクションを追加したい
 
-**A.** まずは KNOWLEDGE_GUIDE.md と DESIGN_WORKFLOW.md を読んで、それでも必要なら開発AIに相談してください。
+**A.** まずは 21_KNOWLEDGE_GUIDE.md と 23_DESIGN_WORKFLOW.md を読んで、それでも必要なら開発AIに相談してください。
 
 ### Q. ページ全体をリデザインしたい
 
-**A.** その場合も DESIGN_WORKFLOW.md の「Rule 2」を参照。スタッフと開発AIで相談してから進めてください。
+**A.** その場合も 23_DESIGN_WORKFLOW.md の「Rule 2」を参照。スタッフと開発AIで相談してから進めてください。
 
 ---
 
