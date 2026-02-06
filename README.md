@@ -37,11 +37,11 @@ Docker でのデプロイは `Dockerfile` を参照してください。
 
 ## Design principles
 
-1. **Safety** — Zero PII: 自前サーバーに個人情報を保存しない
-2. **OSS** — コードも設計判断も公開する
-3. **UX** — モバイルファースト、グレースフルなフォールバック
-4. **DX** — 疎結合、WET over DRY
-5. **Code efficiency**
+1. **Open Source** — 透明性による信頼。コードも設計判断も公開する
+2. **Attack Surface Minimization** — 構造的な安全。個人情報を持たず、攻撃面を最小化する
+3. **AI-Collaborative DX** — AIが迷わない構造。疎結合と局所性を優先する
+4. **UX** — モバイルファースト、速度優先、ノイズ排除
+5. **Efficiency Trade-offs** — 持続可能性のための冗長性を許容する
 
 詳細は [docs/01_PHILOSOPHY.md](./docs/01_PHILOSOPHY.md) を参照してください。
 

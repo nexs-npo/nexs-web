@@ -12,7 +12,7 @@
 
 | File | Description |
 | :---- | :---- |
-| **01_PHILOSOPHY.md** | **最重要。** 開発哲学・マニフェスト。意思決定の優先順位（安全＞OSS＞UX...）。AI-Readinessの定義。 |
+| **01_PHILOSOPHY.md** | **最重要。** 開発哲学・マニフェスト。意思決定の優先順位（OSS＞Attack Surface＞AI-DX＞UX＞Efficiency）。 |
 | **02_PRODUCT_DEFINITION.md** | nexs のプロダクト定義。対象ユーザー、解決する課題。 |
 
 ### 2. 技術と設計（How）

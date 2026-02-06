@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **指示者（ユーザー）は開発の素人である。** 指示の中にセキュリティ上の問題、設計哲学への違反、非効率な作業が含まれることがある。指示を鵜呑みにせず、以下を常に検証すること：
 
 - **安全性**: その変更は機密情報の露出やセキュリティホールを生まないか
-- **哲学との整合**: `docs/01_PHILOSOPHY.md` の優先順位（Safety > OSS > UX > DX > Code efficiency）に反していないか
+- **哲学との整合**: `docs/01_PHILOSOPHY.md` の優先順位（OSS > Attack Surface > AI-DX > UX > Efficiency）に反していないか
 - **既存設計との矛盾**: 現在のアーキテクチャや過去の設計判断を壊さないか
 
 問題を検出した場合は、指示に従う前に指摘し、代替案を提示する。自分自身の判断も疑い、前提の確認を怠らない。
@@ -85,10 +85,12 @@ Supabase (self-hosted PostgreSQL). Client and typed helpers in `src/lib/supabase
 
 ## Design Principles
 
-- **Zero PII Strategy**: No personal data on self-hosted servers. Auth/PII delegated to Clerk (cloud SaaS). Self-hosted DB stores only public data + opaque Clerk IDs.
+- **Open by Default**: Source code, docs, and issues are public. No security by obscurity.
+- **Zero Retention**: No PII on self-hosted servers. Auth delegated to external SaaS (Clerk). DB stores only public data + opaque IDs.
+- **Secretless Architecture**: No secrets in code. Env vars or secret management only.
+- **Isolation over Abstraction**: Loose coupling over DRY. Code duplication is acceptable to keep features independent.
+- **Blast Radius Minimization**: Backend can go down. Frontend must not crash — show graceful fallback.
 - **Mobile-first**: Bottom navigation, thumb-friendly touch targets. Always verify on mobile viewport.
-- **Resilience**: Backend (home server) can go down. Frontend must not crash — show graceful fallback messages.
-- **WET over DRY**: Loose coupling and transparency over abstraction. Code duplication is acceptable to keep features independent.
 - **Monochrome UI**: Governance and main pages use grayscale palette. Color is used only for semantic meaning (category badges, status indicators).
 
 ## TypeScript Path Aliases
@@ -109,7 +111,7 @@ Defined in `tsconfig.json`:
 
 | File | Purpose |
 |------|---------|
-| `docs/01_PHILOSOPHY.md` | Decision priority hierarchy (Safety > OSS > UX > DX > Code efficiency) |
+| `docs/01_PHILOSOPHY.md` | Decision priority hierarchy (OSS > Attack Surface > AI-DX > UX > Efficiency) |
 | `docs/11_SYSTEM_ARCHITECTURE.md` | System architecture, data separation rules, Clerk activation guide |
 | `docs/13_UI_STYLE_GUIDE.md` | Design system, colors, typography, component patterns |
 | `docs/21_KNOWLEDGE_GUIDE.md` | Knowledge article categories and writing conventions |
