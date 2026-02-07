@@ -1,18 +1,17 @@
 ---
-import BottomNav from '@/components/BottomNav';
-import Header from '@/components/Header';
+import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="Projects - nexs">
-  <div class="min-h-screen bg-white flex flex-col">
-    <Header
-      title="Projects"
-      subtitle="進行中の社会実装プロジェクトと検証項目"
-      client:load
-    />
-
-    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+<BaseLayout title="Lab - nexs">
+  <PageWrapper
+    activeTab="lab"
+    headerTitle="Lab"
+    headerSubtitle="進行中の社会実装プロジェクトと検証項目"
+    headerIconType="lab"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
       <section class="mb-10">
         <div class="flex items-center justify-between mb-4">
           <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">稼働中</h2>
@@ -20,7 +19,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </div>
 
         <div class="space-y-6">
-          <a href="/projects/shared-service/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+          <a href="/lab/shared-service/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
                 Shared Service
@@ -51,7 +50,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             </div>
           </a>
 
-          <a href="/projects/nexs-app/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+          <a href="/lab/nexs-app/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
                 Core Product
@@ -91,7 +90,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         </div>
 
         <div class="space-y-6">
-          <a href="/projects/open-issue/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
+          <a href="/lab/open-issue/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
                 Platform
@@ -123,8 +122,6 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           </a>
         </div>
       </section>
-    </main>
-
-    <BottomNav activeTab="projects" client:load />
-  </div>
+    </div>
+  </PageWrapper>
 </BaseLayout>

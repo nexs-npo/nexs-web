@@ -1,0 +1,31 @@
+---
+import PageWrapper from '@/components/PageWrapper';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="MyDesk - nexs">
+  <PageWrapper
+    activeTab="mydesk"
+    headerTitle="MyDesk"
+    headerSubtitle="あなた専用のデスクスペース"
+    headerIconType="mydesk"
+    client:load
+  >
+    <div class="animate-fade-in-up">
+      <div class="flex flex-col items-center justify-center px-5 max-w-md mx-auto pt-16 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+          <path d="M12 17v4" />
+          <path d="M8 21h8" />
+          <rect x="2" y="3" width="20" height="14" rx="2" />
+          <path d="m9 10 2 2 4-4" />
+        </svg>
+        <h2 class="text-lg font-bold text-gray-900 mb-2">Coming Soon</h2>
+        <p class="text-sm text-gray-500 leading-relaxed">
+          MyDesk機能は現在開発中です。<br />
+          お気に入りした記事や通知など、<br />
+          あなた専用のスペースをまもなくご提供します。
+        </p>
+      </div>
+    </div>
+  </PageWrapper>
+</BaseLayout>
