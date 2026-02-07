@@ -9,7 +9,6 @@ interface PageWrapperProps {
   headerTitle?: string;
   headerSubtitle?: string;
   headerIconType?: 'lab' | 'library' | 'nexs' | 'office' | 'mydesk';
-  showSearch?: boolean;
 }
 
 export default function PageWrapper({
@@ -18,7 +17,6 @@ export default function PageWrapper({
   headerTitle,
   headerSubtitle,
   headerIconType = 'nexs',
-  showSearch = true,
 }: PageWrapperProps) {
   const [isReadingMode, setIsReadingMode] = useState(false);
 
@@ -28,7 +26,6 @@ export default function PageWrapper({
         title={headerTitle}
         subtitle={headerSubtitle}
         iconType={headerIconType}
-        showSearch={showSearch}
         isReadingMode={isReadingMode}
       />
 

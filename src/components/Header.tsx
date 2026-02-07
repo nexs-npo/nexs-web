@@ -3,7 +3,6 @@ import { Icons } from './Icons';
 interface HeaderProps {
   title?: string;
   subtitle?: string;
-  showSearch?: boolean;
   iconType?: 'lab' | 'library' | 'nexs' | 'office' | 'mydesk';
   isReadingMode?: boolean;
 }
@@ -11,7 +10,6 @@ interface HeaderProps {
 export default function Header({
   title = '',
   subtitle,
-  showSearch = true,
   iconType = 'nexs',
   isReadingMode = false,
 }: HeaderProps) {
@@ -56,15 +54,6 @@ export default function Header({
           </span>
         )}
       </div>
-      {showSearch && (
-        <button
-          type="button"
-          className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center cursor-pointer hover:bg-gray-200 transition-colors"
-          aria-label="検索"
-        >
-          <Icons.Search size={16} className="text-gray-400" />
-        </button>
-      )}
     </div>
   );
 }

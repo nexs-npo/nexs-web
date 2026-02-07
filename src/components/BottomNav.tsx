@@ -20,20 +20,20 @@ type Tab =
     };
 
 const tabs: Tab[] = [
-  { id: 'lab', label: 'Lab', href: '/lab/', icon: Icons.BookSearch },
-  { id: 'library', label: 'Library', href: '/library/', icon: Icons.Library },
+  { id: 'lab', label: '研究室', href: '/lab/', icon: Icons.BookSearch },
+  { id: 'library', label: '書庫', href: '/library/', icon: Icons.Library },
   {
     id: 'nexs',
-    label: 'NEXS',
+    label: 'nexs',
     href: '/',
     imageSrc:
       'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
     imageAlt: 'nexs logo',
   },
-  { id: 'office', label: 'Office', href: '/office/', icon: Icons.DoorClosed },
+  { id: 'office', label: '事務室', href: '/office/', icon: Icons.DoorClosed },
   {
     id: 'mydesk',
-    label: 'MyDesk',
+    label: 'マイデスク',
     href: '/mydesk/',
     icon: Icons.LampDesk,
   },
@@ -80,7 +80,7 @@ export default function BottomNav({
                       size={24}
                       className={`
                         transition-colors duration-300
-                        ${isActive ? 'text-black stroke-[2.5px]' : 'text-gray-400 stroke-[1.5px] group-hover:text-gray-600'}
+                        ${isActive ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'}
                       `}
                     />
                   ) : (
@@ -96,13 +96,15 @@ export default function BottomNav({
                   )}
                 </div>
 
-                {/* 選択中のドットインジケーター */}
-                <div
+                {/* 選択中のラベル */}
+                <span
                   className={`
-                    absolute bottom-3 w-1 h-1 rounded-full bg-black transition-all duration-300
-                    ${isActive ? 'opacity-100 scale-100' : 'opacity-0 scale-0'}
+                    absolute bottom-2 text-[9px] font-bold tracking-tight transition-all duration-300
+                    ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
                   `}
-                ></div>
+                >
+                  {tab.label}
+                </span>
               </a>
             );
           })}
