@@ -1,19 +1,17 @@
 ---
-import BottomNav from '@/components/BottomNav';
-import Header from '@/components/Header';
+import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="open issue - Projects">
-  <div class="min-h-screen bg-white flex flex-col">
-    <Header
-      title="Projects"
-      subtitle="進行中の社会実装プロジェクトと検証項目"
-      showSearch={false}
-      client:load
-    />
-
-    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+<BaseLayout title="open issue - Lab">
+  <PageWrapper
+    activeTab="lab"
+    headerTitle="Lab"
+    headerSubtitle="進行中の社会実装プロジェクトと検証項目"
+    headerIconType="lab"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
       <!-- Project Header -->
       <section class="mb-8">
         <div class="mb-3">
@@ -72,11 +70,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           href="/lab/"
           class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
         >
-          ← Back to Projects
+          ← Back to Lab
         </a>
       </div>
-    </main>
-
-    <BottomNav activeTab="projects" client:load />
-  </div>
+    </div>
+  </PageWrapper>
 </BaseLayout>
