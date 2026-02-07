@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import BottomNav from '@/components/BottomNav';
-import Header from '@/components/Header';
+import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 const allKnowledge = await getCollection('knowledge');
@@ -49,15 +48,15 @@ const authorInitials: Record<string, string> = {
 };
 ---
 
-<BaseLayout title="Knowledge - nexs">
-  <div class="min-h-screen bg-white flex flex-col">
-    <Header
-      title="Knowledge"
-      subtitle="仮説から社会の更新まで。リンク可能な知識コンポーネント"
-      client:load
-    />
-
-    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+<BaseLayout title="Library - nexs">
+  <PageWrapper
+    activeTab="library"
+    headerTitle="Library"
+    headerSubtitle="仮説から社会の更新まで。リンク可能な知識コンポーネント"
+    headerIconType="library"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
       {sortedKnowledge.length === 0 ? (
         <div class="flex flex-col items-center justify-center pt-16 text-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
@@ -91,7 +90,7 @@ const authorInitials: Record<string, string> = {
 
           return (
             <a
-              href={`/knowledge/${slug}/`}
+              href={`/library/${slug}/`}
               class={`block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer knowledge-item ${!isFoundation ? 'hidden' : ''}`}
               data-category={data.category}
             >
@@ -116,10 +115,8 @@ const authorInitials: Record<string, string> = {
       </section>
       </Fragment>
       )}
-    </main>
-
-    <BottomNav activeTab="knowledge" client:load />
-  </div>
+    </div>
+  </PageWrapper>
 </BaseLayout>
 
 <script is:inline>

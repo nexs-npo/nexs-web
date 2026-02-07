@@ -1,8 +1,7 @@
 ---
-import BottomNav from '@/components/BottomNav';
-import Header from '@/components/Header';
 import CopyForAI from '@/components/knowledge/CopyForAI';
 import KnowledgeLinkTooltip from '@/components/knowledge/KnowledgeLinkTooltip.astro';
+import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 interface Props {
@@ -54,19 +53,19 @@ const articleJsonLd = {
 };
 ---
 
-<BaseLayout title={`${title} - Knowledge`} description={summary}>
+<BaseLayout title={`${title} - Library`} description={summary}>
   <!-- Structured Data for Article -->
   <script type="application/ld+json" set:html={JSON.stringify(articleJsonLd)} slot="head" />
 
-  <div class="min-h-screen bg-white flex flex-col">
-    <Header
-      title="Knowledge"
-      subtitle="仮説から社会の更新まで。リンク可能な知識コンポーネント"
-      showSearch={false}
-      client:load
-    />
-
-    <main class="flex-1 pt-24 pb-32 px-5 max-w-md mx-auto w-full animate-fade-in-up">
+  <PageWrapper
+    activeTab="library"
+    headerTitle="Library"
+    headerSubtitle="仮説から社会の更新まで。リンク可能な知識コンポーネント"
+    headerIconType="library"
+    showSearch={false}
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
       <!-- Article Header -->
       <section class="mb-8">
         <div class="mb-3">
@@ -92,10 +91,10 @@ const articleJsonLd = {
       <!-- Actions -->
       <div class="flex gap-3 mb-8">
         <a
-          href="/knowledge/"
+          href="/library/"
           class="flex-1 flex items-center justify-center gap-2 rounded-xl border border-gray-200 bg-white py-3 text-xs font-bold text-gray-800 hover:bg-gray-50 transition-colors"
         >
-          &larr; Back to Knowledge
+          &larr; Back to Library
         </a>
         <CopyForAI
           articleId={id}
@@ -105,10 +104,8 @@ const articleJsonLd = {
           client:load
         />
       </div>
-    </main>
-
-    <BottomNav activeTab="knowledge" client:load />
-  </div>
+    </div>
+  </PageWrapper>
 
   <KnowledgeLinkTooltip />
 </BaseLayout>

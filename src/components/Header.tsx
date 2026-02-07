@@ -4,22 +4,50 @@ interface HeaderProps {
   title?: string;
   subtitle?: string;
   showSearch?: boolean;
+  iconType?: 'lab' | 'library' | 'nexs' | 'office' | 'mydesk';
+  isReadingMode?: boolean;
 }
 
 export default function Header({
   title = '',
   subtitle,
   showSearch = true,
+  iconType = 'nexs',
+  isReadingMode = false,
 }: HeaderProps) {
-  return (
-    <div className="fixed top-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md px-5 py-4 flex justify-between items-start border-b border-gray-100 transition-all duration-300">
-      <div className="flex flex-col gap-1">
-        <span className="font-bold text-lg tracking-tight flex items-center gap-2">
+  // アイコンの選択
+  const renderIcon = () => {
+    switch (iconType) {
+      case 'lab':
+        return <Icons.BookSearch size={20} className="text-gray-900" />;
+      case 'library':
+        return <Icons.Library size={20} className="text-gray-900" />;
+      case 'office':
+        return <Icons.DoorClosed size={20} className="text-gray-900" />;
+      case 'mydesk':
+        return <Icons.LampDesk size={20} className="text-gray-900" />;
+      default:
+        return (
           <img
             src="https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png"
             alt="nexs logo"
             className="w-5 h-5 rounded-full object-contain"
           />
+        );
+    }
+  };
+
+  return (
+    <div
+      className={`
+        fixed top-0 inset-x-0 z-30 bg-transparent px-5 py-4 flex justify-between items-start
+        transition-all duration-500 cubic-bezier(0.4, 0, 0.2, 1)
+        ${isReadingMode ? '-translate-y-full opacity-0' : 'translate-y-0 opacity-100'}
+      `}
+    >
+      <div className="flex flex-col gap-1">
+        <span className="font-bold text-lg tracking-tight flex items-center gap-2">
+          {renderIcon()}
           {title}
         </span>
         {subtitle && (

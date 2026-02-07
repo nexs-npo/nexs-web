@@ -49,10 +49,10 @@ export const Icons = {
       strokeLinejoin="round"
       {...props}
     >
-      <path d="M3 5a2 2 0 0 1 2-2h6v16H5a2 2 0 0 1-2-2z" />
-      <path d="M21 5a2 2 0 0 0-2-2h-6v16h6a2 2 0 0 0 2-2z" />
-      <path d="M7 7h2" />
-      <path d="M7 11h2" />
+      <path d="m16 6 4 14" />
+      <path d="M12 6v14" />
+      <path d="M8 8v12" />
+      <path d="M4 4v16" />
     </svg>
   ),
   Signals: (props: IconProps) => (
@@ -413,6 +413,95 @@ export const Icons = {
       {...props}
     >
       <path d="m6 9 6 6 6-6" />
+    </svg>
+  ),
+  ChevronUp: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="m18 15-6-6-6 6" />
+    </svg>
+  ),
+  BookSearch: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      <circle cx="14.5" cy="11.5" r="2.5" />
+      <path d="m18.5 15.5-2-2" />
+    </svg>
+  ),
+  DoorClosed: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14" />
+      <path d="M2 20h20" />
+      <path d="M14 12v.01" />
+    </svg>
+  ),
+  LampDesk: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="m14 5-3 3 2 7 8-8-7-2Z" />
+      <path d="m14 5-3 3-3-3 3-3 3 3Z" />
+      <path d="M9.5 6.5 4 12l3 6" />
+      <path d="M3 22v-2c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2H3Z" />
+    </svg>
+  ),
+  Bell: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
+      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
     </svg>
   ),
   CheckCircle2: (props: IconProps) => (
