@@ -56,7 +56,8 @@ _design_snapshots/
 
 2. **受け取ったHTMLファイルをブラウザで開く**
    - ダブルクリックでブラウザが開きます
-   - Tailwind CSSはCDN経由で読み込まれるため、そのまま表示されます
+   - **完全オフライン対応**: CSSはインライン化されているため、開発サーバーなしで正しく表示されます
+   - Tailwind CSSはCDN経由で読み込まれます
 
 3. **デザインを編集**
    - ブラウザのDevTools（F12）でライブ編集
@@ -92,13 +93,20 @@ _design_snapshots/
 1. **Playwright でページにアクセス**
    - Chromium ブラウザを起動
    - `http://localhost:8080`（デフォルト）にアクセス
+   - ページが完全にレンダリングされるまで待機
 
-2. **HTML を取得・加工**
-   - ページの完全なHTMLを取得
+2. **CSS を取得・インライン化**
+   - ページ内のすべての `<link rel="stylesheet">` から CSS を取得
+   - CSSルールを抽出してインライン化
+   - これにより、オフラインでも正確なスタイルが表示される
+
+3. **HTML を加工**
    - すべての `<script>` タグを削除（インタラクティブ要素は静的化）
-   - `<head>` に Tailwind CSS CDN を追加
+   - すべての `<link rel="stylesheet">` タグを削除（インライン化したため不要）
+   - インライン化した CSS を `<style>` タグとして挿入
+   - `<head>` に Tailwind CSS CDN を追加（ユーティリティクラス用）
 
-3. **整形して保存**
+4. **整形して保存**
    - Prettier でフォーマット
    - `_design_snapshots/` に出力
 

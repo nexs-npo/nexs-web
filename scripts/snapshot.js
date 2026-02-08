@@ -13,24 +13,101 @@ const TAILWIND_CDN = 'https://cdn.tailwindcss.com';
 const PAGES = ['/', '/lab/', '/library/', '/office/', '/mydesk/'];
 
 /**
+ * Fetch all CSS content from the page
+ */
+async function fetchAllStyles(page) {
+  console.log('  🎨 Analyzing CSS...');
+
+  // Get stylesheet and inline style counts from the browser
+  const { stylesheets, inlineStyleCount } = await page.evaluate(() => {
+    const stylesheets = [];
+
+    // Get all <link rel="stylesheet"> elements
+    for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
+      try {
+        // Find the corresponding CSSStyleSheet
+        for (const sheet of document.styleSheets) {
+          if (sheet.href === link.href) {
+            const rules = [];
+            try {
+              // Extract all CSS rules
+              for (const rule of sheet.cssRules) {
+                rules.push(rule.cssText);
+              }
+              stylesheets.push({
+                href: link.href,
+                css: rules.join('\n'),
+              });
+            } catch (_e) {
+              // CORS or other access issues - skip this stylesheet
+              console.warn(`Cannot read stylesheet: ${link.href}`);
+            }
+            break;
+          }
+        }
+      } catch (_e) {
+        // Skip if there's an error
+      }
+    }
+
+    // Count inline <style> tags (already in HTML)
+    const inlineStyleCount = document.querySelectorAll('style').length;
+
+    return { stylesheets, inlineStyleCount };
+  });
+
+  if (stylesheets.length > 0) {
+    console.log(
+      `  ✓ Found ${stylesheets.length} external stylesheet(s) - will inline`,
+    );
+  }
+  if (inlineStyleCount > 0) {
+    console.log(
+      `  ✓ Found ${inlineStyleCount} inline <style> tag(s) - already inlined`,
+    );
+  }
+  if (stylesheets.length === 0 && inlineStyleCount === 0) {
+    console.log('  ⚠ No CSS found (Tailwind CDN will be added)');
+  }
+
+  return stylesheets;
+}
+
+/**
  * Capture HTML from a page using Playwright
  */
 async function capturePage(page, url) {
   console.log(`📸 Capturing: ${url}`);
   await page.goto(url, { waitUntil: 'networkidle' });
-  return await page.content();
+
+  // Fetch CSS before getting HTML
+  const styles = await fetchAllStyles(page);
+
+  // Get HTML content
+  const html = await page.content();
+
+  return { html, styles };
 }
 
 /**
- * Process HTML: remove scripts, add Tailwind CDN
+ * Process HTML: remove scripts/stylesheets, inline CSS, add Tailwind CDN
  */
-function processHtml(html) {
+function processHtml(html, styles) {
   const $ = cheerio.load(html);
 
   // Remove all script tags
   $('script').remove();
 
-  // Add Tailwind CSS CDN to head
+  // Remove all stylesheet links
+  $('link[rel="stylesheet"]').remove();
+
+  // Inline all CSS from the page
+  if (styles.length > 0) {
+    const inlinedCss = styles.map((s) => s.css).join('\n\n');
+    $('head').append(`\n    <style>\n${inlinedCss}\n    </style>`);
+  }
+
+  // Add Tailwind CSS CDN to head (for utility classes)
   $('head').append(`\n    <script src="${TAILWIND_CDN}"></script>`);
 
   return $.html();
@@ -76,11 +153,11 @@ async function main() {
     for (const urlPath of PAGES) {
       const url = `${BASE_URL}${urlPath}`;
 
-      // Capture page HTML
-      const rawHtml = await capturePage(page, url);
+      // Capture page HTML and CSS
+      const { html, styles } = await capturePage(page, url);
 
-      // Process HTML
-      const processedHtml = processHtml(rawHtml);
+      // Process HTML (inline CSS)
+      const processedHtml = processHtml(html, styles);
 
       // Format HTML
       const formattedHtml = await formatHtml(processedHtml);
