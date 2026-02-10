@@ -44,3 +44,4 @@ coverage/
 
 # Local notes (not pushed to remote)
 .local/
+.work/
