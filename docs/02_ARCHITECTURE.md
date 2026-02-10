@@ -104,9 +104,3 @@ Clerkは **環境変数によるオプトイン方式** で管理されている
 - `astro.config.mjs` が `PUBLIC_CLERK_PUBLISHABLE_KEY` の存在を確認
 - 存在すれば `@clerk/astro` インテグレーションを動的にロード
 - 存在しなければスキップ（エラーなし）
-
-### Keystatic との共存
-
-Keystatic管理画面（`/keystatic`）は、Clerkの有効/無効に関わらず独立して動作する。
-Clerk有効時でも Keystatic にClerkの認証スクリプトが干渉しないよう、
-Astro islandを使わず直接Reactをマウントする専用ページ（`src/pages/keystatic/[...params].astro`）を使用している。

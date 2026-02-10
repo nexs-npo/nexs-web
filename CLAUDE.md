@@ -29,27 +29,25 @@ No linter or test framework is configured.
 
 ## Architecture
 
-**Astro 4 (hybrid mode)** — Most pages are statically generated. Pages that need SSR (Keystatic admin, API routes) use `export const prerender = false`.
+**Astro 4 (hybrid mode)** — Most pages are statically generated. Pages that need SSR (API routes) use `export const prerender = false`.
 
 **Key integrations in `astro.config.mjs`:**
 - React (Islands Architecture — interactive components only)
 - Tailwind CSS
 - MDX (for knowledge articles)
-- Keystatic (custom Vite plugin, no route injection — see below)
 - Clerk auth (**disabled by default** — enabled when `PUBLIC_CLERK_PUBLISHABLE_KEY` is set in `.env`)
 - `@astrojs/node` adapter for SSR
 
 ### Content Collections (`src/content/config.ts`)
 
 - **knowledge** — Research articles in MDX. Categories: foundation(F), thesis(T), protocol(P), evidence(E), update(U). Schema validated with Zod.
-- **resolutions** — Governance proposals managed via Keystatic CMS.
+- **resolutions** — Governance proposals in MDX.
+- **journal** — Activity journal (blog format) in MDX.
+- **announcements** — Official announcements in MDX.
+- **documents** — Organizational documents (articles of incorporation, regulations, etc.) in MDX.
+- **resolution-materials** — Reference materials linked to resolutions in MDX.
 
-### Keystatic CMS
-
-- Config: `keystatic.config.ts` (local file storage, resolutions collection)
-- Admin UI: `src/pages/keystatic/[...params].astro`
-- API: `src/pages/api/keystatic/[...params].js`
-- The Keystatic UI page uses direct React mounting (`createRoot`) instead of Astro's `client:only` directive. This is intentional — Clerk's `before-hydration` script blocks Astro island hydration when the Clerk key is missing. This design works correctly regardless of whether Clerk is enabled or disabled.
+All content is managed via AI agents (Claude Code, Gemini CLI, etc.) by directly creating/editing MDX files.
 
 ### Clerk Authentication
 
