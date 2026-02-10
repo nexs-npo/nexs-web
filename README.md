@@ -30,7 +30,7 @@ Docker でのデプロイは `Dockerfile` を参照してください。
 - **Astro 4** (hybrid mode) — 静的生成 + 必要な箇所のみ SSR
 - **React** — Islands Architecture でインタラクティブコンポーネントのみ
 - **Tailwind CSS** — モノクロ基調のモバイルファースト UI
-- **Keystatic** — Governance 議案の CMS（GitHub storage + `proposal/` branch prefix）
+- **Content Management** — AIエージェント（Claude Code、Gemini CLI）経由でMDXファイルを直接作成・編集
 - **Clerk** — 認証（オプション。環境変数未設定時はスキップ）
 
 詳細は [docs/02_ARCHITECTURE.md](./docs/02_ARCHITECTURE.md) を参照してください。
