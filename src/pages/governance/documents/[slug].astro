@@ -1,0 +1,148 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import PageWrapper from '@/components/PageWrapper';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const getStaticPaths = (async () => {
+  const documents = await getCollection('documents');
+  return documents.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content, headings } = await entry.render();
+const { data } = entry;
+
+const typeLabels: Record<string, string> = {
+  CONST: '定款',
+  PHIL: '組織哲学',
+  REGS: '規程',
+  RPT: 'レポート',
+};
+---
+
+<BaseLayout title={`${data.title} - Documents - nexs`}>
+  <PageWrapper
+    activeTab="about"
+    headerTitle="Documents"
+    headerSubtitle={data.id}
+    headerIconType="governance"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Back Link -->
+      <a
+        href="/governance/documents"
+        class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        <span>ドキュメント一覧へ戻る</span>
+      </a>
+
+      <!-- Document Header -->
+      <article class="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-6">
+        <!-- Document Meta -->
+        <div class="mb-6 pb-6 border-b border-gray-100">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">{typeLabels[data.docType]}</span>
+            <span class="text-sm font-mono text-gray-400">#{data.id}</span>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900 mb-3 leading-tight">{data.title}</h1>
+          <div class="flex items-center gap-4 text-xs text-gray-500">
+            <span>Version {data.version}</span>
+            <span>施行日: {data.effectiveDate}</span>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="bg-gray-50 rounded-lg p-4 mb-6">
+          <p class="text-sm text-gray-700 leading-relaxed">{data.summary}</p>
+        </div>
+
+        <!-- Table of Contents -->
+        {headings.length > 0 && (
+          <details class="mb-6 p-4 bg-gray-50 rounded-lg" open>
+            <summary class="text-sm font-bold text-gray-900 cursor-pointer mb-3">
+              目次
+            </summary>
+            <nav class="space-y-1">
+              {headings.map((heading) => {
+                const indent = (heading.depth - 2) * 12;
+                return (
+                  <a
+                    href={`#${heading.slug}`}
+                    class="block text-sm text-gray-600 hover:text-gray-900 transition-colors"
+                    style={`padding-left: ${indent}px`}
+                  >
+                    {heading.text}
+                  </a>
+                );
+              })}
+            </nav>
+          </details>
+        )}
+
+        <!-- Content -->
+        <div class="prose prose-sm prose-gray max-w-none">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </PageWrapper>
+</BaseLayout>
+
+<style>
+  /* MDX Content Styling */
+  .prose {
+    @apply text-gray-800;
+  }
+  .prose h2 {
+    @apply text-lg font-bold text-gray-900 mt-8 mb-4 pt-6 border-t border-gray-100;
+  }
+  .prose h3 {
+    @apply text-base font-bold text-gray-900 mt-6 mb-3;
+  }
+  .prose h4 {
+    @apply text-sm font-bold text-gray-900 mt-4 mb-2;
+  }
+  .prose p {
+    @apply text-sm leading-relaxed mb-4;
+  }
+  .prose ul, .prose ol {
+    @apply text-sm leading-relaxed mb-4 pl-5;
+  }
+  .prose li {
+    @apply mb-2;
+  }
+  .prose a {
+    @apply text-gray-900 underline hover:text-gray-600 transition-colors;
+  }
+  .prose code {
+    @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs font-mono;
+  }
+  .prose pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-xs;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-gray-300 pl-4 italic text-gray-600;
+  }
+  .prose table {
+    @apply text-sm w-full border-collapse mb-4;
+  }
+  .prose th {
+    @apply bg-gray-100 font-bold text-left p-2 border border-gray-200;
+  }
+  .prose td {
+    @apply p-2 border border-gray-200;
+  }
+
+  /* Smooth scroll for anchor links */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>

@@ -21,6 +21,19 @@ const { Content } = await resolution.render();
 
 const formattedDate = resolution.data.proposedAt.replace(/-/g, '.');
 const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
+
+// Find related materials
+const allMaterials = await getCollection('resolution-materials');
+const relatedMaterials = allMaterials.filter(
+  (m) => m.data.resolutionId === resolution.data.id
+);
+
+const materialTypeLabels: Record<string, string> = {
+  background: '背景資料',
+  data: 'データ',
+  proposal: '提案資料',
+  reference: '参考資料',
+};
 ---
 
 <BaseLayout title={`${resolution.data.title} - nexs Governance`}>
@@ -75,10 +88,39 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
           <div class="mb-6">
             <div class="flex items-center gap-2 mb-2">
               <span class="block w-1 h-4 bg-gray-400"></span>
-              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">関連資料</span>
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">添付ファイル</span>
             </div>
           </div>
           <AttachmentAccordion attachments={resolution.data.attachments} />
+        </section>
+      )}
+
+      <!-- Resolution Materials Section -->
+      {relatedMaterials.length > 0 && (
+        <section class="mb-12">
+          <div class="mb-6">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="block w-1 h-4 bg-gray-400"></span>
+              <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">参考資料ページ</span>
+            </div>
+          </div>
+          <div class="space-y-2">
+            {relatedMaterials.map((material) => (
+              <a
+                href={`/governance/materials/${material.slug}/`}
+                class="block bg-gray-50 hover:bg-gray-100 border border-gray-100 rounded-lg p-4 transition-colors"
+              >
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-[10px] font-bold text-gray-500">
+                    {materialTypeLabels[material.data.type]}
+                  </span>
+                  <span class="text-[10px] text-gray-400 font-mono">{material.data.date}</span>
+                </div>
+                <h4 class="text-sm font-bold text-gray-900 mb-1">{material.data.title}</h4>
+                <p class="text-xs text-gray-600 line-clamp-2">{material.data.summary}</p>
+              </a>
+            ))}
+          </div>
         </section>
       )}
 

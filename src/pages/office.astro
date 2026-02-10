@@ -40,6 +40,37 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest">Active Module</h2>
         </div>
 
+        <div class="space-y-3">
+        <!-- Journal -->
+        <a href="/office/journal" class="block group relative">
+          <!-- Status Indicator -->
+          <div class="absolute -right-1 -top-1 w-3 h-3 bg-gray-900 rounded-full border-2 border-white z-10 shadow-sm"></div>
+
+          <div class="bg-white rounded-xl shadow-md border-2 border-gray-900 p-5 hover:shadow-xl transition-all transform hover:-translate-y-0.5">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-lg bg-gray-900 flex items-center justify-center text-white flex-shrink-0">
+                <BookOpen className="w-6 h-6" />
+              </div>
+              <div>
+                <h3 class="text-base font-bold text-gray-900 leading-tight">Journal</h3>
+                <p class="text-[10px] text-gray-500 font-mono mt-0.5">Status: <span class="text-gray-900 font-bold">Online</span></p>
+              </div>
+            </div>
+
+            <div class="border-t border-gray-100 pt-3">
+              <p class="text-xs text-gray-600 leading-relaxed mb-3">
+                理事長の活動日誌。<br />
+                日々の気づき、取り組み、思考の記録。
+              </p>
+              <div class="flex items-center gap-2 text-[10px] font-bold text-gray-900 group-hover:underline">
+                <span>日誌を読む</span>
+                <ArrowRight className="w-3 h-3" />
+              </div>
+            </div>
+          </div>
+        </a>
+
+        <!-- Resolutions -->
         <a href="/governance/resolutions" class="block group relative">
           <!-- Status Indicator -->
           <div class="absolute -right-1 -top-1 w-3 h-3 bg-gray-900 rounded-full border-2 border-white z-10 shadow-sm"></div>
@@ -67,6 +98,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
             </div>
           </div>
         </a>
+        </div>
       </section>
 
       <!-- Coming Soon Section -->

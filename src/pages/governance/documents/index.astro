@@ -1,0 +1,154 @@
+---
+import { getCollection } from 'astro:content';
+import PageWrapper from '@/components/PageWrapper';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const allDocuments = await getCollection('documents');
+
+// Group by docType
+const byType = {
+  CONST: allDocuments.filter((d) => d.data.docType === 'CONST'),
+  PHIL: allDocuments.filter((d) => d.data.docType === 'PHIL'),
+  REGS: allDocuments.filter((d) => d.data.docType === 'REGS'),
+  RPT: allDocuments.filter((d) => d.data.docType === 'RPT'),
+};
+
+// Sort each group by ID
+Object.keys(byType).forEach((type) => {
+  byType[type as keyof typeof byType].sort((a, b) => a.data.id.localeCompare(b.data.id));
+});
+
+const typeLabels: Record<string, string> = {
+  CONST: '定款',
+  PHIL: '組織哲学',
+  REGS: '規程',
+  RPT: 'レポート',
+};
+
+const typeDescriptions: Record<string, string> = {
+  CONST: '法人の基本規則',
+  PHIL: '組織の理念と価値観',
+  REGS: '運用規程・ガイドライン',
+  RPT: '活動報告・調査レポート',
+};
+---
+
+<BaseLayout title="Documents - nexs">
+  <PageWrapper
+    activeTab="about"
+    headerTitle="Documents"
+    headerSubtitle="定款・規程・ドキュメント"
+    headerIconType="governance"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      {allDocuments.length === 0 ? (
+        <div class="flex flex-col items-center justify-center pt-16 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+          </svg>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">まだドキュメントがありません</h2>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            ドキュメントは準備中です。
+          </p>
+        </div>
+      ) : (
+        <Fragment>
+          <!-- Document Type Tabs -->
+          <section class="mb-8">
+            <div class="flex flex-wrap gap-2">
+              <button class="doc-type-tab is-active text-xs font-bold text-white bg-gray-900 border border-gray-900 rounded-full px-3 py-1.5 transition-colors" type="button" data-type="CONST">定款</button>
+              <button class="doc-type-tab text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-type="PHIL">哲学</button>
+              <button class="doc-type-tab text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-type="REGS">規程</button>
+              <button class="doc-type-tab text-xs font-bold text-gray-500 bg-white border border-gray-200 rounded-full px-3 py-1.5 hover:border-gray-300 transition-colors" type="button" data-type="RPT">レポート</button>
+            </div>
+          </section>
+
+          <!-- Document Groups -->
+          {Object.entries(byType).map(([type, documents]) => {
+            const isVisible = type === 'CONST';
+            return (
+              <section class={`doc-group space-y-3 ${!isVisible ? 'hidden' : ''}`} data-type={type}>
+                {documents.length === 0 ? (
+                  <div class="text-center py-12">
+                    <p class="text-sm text-gray-500">
+                      この種類のドキュメントはまだありません
+                    </p>
+                  </div>
+                ) : (
+                  <Fragment>
+                    <div class="mb-4">
+                      <h2 class="text-base font-bold text-gray-900 mb-1">{typeLabels[type]}</h2>
+                      <p class="text-xs text-gray-500">{typeDescriptions[type]}</p>
+                    </div>
+                    {documents.map((doc) => {
+                      const { data, slug } = doc;
+                      return (
+                        <a
+                          href={`/governance/documents/${slug}/`}
+                          class="block bg-white rounded-xl border border-gray-100 p-5 shadow-sm hover:shadow-md hover:border-gray-200 transition-all cursor-pointer"
+                        >
+                          <div class="flex items-start justify-between mb-2">
+                            <span class="text-[10px] font-bold text-gray-500 bg-gray-100 px-2 py-1 rounded">{data.docType}</span>
+                            <span class="text-sm font-mono text-gray-400">#{data.id}</span>
+                          </div>
+                          <h3 class="text-base font-bold text-gray-900 mb-2">{data.title}</h3>
+                          <p class="text-sm text-gray-600 leading-normal line-clamp-2 mb-3">
+                            {data.summary}
+                          </p>
+                          <div class="flex items-center justify-between pt-3 border-t border-gray-50">
+                            <span class="text-xs text-gray-500">Version {data.version}</span>
+                            <span class="text-xs text-gray-400 font-mono">{data.effectiveDate}</span>
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </Fragment>
+                )}
+              </section>
+            );
+          })}
+        </Fragment>
+      )}
+    </div>
+  </PageWrapper>
+</BaseLayout>
+
+<script is:inline>
+(function() {
+  const tabs = document.querySelectorAll('.doc-type-tab');
+  const groups = document.querySelectorAll('.doc-group');
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const selectedType = tab.getAttribute('data-type');
+
+      // Update active tab styling
+      tabs.forEach((t) => {
+        t.classList.remove('is-active', 'text-white', 'bg-gray-900', 'border-gray-900');
+        t.classList.add('text-gray-500', 'border-gray-200');
+      });
+      tab.classList.add('is-active', 'text-white', 'bg-gray-900', 'border-gray-900');
+      tab.classList.remove('text-gray-500', 'border-gray-200');
+
+      // Update group visibility
+      groups.forEach((group) => {
+        if (group.getAttribute('data-type') === selectedType) {
+          group.classList.remove('hidden');
+        } else {
+          group.classList.add('hidden');
+        }
+      });
+    });
+  });
+})();
+</script>
+
+<style>
+  .doc-type-tab.is-active {
+    background-color: #111827;
+    border-color: #111827;
+    color: #ffffff;
+  }
+</style>
