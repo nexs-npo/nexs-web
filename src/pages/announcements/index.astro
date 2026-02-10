@@ -1,0 +1,84 @@
+---
+import { getCollection } from 'astro:content';
+import PageWrapper from '@/components/PageWrapper';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+const allAnnouncements = await getCollection('announcements');
+
+// Sort by date (newest first)
+const sortedAnnouncements = allAnnouncements.sort((a, b) => {
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+
+const typeLabels: Record<string, string> = {
+  news: 'お知らせ',
+  event: 'イベント',
+  update: '更新',
+  important: '重要',
+};
+
+const typeStyles: Record<string, string> = {
+  news: 'bg-gray-100 text-gray-700',
+  event: 'bg-blue-100 text-blue-700',
+  update: 'bg-green-100 text-green-700',
+  important: 'bg-red-100 text-red-700 font-bold',
+};
+---
+
+<BaseLayout title="Announcements - nexs">
+  <PageWrapper
+    activeTab="about"
+    headerTitle="Announcements"
+    headerSubtitle="法人からのお知らせ"
+    headerIconType="info"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      {sortedAnnouncements.length === 0 ? (
+        <div class="flex flex-col items-center justify-center pt-16 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+            <path d="M10.5 5H19a2 2 0 0 1 2 2v8.5"></path>
+            <path d="M17 11h-.5"></path>
+            <path d="M19 19H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2"></path>
+            <path d="M2 3h20"></path>
+          </svg>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">まだお知らせがありません</h2>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            お知らせは準備中です。
+          </p>
+        </div>
+      ) : (
+        <section class="space-y-3">
+          {sortedAnnouncements.map((entry) => {
+            const { data, slug } = entry;
+            const isImportant = data.type === 'important';
+
+            return (
+              <a
+                href={`/announcements/${slug}/`}
+                class={`block bg-white rounded-xl border p-5 shadow-sm hover:shadow-md transition-all cursor-pointer ${
+                  isImportant
+                    ? 'border-red-200 hover:border-red-300'
+                    : 'border-gray-100 hover:border-gray-200'
+                }`}
+              >
+                <div class="flex items-start gap-3 mb-2">
+                  <span class={`text-[10px] px-2 py-1 rounded-full ${typeStyles[data.type]}`}>
+                    {typeLabels[data.type]}
+                  </span>
+                  <span class="text-xs text-gray-400 font-mono">{data.date}</span>
+                </div>
+                <h3 class={`text-base font-bold mb-2 ${
+                  isImportant ? 'text-red-900' : 'text-gray-900'
+                }`}>{data.title}</h3>
+                <p class="text-sm text-gray-600 leading-normal line-clamp-3">
+                  {data.summary}
+                </p>
+              </a>
+            );
+          })}
+        </section>
+      )}
+    </div>
+  </PageWrapper>
+</BaseLayout>

@@ -1,0 +1,121 @@
+---
+import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import PageWrapper from '@/components/PageWrapper';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+export const getStaticPaths = (async () => {
+  const announcements = await getCollection('announcements');
+  return announcements.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+const { data } = entry;
+
+const typeLabels: Record<string, string> = {
+  news: 'お知らせ',
+  event: 'イベント',
+  update: '更新',
+  important: '重要',
+};
+
+const typeStyles: Record<string, string> = {
+  news: 'bg-gray-100 text-gray-700',
+  event: 'bg-blue-100 text-blue-700',
+  update: 'bg-green-100 text-green-700',
+  important: 'bg-red-100 text-red-700 font-bold',
+};
+
+const isImportant = data.type === 'important';
+---
+
+<BaseLayout title={`${data.title} - Announcements - nexs`}>
+  <PageWrapper
+    activeTab="about"
+    headerTitle="Announcements"
+    headerSubtitle={data.date}
+    headerIconType="info"
+    client:load
+  >
+    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+      <!-- Back Link -->
+      <a
+        href="/announcements"
+        class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-900 transition-colors mb-6"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m15 18-6-6 6-6"/>
+        </svg>
+        <span>お知らせ一覧へ戻る</span>
+      </a>
+
+      <!-- Article Header -->
+      <article class={`bg-white rounded-xl border shadow-sm p-6 mb-6 ${
+        isImportant ? 'border-red-200' : 'border-gray-100'
+      }`}>
+        <!-- Type Badge -->
+        <div class="flex items-center justify-between mb-4">
+          <span class={`text-xs px-2.5 py-1 rounded-full ${typeStyles[data.type]}`}>
+            {typeLabels[data.type]}
+          </span>
+          <span class="text-sm text-gray-400 font-mono">{data.date}</span>
+        </div>
+
+        <!-- Title -->
+        <h1 class={`text-xl font-bold mb-4 leading-tight ${
+          isImportant ? 'text-red-900' : 'text-gray-900'
+        }`}>{data.title}</h1>
+
+        <!-- Summary -->
+        <div class={`rounded-lg p-4 mb-6 ${
+          isImportant ? 'bg-red-50' : 'bg-gray-50'
+        }`}>
+          <p class="text-sm text-gray-700 leading-relaxed">{data.summary}</p>
+        </div>
+
+        <!-- Content -->
+        <div class="prose prose-sm prose-gray max-w-none">
+          <Content />
+        </div>
+      </article>
+    </div>
+  </PageWrapper>
+</BaseLayout>
+
+<style>
+  /* MDX Content Styling */
+  .prose {
+    @apply text-gray-800;
+  }
+  .prose h2 {
+    @apply text-lg font-bold text-gray-900 mt-6 mb-3;
+  }
+  .prose h3 {
+    @apply text-base font-bold text-gray-900 mt-5 mb-2;
+  }
+  .prose p {
+    @apply text-sm leading-relaxed mb-4;
+  }
+  .prose ul, .prose ol {
+    @apply text-sm leading-relaxed mb-4 pl-5;
+  }
+  .prose li {
+    @apply mb-1;
+  }
+  .prose a {
+    @apply text-gray-900 underline hover:text-gray-600 transition-colors;
+  }
+  .prose code {
+    @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs font-mono;
+  }
+  .prose pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto text-xs;
+  }
+  .prose blockquote {
+    @apply border-l-4 border-gray-300 pl-4 italic text-gray-600;
+  }
+</style>
