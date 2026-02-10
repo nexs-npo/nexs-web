@@ -57,7 +57,56 @@ const resolutionsCollection = defineCollection({
   }),
 });
 
+const journalCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    author: z.string(),
+    summary: z.string(),
+  }),
+});
+
+const announcementsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    type: z.enum(['news', 'event', 'update', 'important']),
+    summary: z.string(),
+  }),
+});
+
+const documentsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    id: z.string(),
+    title: z.string(),
+    docType: z.enum(['CONST', 'PHIL', 'REGS', 'RPT']),
+    domain: z.string(),
+    topic: z.string(),
+    version: z.string(),
+    effectiveDate: z.string(),
+    summary: z.string(),
+  }),
+});
+
+const resolutionMaterialsCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    resolutionId: z.string(),
+    date: z.string(),
+    type: z.enum(['background', 'data', 'proposal', 'reference']),
+    summary: z.string(),
+  }),
+});
+
 export const collections = {
   knowledge: knowledgeCollection,
   resolutions: resolutionsCollection,
+  journal: journalCollection,
+  announcements: announcementsCollection,
+  documents: documentsCollection,
+  'resolution-materials': resolutionMaterialsCollection,
 };
