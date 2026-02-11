@@ -12,15 +12,11 @@ import { getRoleFromMetadata } from '@/lib/roles';
 // SSR を有効化（認証状態でコンテンツが変わるため）
 export const prerender = false;
 
-// プレビュー環境チェック
-const isPreview = process.env.PREVIEW_MODE === 'true';
-
 // Clerk が無効の場合は Coming Soon を表示（既存の挙動を維持）
-// プレビュー環境ではミドルウェアをスキップするが、ページは正常に動作する
+// PREVIEW_MODE はミドルウェアのみスキップし、Clerk 自体は有効のまま
 const clerkEnabled =
-  !isPreview &&
-  (!!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
-    !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY);
+  !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
+  !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 let content:
   | 'coming-soon'
