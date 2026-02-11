@@ -12,8 +12,12 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
  * astro.config.mjs で Clerk インテグレーションがロードされない。
  * その状態で clerkMiddleware() を実行するとエラーになるため、
  * ミドルウェア自体を条件分岐でスキップする。
+ *
+ * 注意: process.env を使ってランタイムで環境変数をチェックする
  */
-const clerkEnabled = !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
+const clerkEnabled =
+  !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
+  !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 /**
  * 保護ルート（認証が必要なルート）

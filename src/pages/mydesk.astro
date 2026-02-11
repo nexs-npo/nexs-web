@@ -13,7 +13,10 @@ import { getRoleFromMetadata } from '@/lib/roles';
 export const prerender = false;
 
 // Clerk が無効の場合は Coming Soon を表示（既存の挙動を維持）
-const clerkEnabled = !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
+// 注意: process.env を使ってランタイムで環境変数をチェックする
+const clerkEnabled =
+  !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
+  !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 let content:
   | 'coming-soon'
