@@ -6,18 +6,26 @@ import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
 // ========================================
 
 /**
+ * プレビュー環境でミドルウェアをスキップ
+ *
+ * Coolify などの Docker コンテナ環境では、ミドルウェアでの環境変数アクセスが
+ * 不安定な場合があるため、プレビュー環境ではミドルウェアをスキップする。
+ *
+ * 本番環境では正常に動作するため問題なし。
+ */
+const isPreview = process.env.PREVIEW_MODE === 'true';
+
+if (isPreview) {
+  console.log('[Middleware] Preview mode detected - Clerk middleware disabled');
+}
+
+/**
  * Clerk が無効の場合はミドルウェアをスキップ
- *
- * 環境変数 PUBLIC_CLERK_PUBLISHABLE_KEY が設定されていない場合、
- * astro.config.mjs で Clerk インテグレーションがロードされない。
- * その状態で clerkMiddleware() を実行するとエラーになるため、
- * ミドルウェア自体を条件分岐でスキップする。
- *
- * 注意: process.env を使ってランタイムで環境変数をチェックする
  */
 const clerkEnabled =
-  !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
-  !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
+  !isPreview &&
+  (!!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
+    !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY);
 
 /**
  * 保護ルート（認証が必要なルート）
