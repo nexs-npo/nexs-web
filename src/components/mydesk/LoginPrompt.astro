@@ -31,7 +31,7 @@ import { SignInButton } from '@clerk/astro/react';
     </p>
 
     <!-- Sign In Button -->
-    <SignInButton client:load mode="modal">
+    <SignInButton client:only="react" mode="modal">
       <button
         class="px-6 py-3 bg-gray-900 text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition-colors active:scale-95"
       >
