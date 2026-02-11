@@ -67,7 +67,15 @@ All content is managed via AI agents (Claude Code, Gemini CLI, etc.) by directly
 
 **Protected Routes:**
 - `/mydesk` — Shows role-specific desk (SSR)
-- `/api/governance/approve` — Requires authentication (future implementation)
+- `/api/governance/approve` — Requires authentication + reverification
+
+**Resolution Approval System:**
+- Approvals stored as JSON files in `data/approvals/{proposalId}/` via GitHub Contents API
+- Clerk reverification (5 min, second_factor) enforced on approval action
+- Content hash (SHA-256) verified server-side to prevent tampering
+- Approval records include: approver name (lastName + firstName), timestamp, content hash, auth level
+- Client: `ApprovalSection.tsx` uses `useReverification` hook from `@clerk/shared/react`
+- Server: `/api/governance/approve` validates session + hash, writes to GitHub
 
 See `.env.example` for setup instructions and `docs/02_ARCHITECTURE.md` Section 6.
 
