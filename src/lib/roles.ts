@@ -67,7 +67,7 @@ export function isValidRole(value: unknown): value is MemberRole {
  * @returns ロール or null（未設定 or 不正な値）
  */
 export function getRoleFromMetadata(
-  metadata: Record<string, unknown> | undefined
+  metadata: Record<string, unknown> | undefined,
 ): MemberRole | null {
   if (!metadata || typeof metadata !== 'object') {
     return null;
@@ -84,7 +84,10 @@ export function getRoleFromMetadata(
 /**
  * 指定したロールを持つか判定
  */
-export function hasRole(userRole: MemberRole | null, ...roles: MemberRole[]): boolean {
+export function hasRole(
+  userRole: MemberRole | null,
+  ...roles: MemberRole[]
+): boolean {
   if (!userRole) return false;
   return roles.includes(userRole);
 }

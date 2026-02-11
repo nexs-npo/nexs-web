@@ -1,17 +1,21 @@
+import { useAuth } from '@clerk/astro/react';
+import { useReverification } from '@clerk/shared/react';
 import {
+  AlertCircle,
   CheckCircle2,
   FileSearch,
+  Loader2,
   Lock,
   PenTool,
   ShieldCheck,
-  AlertCircle,
-  Loader2,
 } from 'lucide-react';
-import { useState, useEffect } from 'react';
-import { useAuth } from '@clerk/astro/react';
-import { useReverification } from '@clerk/shared/react';
+import { useCallback, useEffect, useState } from 'react';
+import type {
+  ApprovalRecord,
+  ApprovalsListResponse,
+  ApproveResponse,
+} from '@/lib/approval-types';
 import AuditLogModal from './AuditLogModal';
-import type { ApprovalRecord, ApprovalsListResponse, ApproveResponse } from '@/lib/approval-types';
 
 interface Props {
   proposalId: string;
@@ -53,7 +57,9 @@ export default function ApprovalSection({
     setError(null);
 
     try {
-      const res = await fetch(`/api/governance/approvals?proposalId=${encodeURIComponent(proposalId)}`);
+      const res = await fetch(
+        `/api/governance/approvals?proposalId=${encodeURIComponent(proposalId)}`,
+      );
 
       if (!res.ok) {
         throw new Error(`Failed to fetch approvals: ${res.status}`);
@@ -70,6 +76,7 @@ export default function ApprovalSection({
 
   useEffect(() => {
     fetchApprovals();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [proposalId]);
 
   // ========================================
@@ -89,7 +96,9 @@ export default function ApprovalSection({
       });
 
       if (!res.ok) {
-        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        const errorData = await res
+          .json()
+          .catch(() => ({ error: 'Unknown error' }));
         throw new Error(errorData.error || `Approval failed: ${res.status}`);
       }
 
@@ -101,7 +110,7 @@ export default function ApprovalSection({
         setApproving(false);
         setApproveError('承認がキャンセルされました');
       },
-    }
+    },
   );
 
   const handleApprove = async () => {
@@ -155,9 +164,10 @@ export default function ApprovalSection({
           {/* Progress */}
           <div className="mb-4">
             <div className="flex gap-1.5">
+              {/* biome-ignore lint/suspicious/noArrayIndexKey: Static progress bar slots */}
               {Array.from({ length: totalRequired }).map((_, i) => (
                 <div
-                  key={i}
+                  key={`progress-${i}`}
                   className={`h-1.5 flex-1 rounded-full ${
                     i < approvalCount ? 'bg-gray-900' : 'bg-gray-200'
                   }`}
@@ -190,7 +200,7 @@ export default function ApprovalSection({
           {/* Signatures */}
           {!loading && !error && (
             <div className="space-y-2 mb-4">
-              {approvals.map((approval, i) => (
+              {approvals.map((approval, _i) => (
                 <div
                   key={approval.approverId}
                   className="flex items-center justify-between p-2 bg-gray-50 rounded"
@@ -210,15 +220,18 @@ export default function ApprovalSection({
               ))}
 
               {/* Empty Slots */}
-              {Array.from({ length: totalRequired - approvalCount }).map((_, i) => (
-                <div
-                  key={`empty-${i}`}
-                  className="flex items-center gap-2 p-2 rounded"
-                >
-                  <PenTool className="w-4 h-4 text-gray-300" />
-                  <span className="text-xs text-gray-300">未署名</span>
-                </div>
-              ))}
+              {/* biome-ignore lint/suspicious/noArrayIndexKey: Static empty slots */}
+              {Array.from({ length: totalRequired - approvalCount }).map(
+                (_, i) => (
+                  <div
+                    key={`empty-slot-${approvalCount + i}`}
+                    className="flex items-center gap-2 p-2 rounded"
+                  >
+                    <PenTool className="w-4 h-4 text-gray-300" />
+                    <span className="text-xs text-gray-300">未署名</span>
+                  </div>
+                ),
+              )}
             </div>
           )}
 

@@ -18,7 +18,9 @@ const { data } = entry;
 
 // Try to find the related resolution
 const resolutions = await getCollection('resolutions');
-const relatedResolution = resolutions.find((r) => r.data.id === data.resolutionId);
+const relatedResolution = resolutions.find(
+  (r) => r.data.id === data.resolutionId,
+);
 
 const typeLabels: Record<string, string> = {
   background: '背景資料',

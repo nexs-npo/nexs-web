@@ -26,7 +26,7 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
 // Find related materials
 const allMaterials = await getCollection('resolution-materials');
 const relatedMaterials = allMaterials.filter(
-  (m) => m.data.resolutionId === resolution.data.id
+  (m) => m.data.resolutionId === resolution.data.id,
 );
 
 // Compute content hash for approval verification

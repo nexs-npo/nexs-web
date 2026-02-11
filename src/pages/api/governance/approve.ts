@@ -1,13 +1,13 @@
-import type { APIRoute } from 'astro';
 import { reverificationErrorResponse } from '@clerk/shared/authorization-errors';
-import { listDirectory, createFile, getFileContent } from '@/lib/github';
-import { computeHash } from '@/lib/hash';
+import type { APIRoute } from 'astro';
 import type {
+  ApprovalRecord,
   ApproveRequest,
   ApproveResponse,
-  ApprovalRecord,
   ErrorResponse,
 } from '@/lib/approval-types';
+import { createFile, getFileContent, listDirectory } from '@/lib/github';
+import { computeHash } from '@/lib/hash';
 
 export const prerender = false;
 
@@ -25,11 +25,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // 1. 認証チェック
   // ========================================
 
-  const { userId, sessionId, sessionClaims, has } = locals.auth();
+  const { userId, sessionId, has } = locals.auth();
 
   // 未認証
   if (!userId || !sessionId) {
-    const error: ErrorResponse = { error: 'Unauthorized', code: 'UNAUTHORIZED' };
+    const error: ErrorResponse = {
+      error: 'Unauthorized',
+      code: 'UNAUTHORIZED',
+    };
     return new Response(JSON.stringify(error), {
       status: 401,
       headers: { 'Content-Type': 'application/json' },
@@ -43,7 +46,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
 
   if (!isReverified) {
     // Clerk の標準エラーレスポンスを返す（クライアントが自動で再認証モーダルを表示）
-    return reverificationErrorResponse({ afterMinutes: 5, level: 'second_factor' });
+    return reverificationErrorResponse({
+      afterMinutes: 5,
+      level: 'second_factor',
+    });
   }
 
   // ========================================
@@ -102,7 +108,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     let originalContent: string;
     try {
       originalContent = await getFileContent(mdxPath, token);
-    } catch (err) {
+    } catch (_err) {
       const error: ErrorResponse = {
         error: `Resolution not found: ${proposalId}`,
         code: 'NOT_FOUND',
@@ -140,7 +146,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const existingFiles = await listDirectory(dirPath, token);
 
     // すでに同じユーザーの承認が存在するか
-    const userAlreadyApproved = existingFiles.some((f) => f.name.includes(`_${userId}.json`));
+    const userAlreadyApproved = existingFiles.some((f) =>
+      f.name.includes(`_${userId}.json`),
+    );
 
     if (userAlreadyApproved) {
       const error: ErrorResponse = {
@@ -175,7 +183,10 @@ export const POST: APIRoute = async ({ request, locals }) => {
     const user = await clerkClient().users.getUser(userId);
 
     // 日本式の姓名順（lastName + firstName）
-    const approverName = `${user.lastName || ''} ${user.firstName || ''}`.trim() || user.username || userId;
+    const approverName =
+      `${user.lastName || ''} ${user.firstName || ''}`.trim() ||
+      user.username ||
+      userId;
 
     // ========================================
     // 7. 承認レコードの作成

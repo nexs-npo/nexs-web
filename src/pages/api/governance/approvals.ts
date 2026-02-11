@@ -1,6 +1,10 @@
 import type { APIRoute } from 'astro';
-import { listDirectory, getFileContent } from '@/lib/github';
-import type { ApprovalRecord, ApprovalsListResponse, ErrorResponse } from '@/lib/approval-types';
+import type {
+  ApprovalRecord,
+  ApprovalsListResponse,
+  ErrorResponse,
+} from '@/lib/approval-types';
+import { getFileContent, listDirectory } from '@/lib/github';
 
 export const prerender = false;
 
@@ -40,7 +44,9 @@ export const GET: APIRoute = async ({ url }) => {
     const files = await listDirectory(dirPath, token);
 
     // JSON ファイルのみをフィルタ
-    const jsonFiles = files.filter((f) => f.type === 'file' && f.name.endsWith('.json'));
+    const jsonFiles = files.filter(
+      (f) => f.type === 'file' && f.name.endsWith('.json'),
+    );
 
     // 各ファイルの内容を取得してパース
     const approvals: ApprovalRecord[] = [];
@@ -56,7 +62,10 @@ export const GET: APIRoute = async ({ url }) => {
     }
 
     // timestamp でソート（新しい順）
-    approvals.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+    approvals.sort(
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
+    );
 
     const response: ApprovalsListResponse = {
       approvals,

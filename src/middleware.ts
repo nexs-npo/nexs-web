@@ -1,5 +1,5 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
 import { sequence } from 'astro:middleware';
+import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
 
 // ========================================
 // Clerk Middleware
@@ -20,7 +20,10 @@ const clerkEnabled = !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
  *
  * ここに指定したルートは、未認証の場合 Clerk のログインページにリダイレクトされる。
  */
-const isProtectedRoute = createRouteMatcher(['/mydesk(.*)', '/api/governance/approve(.*)']);
+const isProtectedRoute = createRouteMatcher([
+  '/mydesk(.*)',
+  '/api/governance/approve(.*)',
+]);
 
 /**
  * Clerk 認証ミドルウェア
@@ -35,7 +38,7 @@ const authMiddleware = clerkEnabled
       }
     })
   : // Clerk 無効時は何もしないミドルウェア
-    (context, next) => next();
+    (_context, next) => next();
 
 // ========================================
 // Export

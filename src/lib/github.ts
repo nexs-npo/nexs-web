@@ -58,7 +58,10 @@ interface GitHubFileContent {
  * @param token - GitHub Personal Access Token
  * @returns ファイル内容（テキスト）
  */
-export async function getFileContent(path: string, token: string): Promise<string> {
+export async function getFileContent(
+  path: string,
+  token: string,
+): Promise<string> {
   const url = `${API_BASE}/repos/${REPO}/contents/${encodeURIComponent(path)}`;
 
   const res = await fetch(url, {
@@ -88,7 +91,7 @@ export async function getFileContent(path: string, token: string): Promise<strin
  */
 export async function listDirectory(
   path: string,
-  token: string
+  token: string,
 ): Promise<GitHubFileEntry[]> {
   const url = `${API_BASE}/repos/${REPO}/contents/${encodeURIComponent(path)}`;
 
@@ -124,7 +127,7 @@ export async function createFile(
   path: string,
   content: string,
   message: string,
-  token: string
+  token: string,
 ): Promise<void> {
   const url = `${API_BASE}/repos/${REPO}/contents/${encodeURIComponent(path)}`;
 
@@ -149,7 +152,7 @@ export async function createFile(
   if (!res.ok) {
     const errorData = await res.json().catch(() => ({}));
     throw new Error(
-      `Failed to create file: ${res.status} - ${JSON.stringify(errorData)}`
+      `Failed to create file: ${res.status} - ${JSON.stringify(errorData)}`,
     );
   }
 }

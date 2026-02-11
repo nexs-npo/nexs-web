@@ -15,7 +15,9 @@ const byType = {
 
 // Sort each group by ID
 Object.keys(byType).forEach((type) => {
-  byType[type as keyof typeof byType].sort((a, b) => a.data.id.localeCompare(b.data.id));
+  byType[type as keyof typeof byType].sort((a, b) =>
+    a.data.id.localeCompare(b.data.id),
+  );
 });
 
 const typeLabels: Record<string, string> = {
