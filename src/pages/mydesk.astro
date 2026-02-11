@@ -1,6 +1,6 @@
 ---
 import BoardDesk from '@/components/mydesk/BoardDesk.astro';
-import LoginPrompt from '@/components/mydesk/LoginPrompt.astro';
+import LoginPrompt from '@/components/mydesk/LoginPrompt';
 import MemberDesk from '@/components/mydesk/MemberDesk.astro';
 import NoRoleMessage from '@/components/mydesk/NoRoleMessage.astro';
 import OfficeDesk from '@/components/mydesk/OfficeDesk.astro';
@@ -84,7 +84,7 @@ if (clerkEnabled) {
       </div>
     )}
 
-    {content === 'login-prompt' && <LoginPrompt />}
+    {content === 'login-prompt' && <LoginPrompt client:only="react" />}
     {content === 'board' && <BoardDesk />}
     {content === 'office' && <OfficeDesk />}
     {content === 'member' && <MemberDesk />}
