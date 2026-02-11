@@ -36,7 +36,7 @@ if (clerkEnabled) {
     content = 'login-prompt';
   } else {
     // ログイン済み → サーバーサイドでユーザー情報を取得
-    const user = await clerkClient().users.getUser(userId);
+    const user = await clerkClient(Astro).users.getUser(userId);
     const role = getRoleFromMetadata(user.publicMetadata);
 
     if (!role) {
