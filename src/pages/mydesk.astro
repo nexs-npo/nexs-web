@@ -1,6 +1,62 @@
 ---
+import { clerkClient } from '@clerk/astro/server';
+import BoardDesk from '@/components/mydesk/BoardDesk.astro';
+import LoginPrompt from '@/components/mydesk/LoginPrompt';
+import MemberDesk from '@/components/mydesk/MemberDesk.astro';
+import NoRoleMessage from '@/components/mydesk/NoRoleMessage.astro';
+import OfficeDesk from '@/components/mydesk/OfficeDesk.astro';
+import SupporterDesk from '@/components/mydesk/SupporterDesk.astro';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getRoleFromMetadata } from '@/lib/roles';
+
+// SSR を有効化（認証状態でコンテンツが変わるため）
+export const prerender = false;
+
+// Clerk が無効の場合は Coming Soon を表示（既存の挙動を維持）
+// PREVIEW_MODE はミドルウェアのみスキップし、Clerk 自体は有効のまま
+const clerkEnabled =
+  !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
+  !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+let content:
+  | 'coming-soon'
+  | 'login-prompt'
+  | 'board'
+  | 'office'
+  | 'member'
+  | 'supporter'
+  | 'no-role' = 'coming-soon';
+
+if (clerkEnabled) {
+  const { userId } = Astro.locals.auth();
+
+  if (!userId) {
+    // 未ログイン → ログイン誘導
+    content = 'login-prompt';
+  } else {
+    // ログイン済み → サーバーサイドでユーザー情報を取得
+    const user = await clerkClient(Astro).users.getUser(userId);
+    const role = getRoleFromMetadata(user.publicMetadata);
+
+    if (!role) {
+      // ロール未設定
+      content = 'no-role';
+    } else if (role === 'admin' || role === 'board') {
+      // admin は board の全権限を包含
+      content = 'board';
+    } else if (role === 'office') {
+      content = 'office';
+    } else if (role === 'regular') {
+      content = 'member';
+    } else if (role === 'supporter') {
+      content = 'supporter';
+    } else {
+      // 想定外のロール（型ガードを通過しないはずだが念のため）
+      content = 'no-role';
+    }
+  }
+}
 ---
 
 <BaseLayout title="MyDesk - nexs">
@@ -11,21 +67,30 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     headerIconType="mydesk"
     client:load
   >
-    <div class="animate-fade-in-up">
-      <div class="flex flex-col items-center justify-center px-5 max-w-md mx-auto pt-16 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
-          <path d="M12 17v4" />
-          <path d="M8 21h8" />
-          <rect x="2" y="3" width="20" height="14" rx="2" />
-          <path d="m9 10 2 2 4-4" />
-        </svg>
-        <h2 class="text-lg font-bold text-gray-900 mb-2">Coming Soon</h2>
-        <p class="text-sm text-gray-500 leading-relaxed">
-          MyDesk機能は現在開発中です。<br />
-          お気に入りした記事や通知など、<br />
-          あなた専用のスペースをまもなくご提供します。
-        </p>
+    {content === 'coming-soon' && (
+      <div class="animate-fade-in-up">
+        <div class="flex flex-col items-center justify-center px-5 max-w-md mx-auto pt-16 text-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
+            <path d="M12 17v4" />
+            <path d="M8 21h8" />
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <path d="m9 10 2 2 4-4" />
+          </svg>
+          <h2 class="text-lg font-bold text-gray-900 mb-2">Coming Soon</h2>
+          <p class="text-sm text-gray-500 leading-relaxed">
+            MyDesk機能は現在開発中です。<br />
+            お気に入りした記事や通知など、<br />
+            あなた専用のスペースをまもなくご提供します。
+          </p>
+        </div>
       </div>
-    </div>
+    )}
+
+    {content === 'login-prompt' && <LoginPrompt client:only="react" />}
+    {content === 'board' && <BoardDesk />}
+    {content === 'office' && <OfficeDesk />}
+    {content === 'member' && <MemberDesk />}
+    {content === 'supporter' && <SupporterDesk />}
+    {content === 'no-role' && <NoRoleMessage />}
   </PageWrapper>
 </BaseLayout>

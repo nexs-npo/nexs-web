@@ -49,9 +49,35 @@ No linter or test framework is configured.
 
 All content is managed via AI agents (Claude Code, Gemini CLI, etc.) by directly creating/editing MDX files.
 
-### Clerk Authentication
+### Clerk Authentication & Role Management
 
-Clerk is conditionally loaded in `astro.config.mjs` based on `PUBLIC_CLERK_PUBLISHABLE_KEY`. When the key is absent, the integration is skipped entirely. To enable: set keys in `.env` per `.env.example`. See `docs/02_ARCHITECTURE.md` Section 6.
+**Status**: Disabled by default. Enabled when `PUBLIC_CLERK_PUBLISHABLE_KEY` is set in `.env`.
+
+**How it works:**
+- Clerk is conditionally loaded in `astro.config.mjs` based on environment variable
+- When enabled: auth middleware (`src/middleware.ts`) protects `/mydesk` and approval APIs
+- When disabled: protected pages show fallback content, public pages work normally
+
+**Role Management:**
+- Roles are stored in Clerk `publicMetadata.role` (Single Source of Truth)
+- Available roles: `admin`, `board`, `office`, `regular`, `supporter`
+- Set via Clerk Dashboard → Users → Metadata → Public → `{"role": "board"}`
+- Type definitions: `src/lib/roles.ts`
+- Usage: `getRoleFromMetadata(sessionClaims?.metadata)` in SSR pages
+
+**Protected Routes:**
+- `/mydesk` — Shows role-specific desk (SSR)
+- `/api/governance/approve` — Requires authentication + reverification
+
+**Resolution Approval System:**
+- Approvals stored as JSON files in `data/approvals/{proposalId}/` via GitHub Contents API
+- Clerk reverification (5 min, second_factor) enforced on approval action
+- Content hash (SHA-256) verified server-side to prevent tampering
+- Approval records include: approver name (lastName + firstName), timestamp, content hash, auth level
+- Client: `ApprovalSection.tsx` uses `useReverification` hook from `@clerk/shared/react`
+- Server: `/api/governance/approve` validates session + hash, writes to GitHub
+
+See `.env.example` for setup instructions and `docs/02_ARCHITECTURE.md` Section 6.
 
 ### Database
 

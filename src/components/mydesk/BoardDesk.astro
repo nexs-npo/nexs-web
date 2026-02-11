@@ -1,0 +1,114 @@
+---
+import { getCollection } from 'astro:content';
+
+// 審議中の議案（status: 'review'）を取得
+const resolutions = await getCollection('resolutions', ({ data }) => {
+  return data.status === 'review';
+});
+
+const reviewCount = resolutions.length;
+---
+
+<div class="animate-fade-in-up">
+  <div class="px-5 max-w-md mx-auto">
+    <!-- Header Section -->
+    <section class="mb-8">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="block w-1 h-6 bg-gray-900"></span>
+        <h2 class="text-lg font-bold text-gray-900">ボードメンバーデスク</h2>
+      </div>
+      <p class="text-xs text-gray-500 leading-relaxed">
+        意思決定・承認・社内通知に関する機能にアクセスできます。
+      </p>
+    </section>
+
+    <!-- Active Modules -->
+    <section class="mb-8">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+        Active Modules
+      </h3>
+
+      <div class="space-y-3">
+        <!-- Resolutions -->
+        <a
+          href="/governance/resolutions/"
+          class="block bg-white border border-gray-100 rounded-xl p-4 hover:border-gray-900 hover:shadow-md transition-all active:scale-[0.98]"
+        >
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-2">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="text-gray-900"
+              >
+                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"
+                ></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <path d="M9 15h6"></path>
+              </svg>
+              <span class="text-sm font-bold text-gray-900">決議案</span>
+            </div>
+            {
+              reviewCount > 0 && (
+                <span class="text-xs font-mono text-gray-900 bg-gray-100 px-2 py-1 rounded">
+                  {reviewCount} 審議中
+                </span>
+              )
+            }
+          </div>
+          <p class="text-xs text-gray-500">
+            現在審議中の議案を確認し、承認を行います。
+          </p>
+        </a>
+
+        <!-- Documents -->
+        <a
+          href="/governance/documents/"
+          class="block bg-white border border-gray-100 rounded-xl p-4 hover:border-gray-900 hover:shadow-md transition-all active:scale-[0.98]"
+        >
+          <div class="flex items-center gap-2 mb-2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="text-gray-900"
+            >
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+              ></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="9" y1="15" x2="15" y2="15"></line>
+              <line x1="9" y1="12" x2="15" y2="12"></line>
+            </svg>
+            <span class="text-sm font-bold text-gray-900">組織文書</span>
+          </div>
+          <p class="text-xs text-gray-500">定款・規程などの組織文書を参照します。</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Coming Soon -->
+    <section class="mb-8">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+        Coming Soon
+      </h3>
+      <div class="bg-gray-50 border border-gray-100 rounded-xl p-4">
+        <p class="text-xs text-gray-400 leading-relaxed">
+          承認待ち議案のサマリー、社内通知などの機能を追加予定です。
+        </p>
+      </div>
+    </section>
+  </div>
+</div>

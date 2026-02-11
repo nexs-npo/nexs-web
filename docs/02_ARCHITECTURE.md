@@ -104,3 +104,28 @@ Clerkは **環境変数によるオプトイン方式** で管理されている
 - `astro.config.mjs` が `PUBLIC_CLERK_PUBLISHABLE_KEY` の存在を確認
 - 存在すれば `@clerk/astro` インテグレーションを動的にロード
 - 存在しなければスキップ（エラーなし）
+- `src/middleware.ts` が認証ミドルウェアを条件付きで適用
+
+### ロール管理
+
+Clerk の `publicMetadata` をロールの唯一の真実源（Single Source of Truth）として使用:
+
+**利用可能なロール:**
+
+| ロール | 英名 | 用途 |
+|--------|------|------|
+| システム管理者 | `admin` | 全権限（技術管理者用） |
+| ボードメンバー | `board` | 議案承認、意思決定、社内通知 |
+| 事務局メンバー | `office` | 法人運営、社内規程参照、勤怠 |
+| 正会員 | `regular` | 研究参加、記事投稿、通知 |
+| 賛助会員 | `supporter` | 閲覧、コメント、お気に入り |
+
+**ロール設定方法:**
+1. Clerk Dashboard → Users → ユーザーを選択
+2. Metadata タブ → Public セクション
+3. `{"role": "board"}` を追加
+
+**実装:**
+- 型定義: `src/lib/roles.ts`
+- SSRページでの取得: `getRoleFromMetadata(sessionClaims?.metadata)`
+- MyDeskページ: `/mydesk` でロール別のデスクを表示

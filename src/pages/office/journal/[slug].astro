@@ -20,7 +20,8 @@ const authorInitials: Record<string, string> = {
   'nexs Research': 'N',
   'K. Suzuki': 'S',
 };
-const initial = authorInitials[data.author] || data.author.charAt(0).toUpperCase();
+const initial =
+  authorInitials[data.author] || data.author.charAt(0).toUpperCase();
 ---
 
 <BaseLayout title={`${data.title} - Journal - nexs`}>

@@ -7,6 +7,7 @@ import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
 import StatusBadge from '@/components/governance/StatusBadge.astro';
 import Header from '@/components/Header';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { computeHash } from '@/lib/hash';
 
 export async function getStaticPaths() {
   const resolutions = await getCollection('resolutions');
@@ -25,8 +26,11 @@ const proposerInitial = resolution.data.proposer.charAt(0).toUpperCase();
 // Find related materials
 const allMaterials = await getCollection('resolution-materials');
 const relatedMaterials = allMaterials.filter(
-  (m) => m.data.resolutionId === resolution.data.id
+  (m) => m.data.resolutionId === resolution.data.id,
 );
+
+// Compute content hash for approval verification
+const contentHash = await computeHash(resolution.body.trim());
 
 const materialTypeLabels: Record<string, string> = {
   background: '背景資料',
@@ -163,8 +167,9 @@ const materialTypeLabels: Record<string, string> = {
 
       <!-- Approval Section -->
       <ApprovalSection
-        approvalCount={resolution.data.approvals?.filter(a => a.approved).length ?? 0}
+        proposalId={resolution.data.id}
         slug={resolution.slug}
+        contentHash={contentHash}
         client:load
       />
 

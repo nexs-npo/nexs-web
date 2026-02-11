@@ -1,0 +1,57 @@
+---
+// ロール未設定時のメッセージ
+---
+
+<div class="animate-fade-in-up">
+  <div
+    class="flex flex-col items-center justify-center px-5 max-w-md mx-auto pt-16 text-center"
+  >
+    <!-- Icon: Alert Circle -->
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="48"
+      height="48"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class="text-gray-300 mb-6"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+
+    <!-- Message -->
+    <h2 class="text-lg font-bold text-gray-900 mb-2">ロールが未設定です</h2>
+    <p class="text-sm text-gray-500 leading-relaxed mb-6">
+      あなたのアカウントにはまだ役割（ロール）が<br />
+      設定されていません。
+    </p>
+
+    <!-- Instructions -->
+    <div class="bg-gray-50 border border-gray-100 rounded-lg p-4 text-left w-full mb-6">
+      <p class="text-xs text-gray-600 leading-relaxed mb-3">
+        <strong class="text-gray-900">次のステップ：</strong>
+      </p>
+      <ol class="text-xs text-gray-600 leading-relaxed space-y-2 list-decimal list-inside">
+        <li>システム管理者に連絡してください</li>
+        <li>適切なロールの設定を依頼してください</li>
+        <li>設定後、このページを再読み込みしてください</li>
+      </ol>
+    </div>
+
+    <!-- Available Roles -->
+    <div class="text-xs text-gray-400 font-mono">
+      <p class="mb-2">利用可能なロール：</p>
+      <div class="space-y-1 text-left">
+        <p>• ボードメンバー（意思決定・承認）</p>
+        <p>• 事務局メンバー（法人運営）</p>
+        <p>• 正会員（研究参加）</p>
+        <p>• 賛助会員（閲覧・コメント）</p>
+      </div>
+    </div>
+  </div>
+</div>
