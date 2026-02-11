@@ -1,4 +1,5 @@
 ---
+import { clerkClient } from '@clerk/astro/server';
 import BoardDesk from '@/components/mydesk/BoardDesk.astro';
 import LoginPrompt from '@/components/mydesk/LoginPrompt';
 import MemberDesk from '@/components/mydesk/MemberDesk.astro';
@@ -28,20 +29,15 @@ let content:
   | 'no-role' = 'coming-soon';
 
 if (clerkEnabled) {
-  const { userId, sessionClaims } = Astro.locals.auth();
+  const { userId } = Astro.locals.auth();
 
   if (!userId) {
     // 未ログイン → ログイン誘導
     content = 'login-prompt';
   } else {
-    // デバッグ：sessionClaims の中身を確認
-    console.log('[MyDesk Debug] sessionClaims:', JSON.stringify(sessionClaims, null, 2));
-    console.log('[MyDesk Debug] sessionClaims.metadata:', sessionClaims?.metadata);
-    console.log('[MyDesk Debug] sessionClaims.publicMetadata:', (sessionClaims as any)?.publicMetadata);
-    console.log('[MyDesk Debug] sessionClaims.public_metadata:', (sessionClaims as any)?.public_metadata);
-
-    // ログイン済み → ロールを判定
-    const role = getRoleFromMetadata(sessionClaims?.metadata);
+    // ログイン済み → サーバーサイドでユーザー情報を取得
+    const user = await clerkClient().users.getUser(userId);
+    const role = getRoleFromMetadata(user.publicMetadata);
 
     if (!role) {
       // ロール未設定
