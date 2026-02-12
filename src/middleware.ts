@@ -37,12 +37,12 @@ const authMiddleware = clerkEnabled
         return;
       }
 
-      // 認証状態を確認
-      const { isAuthenticated, redirectToSignIn } = auth();
+      // 認証状態を確認（userId の有無で判定）
+      const { userId } = auth();
 
       // 未認証の場合はログインページにリダイレクト
-      if (!isAuthenticated) {
-        return redirectToSignIn();
+      if (!userId) {
+        return auth().redirectToSignIn();
       }
     })
   : // Clerk 無効時は何もしないミドルウェア

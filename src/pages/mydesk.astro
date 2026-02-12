@@ -1,5 +1,4 @@
 ---
-import { clerkClient } from '@clerk/astro/server';
 import BoardDesk from '@/components/mydesk/BoardDesk.astro';
 import LoginPrompt from '@/components/mydesk/LoginPrompt';
 import MemberDesk from '@/components/mydesk/MemberDesk.astro';
@@ -8,13 +7,12 @@ import OfficeDesk from '@/components/mydesk/OfficeDesk.astro';
 import SupporterDesk from '@/components/mydesk/SupporterDesk.astro';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import { getRoleFromMetadata } from '@/lib/roles';
+import type { MemberRole } from '@/lib/roles';
 
 // SSR を有効化（認証状態でコンテンツが変わるため）
 export const prerender = false;
 
 // Clerk が無効の場合は Coming Soon を表示（既存の挙動を維持）
-// PREVIEW_MODE はミドルウェアのみスキップし、Clerk 自体は有効のまま
 const clerkEnabled =
   !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY ||
   !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
@@ -29,15 +27,14 @@ let content:
   | 'no-role' = 'coming-soon';
 
 if (clerkEnabled) {
-  const { userId } = Astro.locals.auth();
+  const { userId, sessionClaims } = Astro.locals.auth();
 
   if (!userId) {
     // 未ログイン → ログイン誘導
     content = 'login-prompt';
   } else {
-    // ログイン済み → サーバーサイドでユーザー情報を取得
-    const user = await clerkClient(Astro).users.getUser(userId);
-    const role = getRoleFromMetadata(user.publicMetadata);
+    // ログイン済み → Session Token から role を取得（高速！）
+    const role = sessionClaims?.role as MemberRole | undefined;
 
     if (!role) {
       // ロール未設定
