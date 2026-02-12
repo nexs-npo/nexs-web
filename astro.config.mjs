@@ -27,9 +27,8 @@ export default defineConfig({
   site: 'https://nexs.or.jp',
   output: 'hybrid',
   adapter: node({
-    // standalone: Astro が自前でサーバーを起動（推奨）
-    // middleware: 既存の Express/Fastify に組み込む場合のみ使用
-    mode: 'standalone',
+    // middleware: server.mjs で Basic Auth と静的ファイル配信を処理
+    mode: 'middleware',
   }),
   server: {
     host: '0.0.0.0',
