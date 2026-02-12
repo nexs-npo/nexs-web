@@ -16,8 +16,8 @@ const clerkEnabled = !!process.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 const clerkIntegration = clerkEnabled
   ? [
       (await import('@clerk/astro')).default({
-        afterSignInUrl: '/',
-        afterSignUpUrl: '/',
+        // fallbackRedirectUrl を使用（afterSignInUrl は deprecated）
+        fallbackRedirectUrl: '/',
       }),
     ]
   : [];
@@ -27,7 +27,9 @@ export default defineConfig({
   site: 'https://nexs.or.jp',
   output: 'hybrid',
   adapter: node({
-    mode: 'middleware',
+    // standalone: Astro が自前でサーバーを起動（推奨）
+    // middleware: 既存の Express/Fastify に組み込む場合のみ使用
+    mode: 'standalone',
   }),
   server: {
     host: '0.0.0.0',
