@@ -32,8 +32,6 @@ const isProtectedRoute = createRouteMatcher([
  */
 const authMiddleware = clerkEnabled
   ? clerkMiddleware((auth, context) => {
-      const url = new URL(context.request.url);
-
       // 保護ルートでない場合は何もしない
       if (!isProtectedRoute(context.request)) {
         return;
@@ -42,20 +40,10 @@ const authMiddleware = clerkEnabled
       // 認証状態を確認（userId の有無で判定）
       const { userId } = auth();
 
-      // デバッグログ
-      console.log('[Middleware]', {
-        path: url.pathname,
-        userId: userId || 'none',
-        authenticated: !!userId,
-      });
-
       // 未認証の場合はログインページにリダイレクト
       if (!userId) {
-        console.log('[Middleware] Redirecting to sign-in');
         return auth().redirectToSignIn();
       }
-
-      console.log('[Middleware] Authenticated, allowing access');
     })
   : // Clerk 無効時は何もしないミドルウェア
     (_context, next) => next();
