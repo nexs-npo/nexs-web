@@ -39,18 +39,18 @@ const authMiddleware = clerkEnabled
         return;
       }
 
-      // 認証状態を確認
-      const { isAuthenticated, userId } = auth();
+      // 認証状態を確認（userId の有無で判定）
+      const { userId } = auth();
 
       // デバッグログ
       console.log('[Middleware]', {
         path: url.pathname,
-        isAuthenticated,
         userId: userId || 'none',
+        authenticated: !!userId,
       });
 
       // 未認証の場合はログインページにリダイレクト
-      if (!isAuthenticated) {
+      if (!userId) {
         console.log('[Middleware] Redirecting to sign-in');
         return auth().redirectToSignIn();
       }
