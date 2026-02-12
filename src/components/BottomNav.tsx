@@ -30,7 +30,7 @@ const tabs: Tab[] = [
       'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
     imageAlt: 'nexs logo',
   },
-  { id: 'office', label: '事務室', href: '/office/', icon: Icons.DoorClosed },
+  { id: 'office', label: '事務局', href: '/office/', icon: Icons.DoorClosed },
   {
     id: 'mydesk',
     label: 'マイデスク',
@@ -96,11 +96,11 @@ export default function BottomNav({
                   )}
                 </div>
 
-                {/* 選択中のラベル */}
+                {/* 選択中のラベル (nexsは常に表示) */}
                 <span
                   className={`
                     absolute bottom-2 text-[9px] font-bold tracking-tight transition-all duration-300
-                    ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
+                    ${isActive || tab.id === 'nexs' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
                   `}
                 >
                   {tab.label}

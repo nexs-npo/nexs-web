@@ -36,12 +36,12 @@ const isImportant = data.type === 'important';
 <BaseLayout title={`${data.title} - Announcements - nexs`}>
   <PageWrapper
     activeTab="about"
-    headerTitle="Announcements"
+    headerTitle="お知らせ"
     headerSubtitle={data.date}
     headerIconType="info"
     client:load
   >
-    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+    <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
       <!-- Back Link -->
       <a
         href="/announcements"
@@ -78,7 +78,7 @@ const isImportant = data.type === 'important';
         </div>
 
         <!-- Content -->
-        <div class="prose prose-sm prose-gray max-w-none">
+        <div class="prose prose-sm lg:prose-base prose-gray max-w-none">
           <Content />
         </div>
       </article>
