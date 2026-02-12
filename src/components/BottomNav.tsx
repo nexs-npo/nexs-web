@@ -20,7 +20,7 @@ type Tab =
     };
 
 const tabs: Tab[] = [
-  { id: 'lab', label: '研究室', href: '/lab/', icon: Icons.Flask },
+  { id: 'lab', label: '研究室', href: '/lab/', icon: Icons.BookSearch },
   { id: 'library', label: '書庫', href: '/library/', icon: Icons.Library },
   {
     id: 'nexs',
@@ -96,11 +96,11 @@ export default function BottomNav({
                   )}
                 </div>
 
-                {/* 選択中のラベル */}
+                {/* 選択中のラベル (nexsは常に表示) */}
                 <span
                   className={`
                     absolute bottom-2 text-[9px] font-bold tracking-tight transition-all duration-300
-                    ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
+                    ${isActive || tab.id === 'nexs' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
                   `}
                 >
                   {tab.label}
