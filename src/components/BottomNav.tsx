@@ -20,7 +20,7 @@ type Tab =
     };
 
 const tabs: Tab[] = [
-  { id: 'lab', label: '研究室', href: '/lab/', icon: Icons.BookSearch },
+  { id: 'lab', label: '研究室', href: '/lab/', icon: Icons.Flask },
   { id: 'library', label: '書庫', href: '/library/', icon: Icons.Library },
   {
     id: 'nexs',
@@ -30,7 +30,7 @@ const tabs: Tab[] = [
       'https://res.cloudinary.com/dl4pdwpyi/image/upload/v1768697017/nexs_3_tvxqjr.png',
     imageAlt: 'nexs logo',
   },
-  { id: 'office', label: '事務室', href: '/office/', icon: Icons.DoorClosed },
+  { id: 'office', label: '事務局', href: '/office/', icon: Icons.DoorClosed },
   {
     id: 'mydesk',
     label: 'マイデスク',
