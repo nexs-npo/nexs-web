@@ -40,12 +40,12 @@ const typeStyles: Record<string, string> = {
 <BaseLayout title={`${data.title} - Materials - nexs`}>
   <PageWrapper
     activeTab="about"
-    headerTitle="Resolution Materials"
+    headerTitle="決議資料"
     headerSubtitle={data.resolutionId}
     headerIconType="governance"
     client:load
   >
-    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+    <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
       <!-- Back Link -->
       {relatedResolution ? (
         <a
@@ -104,7 +104,7 @@ const typeStyles: Record<string, string> = {
         </div>
 
         <!-- Content -->
-        <div class="prose prose-sm prose-gray max-w-none">
+        <div class="prose prose-sm lg:prose-base prose-gray max-w-none">
           <Content />
         </div>
       </article>

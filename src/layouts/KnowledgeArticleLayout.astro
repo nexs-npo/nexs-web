@@ -59,12 +59,12 @@ const articleJsonLd = {
 
   <PageWrapper
     activeTab="library"
-    headerTitle="Library"
-    headerSubtitle="仮説から社会の更新まで。リンク可能な知識コンポーネント"
+    headerTitle="書庫"
+    headerSubtitle="原理・方法論・知見のデータベース"
     headerIconType="library"
     client:load
   >
-    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+    <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
       <!-- Article Header -->
       <section class="mb-8">
         <div class="mb-3">
@@ -83,7 +83,7 @@ const articleJsonLd = {
       </section>
 
       <!-- Content -->
-      <section class="mb-8 prose prose-sm max-w-none knowledge-content">
+      <section class="mb-8 prose prose-sm lg:prose-base max-w-none knowledge-content">
         <slot />
       </section>
 

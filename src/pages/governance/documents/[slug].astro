@@ -27,12 +27,12 @@ const typeLabels: Record<string, string> = {
 <BaseLayout title={`${data.title} - Documents - nexs`}>
   <PageWrapper
     activeTab="about"
-    headerTitle="Documents"
+    headerTitle="規程類"
     headerSubtitle={data.id}
     headerIconType="governance"
     client:load
   >
-    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+    <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
       <!-- Back Link -->
       <a
         href="/governance/documents"
@@ -88,7 +88,7 @@ const typeLabels: Record<string, string> = {
         )}
 
         <!-- Content -->
-        <div class="prose prose-sm prose-gray max-w-none">
+        <div class="prose prose-sm lg:prose-base prose-gray max-w-none">
           <Content />
         </div>
       </article>

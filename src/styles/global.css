@@ -82,9 +82,21 @@
   @apply text-xl font-bold text-gray-900 mt-8 mb-4;
 }
 
+@media (min-width: 1024px) {
+  .knowledge-content h2 {
+    @apply text-2xl mt-10 mb-5;
+  }
+}
+
 /* 見出し (H3) - 記事内の中見出し */
 .knowledge-content h3 {
   @apply text-lg font-bold text-gray-800 mt-6 mb-3;
+}
+
+@media (min-width: 1024px) {
+  .knowledge-content h3 {
+    @apply text-xl mt-8 mb-4;
+  }
 }
 
 /* 段落 (P) - 本文テキスト */
@@ -92,9 +104,21 @@
   @apply text-sm leading-relaxed text-gray-600 mb-4 text-justify;
 }
 
+@media (min-width: 1024px) {
+  .knowledge-content p {
+    @apply text-base leading-loose mb-5;
+  }
+}
+
 /* 箇条書き・点 (UL) */
 .knowledge-content ul {
   @apply list-disc list-outside ml-5 mb-4 text-sm text-gray-600;
+}
+
+@media (min-width: 1024px) {
+  .knowledge-content ul {
+    @apply text-base mb-5 ml-6;
+  }
 }
 
 /* 箇条書き・数字 (OL) */
@@ -102,14 +126,32 @@
   @apply list-decimal list-outside ml-5 mb-4 text-sm text-gray-600;
 }
 
+@media (min-width: 1024px) {
+  .knowledge-content ol {
+    @apply text-base mb-5 ml-6;
+  }
+}
+
 /* リストアイテム (LI) */
 .knowledge-content li {
   @apply mb-1 pl-1;
 }
 
+@media (min-width: 1024px) {
+  .knowledge-content li {
+    @apply mb-2;
+  }
+}
+
 /* 引用 (Blockquote) */
 .knowledge-content blockquote {
   @apply border-l-4 border-blue-200 pl-4 py-1 my-4 text-gray-500 italic text-sm;
+}
+
+@media (min-width: 1024px) {
+  .knowledge-content blockquote {
+    @apply text-base my-6 pl-5;
+  }
 }
 
 /* 太字 (Strong) */
@@ -125,6 +167,12 @@
 /* インラインコード (Code) */
 .knowledge-content code {
   @apply bg-gray-100 text-gray-800 px-1.5 py-0.5 rounded text-xs font-mono;
+}
+
+@media (min-width: 1024px) {
+  .knowledge-content code {
+    @apply text-sm px-2 py-1;
+  }
 }
 
 /* 水平線 (HR) */

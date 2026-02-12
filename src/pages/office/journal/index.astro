@@ -19,12 +19,12 @@ const authorInitials: Record<string, string> = {
 <BaseLayout title="Journal - nexs">
   <PageWrapper
     activeTab="office"
-    headerTitle="Journal"
+    headerTitle="活動日誌"
     headerSubtitle="理事長の活動日誌"
     headerIconType="office"
     client:load
   >
-    <div class="px-5 max-w-md mx-auto w-full animate-fade-in-up">
+    <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
       {sortedJournal.length === 0 ? (
         <div class="flex flex-col items-center justify-center pt-16 text-center">
           <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-gray-300 mb-6">
