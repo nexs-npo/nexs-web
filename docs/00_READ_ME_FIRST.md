@@ -1,4 +1,7 @@
-# **00. Context Map for AI & Developers**
+# 00. Context Map for AI & Developers
+
+**Version:** 1.0
+**Created:** 2026-02 with Claude Code (Sonnet 4.5)
 
 このファイルは、次世代社会デザイン研究機構（nexs）のWebサイト開発に参加する**AIエージェント**および**人間の開発者**へ向けた、コンテキストマップ（案内図）です。
 
@@ -6,22 +9,43 @@
 
 開発作業を開始する前に、以下のドキュメント群を読み込み、プロジェクトの「思想」と「構造」を理解してください。
 
-## **Documentation Structure**
+---
 
-| File | Title | Description | Key Focus |
-| :---- | :---- | :---- | :---- |
-| **01** | **PHILOSOPHY** | 開発哲学・マニフェスト | **最重要。** 意思決定の優先順位（安全＞OSS＞UX...）。AI-Readinessの定義。 |
-| **02** | **ARCHITECTURE** | システム構成・技術スタック | 自宅サーバーとクラウドの分離。OSSとしてのセキュアな構成（Secrets管理）。 |
-| **03** | **DATA_SCHEMA** | データ構造・スキーマ | Supabase (PostgreSQL) のER図。Clerk IDとの連携、RLSポリシー。 |
-| **04** | **UI_UX_GUIDELINES** | デザインガイドライン | モバイルファーストUI、Tailwind設定、カラーパレット、アニメーション定義。 |
+## Documentation Structure
 
-## **Operational Guides**
+### 0. 導入
+| File | Title | Description |
+| :---- | :---- | :---- |
+| **00_READ_ME_FIRST.md** | このファイル | ドキュメント全体の案内図 |
 
-`docs/guides/` には、nexs メンバー向けの運用ガイドがあります。開発者でなくても読める内容です。
+### 1. 概念と定義（Why & What）
+| File | Title | Description |
+| :---- | :---- | :---- |
+| **01_PHILOSOPHY.md** | 開発哲学 | **最重要。** 意思決定の優先順位（安全＞OSS＞UX...）。 |
+| **02_PRODUCT_DEFINITION.md** | プロダクト定義 | nexsとは何か、対象ユーザー、解決する課題 |
 
-| File | Description |
-| :---- | :---- |
-| **guides/RESOLUTIONS_GUIDE.md** | 議案（Resolutions）の運用ルール。議案ID、ブランチ運用、PR マージルール、Git 履歴の保護。 |
+### 2. 技術と設計（How）
+| File | Title | Description |
+| :---- | :---- | :---- |
+| **10_DEV_ENVIRONMENT.md** | 開発環境 | 環境構築手順、必要なツール |
+| **11_SYSTEM_ARCHITECTURE.md** | システム構成 | 技術スタック、サーバー分離、セキュリティ設計 |
+| **12_DATA_SCHEMA.md** | データスキーマ | Supabase (PostgreSQL) のER図、Clerk ID連携 |
+| **13_UI_STYLE_GUIDE.md** | UIスタイルガイド | デザインシステム、Tailwind設定、コンポーネント |
+| **14_PWA_STRATEGY.md** | PWA戦略 | プログレッシブWebアプリ化の方針 |
+| **15_CODING_RULES.md** | コーディング規約 | 具体的な実装ルール |
+
+### 3. 運用と進行（When & Where）
+| File | Title | Description |
+| :---- | :---- | :---- |
+| **20_DEPLOYMENT_GUIDE.md** | デプロイガイド | 本番環境へのデプロイ手順 |
+| **21_KNOWLEDGE_GUIDE.md** | ナレッジ記事ガイド | Knowledge記事の執筆・管理方法 |
+| **22_RESOLUTIONS_GUIDE.md** | 決議システムガイド | 議案の運用ルール、ブランチ運用 |
+| **23_DESIGN_WORKFLOW.md** | デザインワークフロー | デザイン作業の進め方 |
+
+### 4. その他
+| File | Title | Description |
+| :---- | :---- | :---- |
+| **99_DEV_LOG.md** | 開発ログ（サマリー） | 重要なエラーと解決策の記録 |
 
 ## **Directory Structure (Planned)**
 
