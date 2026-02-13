@@ -1,4 +1,5 @@
 ---
+import SignOutButton from '@/components/auth/SignOutButton';
 import { getCollection } from 'astro:content';
 
 // 審議中の議案（status: 'review'）を取得
@@ -109,6 +110,14 @@ const reviewCount = resolutions.length;
           承認待ち議案のサマリー、社内通知などの機能を追加予定です。
         </p>
       </div>
+    </section>
+
+    <!-- Account -->
+    <section class="mb-8">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+        アカウント
+      </h3>
+      <SignOutButton client:only="react" />
     </section>
   </div>
 </div>
