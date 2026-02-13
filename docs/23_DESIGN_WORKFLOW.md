@@ -1,4 +1,7 @@
-# nexs デザイン実装ワークフロー
+# 23. Design Workflow
+
+**Version:** 1.0
+**Created:** 2026-02 with Claude Code (Sonnet 4.5)
 
 このドキュメントは、**デザインチーム（スタッフ）** と **開発AI** が連携してページをデザイン・実装するための標準プロセスです。
 

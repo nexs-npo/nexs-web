@@ -1,10 +1,17 @@
-# **05. Environment Setup Guide**
+# 10. Development Environment
+
+**Version:** 1.0
+**Created:** 2026-02 with Claude Code (Sonnet 4.5)
+
+> ⚠️ **注意:** このドキュメントは現在更新中です。環境構築の方法は今後変更される可能性があります。
 
 第三者が本プロジェクトをForkし、自分の環境で再現するための手順書。
 
-## **1. 必要なアカウント・サービス**
+---
 
-### **A. Clerk (Authentication SaaS)**
+## 1. 必要なアカウント・サービス
+
+### A. Clerk (Authentication SaaS)
 
 **目的:** ユーザー認証とPII（個人情報）の管理
 
@@ -17,19 +24,17 @@
    - `Secret Key` → `.env` の `CLERK_SECRET_KEY` に設定
 
 **重要設定:**
-- JWT Template: Supabase用のカスタムテンプレートを作成（後述）
-- Webhooks: ユーザー作成時に Supabase へ `public_profiles` を同期（オプション）
+- Session Token Customization: `role` カスタムクレームを追加（詳細は02_ARCHITECTURE.mdを参照）
 
 ---
 
-### **B. Supabase (Self-Hosted on Coolify)**
+### B. Supabase (Database)
 
 **目的:** 議論データ、プロジェクト情報の保存（PII不要なデータのみ）
 
-**オプション1: Self-Hosted（推奨）**
+**オプション1: Self-Hosted**
 
-1. [Coolify](https://coolify.io) をインストール（または任意のDockerホスト）
-2. Supabase の公式 Docker Compose をデプロイ:
+1. Supabase の公式 Docker Compose をデプロイ:
    ```bash
    git clone https://github.com/supabase/supabase
    cd supabase/docker
@@ -37,21 +42,21 @@
    # .env を編集（パスワード等を設定）
    docker-compose up -d
    ```
-3. Cloudflare Tunnel で公開（次項参照）
-4. Supabase Dashboard (ポート3000) にアクセスし、以下を取得：
+2. Cloudflare Tunnel で公開（次項参照）
+3. Supabase Dashboard (ポート3000) にアクセスし、以下を取得：
    - `API URL` → `.env` の `PUBLIC_SUPABASE_URL` に設定
    - `anon key` → `.env` の `PUBLIC_SUPABASE_ANON_KEY` に設定
    - `service_role key` → `.env` の `SUPABASE_SERVICE_ROLE_KEY` に設定
 
-**オプション2: Supabase Cloud（簡易版）**
+**オプション2: Supabase Cloud**
 
 1. [Supabase Cloud](https://supabase.com) でプロジェクト作成
 2. Settings → API から同様にキーを取得
-3. **注意:** PII を扱わないため、Cloudでも問題ないが、本プロジェクトの思想は Self-Hosted 推奨
+3. **注意:** PII を扱わないため、Cloudでも問題ないが、本プロジェクトの思想は Self-Hosted を選択肢として提示
 
 ---
 
-### **C. Cloudflare Tunnel (Self-Hosted を安全に公開)**
+### C. Cloudflare Tunnel (Self-Hosted を安全に公開)
 
 **目的:** 自宅サーバー（Supabase）をポート開放せずに公開
 
@@ -71,24 +76,9 @@
 
 ---
 
-### **D. Cloudflare Pages (Frontend Hosting)**
+## 2. データベースのセットアップ
 
-**目的:** Astro 静的サイトのデプロイ
-
-**手順:**
-1. GitHub リポジトリと Cloudflare Pages を連携
-2. Build settings:
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Node version: `20`
-3. Environment variables に Clerk と Supabase の `PUBLIC_*` キーを設定
-4. Deploy → 自動的にデプロイ開始
-
----
-
-## **2. データベースのセットアップ**
-
-### **マイグレーション実行**
+### マイグレーション実行
 
 Supabase Dashboard → SQL Editor で以下を実行:
 
@@ -100,7 +90,7 @@ supabase/migrations/001_initial_schema.sql の内容をコピペして実行
 supabase db push
 ```
 
-### **Row Level Security (RLS) の有効化**
+### Row Level Security (RLS) の有効化
 
 マイグレーションファイルに含まれていますが、手動確認する場合:
 
@@ -113,45 +103,15 @@ supabase db push
 
 ---
 
-## **3. Clerk ↔ Supabase 連携設定**
+## 3. 開発環境のセットアップ
 
-### **Clerk JWT Template 作成**
-
-Clerk Dashboard → JWT Templates → New Template → Supabase
-
-```json
-{
-  "aud": "authenticated",
-  "exp": "{{user.expiresAt}}",
-  "sub": "{{user.id}}",
-  "email": "{{user.primaryEmailAddress}}",
-  "role": "authenticated",
-  "app_metadata": {
-    "provider": "clerk"
-  }
-}
-```
-
-### **Supabase 側の JWT Secret 設定**
-
-Supabase の `.env` ファイルで:
-```bash
-JWT_SECRET=<Clerk の JWKS URL から取得したシークレット>
-```
-
-または、Supabase Dashboard → Settings → API → JWT Settings で設定
-
----
-
-## **4. 開発環境のセットアップ**
-
-### **必要なツール**
+### 必要なツール
 
 - Node.js 20.x 以上
 - npm または pnpm
 - Git
 
-### **セットアップコマンド**
+### セットアップコマンド
 
 ```bash
 # リポジトリのクローン
@@ -171,21 +131,21 @@ npm run dev
 
 ---
 
-## **5. トラブルシューティング**
+## 4. トラブルシューティング
 
-### **Clerk ログインができない**
+### Clerk ログインができない
 
 - `PUBLIC_CLERK_PUBLISHABLE_KEY` が正しく設定されているか確認
 - Clerk Dashboard で Allowed Origins に `http://localhost:4321` を追加
 
-### **Supabase に接続できない**
+### Supabase に接続できない
 
 - Cloudflare Tunnel が起動しているか確認
 - `PUBLIC_SUPABASE_URL` が正しいか確認
 - ブラウザの Console で CORS エラーが出ていないか確認
   - Supabase Dashboard → Settings → API → CORS で `*` または開発URLを追加
 
-### **RLS でデータが取得できない**
+### RLS でデータが取得できない
 
 - Clerk JWT が正しく Supabase に渡されているか確認
 - Supabase Dashboard → Authentication → Users で JWT payload を確認
@@ -193,12 +153,11 @@ npm run dev
 
 ---
 
-## **6. 本番デプロイ時のチェックリスト**
+## 5. 本番デプロイ時のチェックリスト
 
 - [ ] `.env` ファイルが `.gitignore` に含まれている
-- [ ] Cloudflare Pages の Environment Variables が全て設定済み
+- [ ] デプロイ環境の Environment Variables が全て設定済み
 - [ ] Supabase の RLS ポリシーが有効
 - [ ] Cloudflare Tunnel が安定稼働している（systemd 等で自動起動設定）
 - [ ] Clerk の Production Keys を使用（Test Keys ではない）
 - [ ] HTTPS で全ての通信が暗号化されている
-- [ ] CSP (Content Security Policy) ヘッダーの設定（Cloudflare Pages）

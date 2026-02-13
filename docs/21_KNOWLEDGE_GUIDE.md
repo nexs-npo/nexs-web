@@ -1,6 +1,11 @@
-# nexs ナレッジシステム 構造ガイド
+# 21. Knowledge Guide
+
+**Version:** 1.0
+**Created:** 2026-02 with Claude Code (Sonnet 4.5)
 
 このドキュメントは、nexs Knowledge ページの記事作成における基本的な考え方と構造を説明します。
+
+---
 
 ## 概要
 
