@@ -26,8 +26,11 @@ let content:
   | 'supporter'
   | 'no-role' = 'coming-soon';
 
+let isAuthenticated = false;
+
 if (clerkEnabled) {
   const { userId, sessionClaims } = Astro.locals.auth();
+  isAuthenticated = !!userId;
 
   if (!userId) {
     // 未ログイン → ログイン誘導
@@ -62,6 +65,7 @@ if (clerkEnabled) {
     headerTitle="マイデスク"
     headerSubtitle="あなた専用のデスクスペース"
     headerIconType="mydesk"
+    isAuthenticated={isAuthenticated}
     client:load
   >
     {content === 'coming-soon' && (
