@@ -60,7 +60,7 @@ export default function Header({
       </div>
 
       {/* Auth Status */}
-      <div className="flex items-center">
+      <div className="flex items-center relative z-[60]">
         {isAuthenticated ? (
           <UserButton />
         ) : (

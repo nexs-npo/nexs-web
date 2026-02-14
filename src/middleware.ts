@@ -38,7 +38,7 @@ const authMiddleware = clerkEnabled
   ? clerkMiddleware((auth, context) => {
       // APIルートのみ protect() を呼ぶ（未認証時はリダイレクト）
       if (isProtectedApiRoute(context.request)) {
-        auth.protect();
+        return auth().protect();
       }
 
       // /mydesk は protect() を呼ばず、通過させる
