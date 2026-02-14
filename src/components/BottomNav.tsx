@@ -1,5 +1,5 @@
-import type { SVGProps } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import type { SVGProps } from 'react';
 
 import { Icons } from './Icons';
 
@@ -105,59 +105,59 @@ export default function BottomNav({
         `}
       >
         <nav className="relative bg-white/90 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 h-[64px] px-1 flex items-center justify-between overflow-hidden">
-        <div className="w-full grid grid-cols-5 h-full">
-          {tabs.map((tab) => {
-            const isActive = activeTab === tab.id;
-            const Icon = 'icon' in tab ? tab.icon : null;
+          <div className="w-full grid grid-cols-5 h-full">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab.id;
+              const Icon = 'icon' in tab ? tab.icon : null;
 
-            return (
-              <a
-                key={tab.id}
-                href={tab.href}
-                className="relative h-full flex flex-col items-center justify-center group focus:outline-none"
-              >
-                {/* アイコン部分 */}
-                <div
-                  className={`
+              return (
+                <a
+                  key={tab.id}
+                  href={tab.href}
+                  className="relative h-full flex flex-col items-center justify-center group focus:outline-none"
+                >
+                  {/* アイコン部分 */}
+                  <div
+                    className={`
                     relative z-10 transition-all duration-300 transform
                     ${isActive ? 'scale-110 -translate-y-1' : 'scale-100 group-hover:scale-105'}
                   `}
-                >
-                  {Icon ? (
-                    <Icon
-                      size={24}
-                      className={`
+                  >
+                    {Icon ? (
+                      <Icon
+                        size={24}
+                        className={`
                         transition-colors duration-300
                         ${isActive ? 'text-black' : 'text-gray-400 group-hover:text-gray-600'}
                       `}
-                    />
-                  ) : (
-                    'imageSrc' in tab && (
-                      <img
-                        src={tab.imageSrc}
-                        alt={tab.imageAlt}
-                        className={`h-6 w-6 rounded-full object-contain transition-opacity ${
-                          isActive ? 'opacity-100' : 'opacity-70'
-                        }`}
                       />
-                    )
-                  )}
-                </div>
+                    ) : (
+                      'imageSrc' in tab && (
+                        <img
+                          src={tab.imageSrc}
+                          alt={tab.imageAlt}
+                          className={`h-6 w-6 rounded-full object-contain transition-opacity ${
+                            isActive ? 'opacity-100' : 'opacity-70'
+                          }`}
+                        />
+                      )
+                    )}
+                  </div>
 
-                {/* 選択中のラベル (nexsは常に表示) */}
-                <span
-                  className={`
+                  {/* 選択中のラベル (nexsは常に表示) */}
+                  <span
+                    className={`
                     absolute bottom-2 text-[9px] font-bold tracking-tight transition-all duration-300
                     ${isActive || tab.id === 'nexs' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
                   `}
-                >
-                  {tab.label}
-                </span>
-              </a>
-            );
-          })}
-        </div>
-      </nav>
+                  >
+                    {tab.label}
+                  </span>
+                </a>
+              );
+            })}
+          </div>
+        </nav>
       </div>
     </>
   );

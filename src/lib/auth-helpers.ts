@@ -18,7 +18,9 @@ export function isClerkEnabled(): boolean {
  * @param locals - Astro.locals
  * @returns 認証されている場合は true
  */
-export function isAuthenticated(locals: any): boolean {
+export function isAuthenticated(locals: {
+  auth: () => { userId?: string };
+}): boolean {
   if (!isClerkEnabled()) {
     return false;
   }

@@ -18,9 +18,7 @@ const clerkEnabled =
  * これらのルートは、未認証の場合 Clerk のログインページにリダイレクトされる。
  * （APIエンドポイントはモーダルログインではなく、完全な保護が必要）
  */
-const isProtectedApiRoute = createRouteMatcher([
-  '/api/governance/approve(.*)',
-]);
+const isProtectedApiRoute = createRouteMatcher(['/api/governance/approve(.*)']);
 
 /**
  * Clerk 認証ミドルウェア

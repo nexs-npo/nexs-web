@@ -1,7 +1,7 @@
 ---
 import PageWrapper from '@/components/PageWrapper';
-import { isAuthenticated } from '@/lib/auth-helpers';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
 
 const isAuth = isAuthenticated(Astro.locals);
 ---

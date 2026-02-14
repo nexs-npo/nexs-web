@@ -66,7 +66,10 @@ export default function Header({
           <UserButton />
         ) : (
           <SignInButton mode="modal">
-            <button className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors">
+            <button
+              type="button"
+              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
+            >
               <CircleUserRound size={32} className="text-gray-300" />
             </button>
           </SignInButton>
