@@ -10,7 +10,9 @@ export default function ReadingModeToggle({
   onToggle,
 }: ReadingModeToggleProps) {
   return (
-    <div className="fixed top-6 right-6 z-50 flex items-center gap-2">
+    <div
+      className={`fixed left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 transition-all duration-500 ${isReadingMode ? 'bottom-8' : 'bottom-28'}`}
+    >
       {/* 状態を示すテキスト（オプション） */}
       <span
         className={`
@@ -26,7 +28,7 @@ export default function ReadingModeToggle({
         type="button"
         onClick={onToggle}
         className={`
-          relative w-11 h-6 rounded-full transition-colors duration-300 shadow-sm
+          relative w-11 h-5 rounded-full transition-colors duration-300 shadow-sm
           ${isReadingMode ? 'bg-black' : 'bg-gray-300'}
         `}
         aria-label="Toggle Reading Mode"
@@ -34,16 +36,16 @@ export default function ReadingModeToggle({
         {/* 動くノブ */}
         <div
           className={`
-            absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow-sm flex items-center justify-center
+            absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow-sm flex items-center justify-center
             transition-transform duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)
-            ${isReadingMode ? 'translate-x-5' : 'translate-x-0'}
+            ${isReadingMode ? 'translate-x-6' : 'translate-x-0'}
           `}
         >
           {/* ノブの中のアイコン */}
           {isReadingMode ? (
-            <EyeOff size={10} className="text-black" />
+            <EyeOff size={8} className="text-black" />
           ) : (
-            <Eye size={10} className="text-gray-400" />
+            <Eye size={8} className="text-gray-400" />
           )}
         </div>
       </button>
