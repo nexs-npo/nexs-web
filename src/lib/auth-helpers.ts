@@ -19,9 +19,14 @@ export function isClerkEnabled(): boolean {
  * @returns 認証されている場合は true
  */
 export function isAuthenticated(locals: {
-  auth: () => { userId?: string };
+  auth?: () => { userId?: string };
 }): boolean {
   if (!isClerkEnabled()) {
+    return false;
+  }
+
+  // 静的ビルド時は auth() が存在しないため、チェックする
+  if (!locals.auth || typeof locals.auth !== "function") {
     return false;
   }
 
