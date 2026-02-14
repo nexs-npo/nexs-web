@@ -47,20 +47,12 @@ export default function BottomNav({
   onToggleReadingMode,
 }: BottomNavProps) {
   return (
-    <div
-      className={`
-        fixed bottom-8 left-6 right-6 z-40 max-w-sm mx-auto
-        transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)
-        ${
-          !isReadingMode
-            ? 'translate-y-0 opacity-100 pointer-events-auto'
-            : 'translate-y-[150%] opacity-0 pointer-events-none'
-        }
-      `}
-    >
-      {/* Reading Mode Toggle */}
+    <>
+      {/* Reading Mode Toggle - 独立した位置 */}
       {onToggleReadingMode && (
-        <div className="absolute -top-20 left-1/2 -translate-x-1/2 flex items-center gap-2">
+        <div
+          className={`fixed left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 transition-all duration-500 ${isReadingMode ? 'bottom-8' : 'bottom-28'}`}
+        >
           {/* 状態を示すテキスト（オプション） */}
           <span
             className={`
@@ -76,7 +68,7 @@ export default function BottomNav({
             type="button"
             onClick={onToggleReadingMode}
             className={`
-              relative w-11 h-5 rounded-full transition-colors duration-300 shadow-sm
+              relative w-9 h-5 rounded-full transition-colors duration-300 shadow-sm
               ${isReadingMode ? 'bg-black' : 'bg-gray-300'}
             `}
             aria-label="Toggle Reading Mode"
@@ -86,7 +78,7 @@ export default function BottomNav({
               className={`
                 absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow-sm flex items-center justify-center
                 transition-transform duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)
-                ${isReadingMode ? 'translate-x-6' : 'translate-x-0'}
+                ${isReadingMode ? 'translate-x-4' : 'translate-x-0'}
               `}
             >
               {/* ノブの中のアイコン */}
@@ -100,8 +92,19 @@ export default function BottomNav({
         </div>
       )}
 
-      {/* ナビゲーションコンテナ */}
-      <nav className="relative bg-white/90 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 h-[64px] px-1 flex items-center justify-between overflow-hidden">
+      {/* ナビゲーションコンテナ - 独立した位置 */}
+      <div
+        className={`
+          fixed bottom-8 left-6 right-6 z-40 max-w-sm mx-auto
+          transition-all duration-500 cubic-bezier(0.34, 1.56, 0.64, 1)
+          ${
+            !isReadingMode
+              ? 'translate-y-0 opacity-100 pointer-events-auto'
+              : 'translate-y-[150%] opacity-0 pointer-events-none'
+          }
+        `}
+      >
+        <nav className="relative bg-white/90 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 h-[64px] px-1 flex items-center justify-between overflow-hidden">
         <div className="w-full grid grid-cols-5 h-full">
           {tabs.map((tab) => {
             const isActive = activeTab === tab.id;
@@ -155,6 +158,7 @@ export default function BottomNav({
           })}
         </div>
       </nav>
-    </div>
+      </div>
+    </>
   );
 }
