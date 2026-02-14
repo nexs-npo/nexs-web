@@ -1,4 +1,4 @@
-import { SignInButton } from '@clerk/astro/react';
+import { SignInButton, useUser } from '@clerk/astro/react';
 import { CircleUserRound } from 'lucide-react';
 import UserButton from './auth/UserButton';
 import { Icons } from './Icons';
@@ -16,8 +16,14 @@ export default function Header({
   subtitle,
   iconType = 'nexs',
   isReadingMode = false,
-  isAuthenticated = false,
+  isAuthenticated: isAuthenticatedProp = false,
 }: HeaderProps) {
+  // クライアントサイドで認証状態を取得（静的ページでも動作）
+  const { isSignedIn, isLoaded } = useUser();
+
+  // クライアントサイドでロード完了後は useUser の結果を使用
+  // SSR時はプロパティの値を使用
+  const isAuthenticated = isLoaded ? isSignedIn : isAuthenticatedProp;
   // アイコンの選択
   const renderIcon = () => {
     switch (iconType) {

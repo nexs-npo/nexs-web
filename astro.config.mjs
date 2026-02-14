@@ -44,6 +44,10 @@ const clerkIntegration = clerkEnabled
         fallbackRedirectUrl: '/',
         // Appearance カスタマイズでブランド統一
         appearance: clerkAppearance,
+        // 日本語化
+        localization: {
+          locale: 'ja-JP',
+        },
       }),
     ]
   : [];
