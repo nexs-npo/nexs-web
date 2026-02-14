@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
 
 const allDocuments = await getCollection('documents');
 
@@ -33,6 +34,8 @@ const typeDescriptions: Record<string, string> = {
   REGS: '運用規程・ガイドライン',
   RPT: '活動報告・調査レポート',
 };
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title="Documents - nexs">
@@ -41,6 +44,7 @@ const typeDescriptions: Record<string, string> = {
     headerTitle="規程類"
     headerSubtitle="定款・規程・ドキュメント"
     headerIconType="governance"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">

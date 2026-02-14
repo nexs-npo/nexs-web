@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
 
 const allKnowledge = await getCollection('knowledge');
 
@@ -46,6 +47,8 @@ const authorInitials: Record<string, string> = {
   'Project Team A': 'P',
   'Analytics Unit': 'A',
 };
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title="Library - nexs">
@@ -54,6 +57,7 @@ const authorInitials: Record<string, string> = {
     headerTitle="書庫"
     headerSubtitle="原理・方法論・知見のデータベース"
     headerIconType="library"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">

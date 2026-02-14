@@ -1,7 +1,6 @@
 import { type ReactNode, useState } from 'react';
 import BottomNav from './BottomNav';
 import Header from './Header';
-import ReadingModeToggle from './ReadingModeToggle';
 
 interface PageWrapperProps {
   children: ReactNode;
@@ -32,11 +31,6 @@ export default function PageWrapper({
         isAuthenticated={isAuthenticated}
       />
 
-      <ReadingModeToggle
-        isReadingMode={isReadingMode}
-        onToggle={() => setIsReadingMode(!isReadingMode)}
-      />
-
       <main
         className={`
           flex-1 transition-all duration-500
@@ -46,7 +40,11 @@ export default function PageWrapper({
         {children}
       </main>
 
-      <BottomNav activeTab={activeTab} isReadingMode={isReadingMode} />
+      <BottomNav
+        activeTab={activeTab}
+        isReadingMode={isReadingMode}
+        onToggleReadingMode={() => setIsReadingMode(!isReadingMode)}
+      />
     </div>
   );
 }

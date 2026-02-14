@@ -1,6 +1,6 @@
 ---
-import SignOutButton from '@/components/auth/SignOutButton';
 import { getCollection } from 'astro:content';
+import SignOutButton from '@/components/auth/SignOutButton';
 
 // 審議中の議案（status: 'review'）を取得
 const resolutions = await getCollection('resolutions', ({ data }) => {

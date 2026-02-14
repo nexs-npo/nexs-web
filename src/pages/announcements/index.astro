@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
 
 const allAnnouncements = await getCollection('announcements');
 
@@ -23,6 +24,8 @@ const typeStyles: Record<string, string> = {
   update: 'bg-green-100 text-green-700',
   important: 'bg-red-100 text-red-700 font-bold',
 };
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title="Announcements - nexs">
@@ -31,6 +34,7 @@ const typeStyles: Record<string, string> = {
     headerTitle="お知らせ"
     headerSubtitle="法人からのお知らせ"
     headerIconType="info"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">

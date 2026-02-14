@@ -1,4 +1,5 @@
 import { SignInButton } from '@clerk/astro/react';
+import { CircleUserRound } from 'lucide-react';
 import UserButton from './auth/UserButton';
 import { Icons } from './Icons';
 
@@ -65,8 +66,11 @@ export default function Header({
           <UserButton />
         ) : (
           <SignInButton mode="modal">
-            <button className="text-xs text-gray-600 hover:text-gray-900 font-medium transition-colors">
-              ログイン
+            <button
+              type="button"
+              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
+            >
+              <CircleUserRound size={32} className="text-gray-300" />
             </button>
           </SignInButton>
         )}

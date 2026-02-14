@@ -8,6 +8,9 @@ import {
 } from 'lucide-react';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title="Office - nexs">
@@ -16,6 +19,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     headerTitle="事務局"
     headerSubtitle="組織運営と情報公開の窓口"
     headerIconType="office"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">

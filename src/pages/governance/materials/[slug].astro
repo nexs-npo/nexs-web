@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
 
 export const getStaticPaths = (async () => {
   const materials = await getCollection('resolution-materials');
@@ -35,6 +36,8 @@ const typeStyles: Record<string, string> = {
   proposal: 'bg-purple-100 text-purple-700',
   reference: 'bg-gray-100 text-gray-700',
 };
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title={`${data.title} - Materials - nexs`}>
@@ -43,6 +46,7 @@ const typeStyles: Record<string, string> = {
     headerTitle="決議資料"
     headerSubtitle={data.resolutionId}
     headerIconType="governance"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">

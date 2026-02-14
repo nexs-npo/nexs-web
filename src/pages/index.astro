@@ -1,6 +1,9 @@
 ---
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
+import { isAuthenticated } from '@/lib/auth-helpers';
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title="nexs - 次世代社会デザイン研究機構">
@@ -9,6 +12,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     headerTitle="nexs"
     headerSubtitle="次世代社会デザイン研究機構"
     headerIconType="nexs"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
