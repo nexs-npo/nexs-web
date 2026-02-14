@@ -1,10 +1,12 @@
 import type { SVGProps } from 'react';
+import { Eye, EyeOff } from 'lucide-react';
 
 import { Icons } from './Icons';
 
 interface BottomNavProps {
   activeTab: string;
   isReadingMode?: boolean;
+  onToggleReadingMode?: () => void;
 }
 
 type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
@@ -42,6 +44,7 @@ const tabs: Tab[] = [
 export default function BottomNav({
   activeTab,
   isReadingMode = false,
+  onToggleReadingMode,
 }: BottomNavProps) {
   return (
     <div
@@ -55,6 +58,48 @@ export default function BottomNav({
         }
       `}
     >
+      {/* Reading Mode Toggle */}
+      {onToggleReadingMode && (
+        <div className="absolute -top-20 left-1/2 -translate-x-1/2 flex items-center gap-2">
+          {/* 状態を示すテキスト（オプション） */}
+          <span
+            className={`
+              text-[9px] font-bold tracking-widest uppercase transition-opacity duration-300 hidden sm:block
+              ${isReadingMode ? 'opacity-100' : 'opacity-40'}
+            `}
+          >
+            {isReadingMode ? 'READING' : 'VIEW'}
+          </span>
+
+          {/* トグルスイッチ本体 */}
+          <button
+            type="button"
+            onClick={onToggleReadingMode}
+            className={`
+              relative w-11 h-5 rounded-full transition-colors duration-300 shadow-sm
+              ${isReadingMode ? 'bg-black' : 'bg-gray-300'}
+            `}
+            aria-label="Toggle Reading Mode"
+          >
+            {/* 動くノブ */}
+            <div
+              className={`
+                absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white shadow-sm flex items-center justify-center
+                transition-transform duration-300 cubic-bezier(0.34, 1.56, 0.64, 1)
+                ${isReadingMode ? 'translate-x-6' : 'translate-x-0'}
+              `}
+            >
+              {/* ノブの中のアイコン */}
+              {isReadingMode ? (
+                <EyeOff size={8} className="text-black" />
+              ) : (
+                <Eye size={8} className="text-gray-400" />
+              )}
+            </div>
+          </button>
+        </div>
+      )}
+
       {/* ナビゲーションコンテナ */}
       <nav className="relative bg-white/90 backdrop-blur-xl rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] border border-white/50 h-[64px] px-1 flex items-center justify-between overflow-hidden">
         <div className="w-full grid grid-cols-5 h-full">

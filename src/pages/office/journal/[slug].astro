@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import PageWrapper from '@/components/PageWrapper';
+import { isAuthenticated } from '@/lib/auth-helpers';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
@@ -22,6 +23,8 @@ const authorInitials: Record<string, string> = {
 };
 const initial =
   authorInitials[data.author] || data.author.charAt(0).toUpperCase();
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title={`${data.title} - Journal - nexs`}>
@@ -30,6 +33,7 @@ const initial =
     headerTitle="活動日誌"
     headerSubtitle={data.date}
     headerIconType="office"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">

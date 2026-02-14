@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import PageWrapper from '@/components/PageWrapper';
+import { isAuthenticated } from '@/lib/auth-helpers';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 
 export const getStaticPaths = (async () => {
@@ -22,6 +23,8 @@ const typeLabels: Record<string, string> = {
   REGS: '規程',
   RPT: 'レポート',
 };
+
+const isAuth = isAuthenticated(Astro.locals);
 ---
 
 <BaseLayout title={`${data.title} - Documents - nexs`}>
@@ -30,6 +33,7 @@ const typeLabels: Record<string, string> = {
     headerTitle="規程類"
     headerSubtitle={data.id}
     headerIconType="governance"
+    isAuthenticated={isAuth}
     client:load
   >
     <div class="px-5 lg:px-8 max-w-md lg:max-w-[940px] mx-auto w-full animate-fade-in-up">
