@@ -1,3 +1,5 @@
+import { SignInButton } from '@clerk/astro/react';
+import UserButton from './auth/UserButton';
 import { Icons } from './Icons';
 
 interface HeaderProps {
@@ -5,6 +7,7 @@ interface HeaderProps {
   subtitle?: string;
   iconType?: 'lab' | 'library' | 'nexs' | 'office' | 'mydesk';
   isReadingMode?: boolean;
+  isAuthenticated?: boolean;
 }
 
 export default function Header({
@@ -12,6 +15,7 @@ export default function Header({
   subtitle,
   iconType = 'nexs',
   isReadingMode = false,
+  isAuthenticated = false,
 }: HeaderProps) {
   // アイコンの選択
   const renderIcon = () => {
@@ -52,6 +56,19 @@ export default function Header({
           <span className="text-[11px] text-gray-500 leading-snug">
             {subtitle}
           </span>
+        )}
+      </div>
+
+      {/* Auth Status */}
+      <div className="flex items-center relative z-[60]">
+        {isAuthenticated ? (
+          <UserButton />
+        ) : (
+          <SignInButton mode="modal">
+            <button className="text-xs text-gray-600 hover:text-gray-900 font-medium transition-colors">
+              ログイン
+            </button>
+          </SignInButton>
         )}
       </div>
     </div>

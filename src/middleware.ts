@@ -13,37 +13,37 @@ const clerkEnabled =
   !!import.meta.env.PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 /**
- * 保護ルート（認証が必要なルート）
+ * APIルートの保護
  *
- * ここに指定したルートは、未認証の場合 Clerk のログインページにリダイレクトされる。
+ * これらのルートは、未認証の場合 Clerk のログインページにリダイレクトされる。
+ * （APIエンドポイントはモーダルログインではなく、完全な保護が必要）
  */
-const isProtectedRoute = createRouteMatcher([
-  '/mydesk(.*)',
+const isProtectedApiRoute = createRouteMatcher([
   '/api/governance/approve(.*)',
 ]);
 
 /**
- * Clerk 認証ミドルウェア（公式パターン）
+ * Clerk 認証ミドルウェア
  *
- * 保護ルートにアクセスした未認証ユーザーを Sign In ページにリダイレクトする。
- * 公開ルートはそのまま通過。
+ * 【UX改善】/mydesk は protect() を呼ばず、ページレベルで認証チェック
+ * → 未認証でもページにアクセス可能にし、ページ内でモーダルログインを表示
+ * → 別ドメインへのリダイレクトを防ぎ、アプリ内で認証完結
+ *
+ * 【セキュリティ】APIルートは引き続き protect() で保護
+ * → 未認証でのAPIアクセスを防ぐ
  *
  * 参考: https://clerk.com/docs/reference/astro/clerk-middleware
  */
 const authMiddleware = clerkEnabled
   ? clerkMiddleware((auth, context) => {
-      // 保護ルートでない場合は何もしない
-      if (!isProtectedRoute(context.request)) {
-        return;
+      // APIルートのみ protect() を呼ぶ（未認証時はリダイレクト）
+      if (isProtectedApiRoute(context.request)) {
+        return auth().protect();
       }
 
-      // 認証状態を確認（userId の有無で判定）
-      const { userId } = auth();
-
-      // 未認証の場合はログインページにリダイレクト
-      if (!userId) {
-        return auth().redirectToSignIn();
-      }
+      // /mydesk は protect() を呼ばず、通過させる
+      // → mydesk.astro でページレベル認証チェック（既に実装済み）
+      // → 未認証の場合は LoginPrompt を表示（mode="modal" でアプリ内完結）
     })
   : // Clerk 無効時は何もしないミドルウェア
     (_context, next) => next();

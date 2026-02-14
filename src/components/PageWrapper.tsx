@@ -9,6 +9,7 @@ interface PageWrapperProps {
   headerTitle?: string;
   headerSubtitle?: string;
   headerIconType?: 'lab' | 'library' | 'nexs' | 'office' | 'mydesk';
+  isAuthenticated?: boolean;
 }
 
 export default function PageWrapper({
@@ -17,6 +18,7 @@ export default function PageWrapper({
   headerTitle,
   headerSubtitle,
   headerIconType = 'nexs',
+  isAuthenticated = false,
 }: PageWrapperProps) {
   const [isReadingMode, setIsReadingMode] = useState(false);
 
@@ -27,6 +29,7 @@ export default function PageWrapper({
         subtitle={headerSubtitle}
         iconType={headerIconType}
         isReadingMode={isReadingMode}
+        isAuthenticated={isAuthenticated}
       />
 
       <ReadingModeToggle

@@ -1,4 +1,6 @@
 ---
+import SignOutButton from '@/components/auth/SignOutButton';
+
 // 賛助会員専用デスク
 ---
 
@@ -166,6 +168,14 @@
           </p>
         </div>
       </div>
+    </section>
+
+    <!-- Account -->
+    <section class="mb-8">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">
+        アカウント
+      </h3>
+      <SignOutButton client:only="react" />
     </section>
   </div>
 </div>
