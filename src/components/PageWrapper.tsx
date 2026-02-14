@@ -1,4 +1,5 @@
 import { type ReactNode, useState } from 'react';
+import AuthStatus from './auth/AuthStatus';
 import BottomNav from './BottomNav';
 import Header from './Header';
 
@@ -28,7 +29,7 @@ export default function PageWrapper({
         subtitle={headerSubtitle}
         iconType={headerIconType}
         isReadingMode={isReadingMode}
-        isAuthenticated={isAuthenticated}
+        authStatusSlot={<AuthStatus isAuthenticatedSSR={isAuthenticated} />}
       />
 
       <main
