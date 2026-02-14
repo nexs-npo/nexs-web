@@ -1,4 +1,4 @@
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import AuthStatus from './auth/AuthStatus';
 import BottomNav from './BottomNav';
 import Header from './Header';
@@ -21,6 +21,12 @@ export default function PageWrapper({
   isAuthenticated = false,
 }: PageWrapperProps) {
   const [isReadingMode, setIsReadingMode] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // クライアントサイドでマウント後にのみ AuthStatus を表示
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -29,7 +35,9 @@ export default function PageWrapper({
         subtitle={headerSubtitle}
         iconType={headerIconType}
         isReadingMode={isReadingMode}
-        authStatusSlot={<AuthStatus isAuthenticatedSSR={isAuthenticated} />}
+        authStatusSlot={
+          isMounted ? <AuthStatus isAuthenticatedSSR={isAuthenticated} /> : null
+        }
       />
 
       <main
