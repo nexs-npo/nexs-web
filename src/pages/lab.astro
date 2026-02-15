@@ -10,7 +10,7 @@ const isAuth = isAuthenticated(Astro.locals);
   <PageWrapper
     activeTab="lab"
     headerTitle="研究室"
-    headerSubtitle="仮説・観察・思考のアーカイブ"
+    headerSubtitle="進行中の研究プロジェクト"
     headerIconType="lab"
     isAuthenticated={isAuth}
     client:load
@@ -23,46 +23,15 @@ const isAuth = isAuthenticated(Astro.locals);
         </div>
 
         <div class="space-y-6">
-          <a href="/lab/shared-service/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
-            <div class="flex justify-between items-start mb-3">
-              <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
-                Shared Service
-              </span>
-              <div class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
-            </div>
-            <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
-              みんなの事務局
-            </h3>
-            <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">
-              NPO事務局のシェアードサービス化を通じた、評価経済社会の実装実験。
-            </p>
-
-            <div class="bg-gray-50 rounded-lg p-3 border border-gray-100">
-              <p class="text-[10px] text-gray-400 font-bold uppercase mb-2 flex items-center gap-1">
-                Research Items
-              </p>
-              <ul class="space-y-1.5">
-                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
-                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
-                  資本主義外での評価経済の可能性検証
-                </li>
-                <li class="text-xs text-gray-600 flex items-start gap-1.5 leading-snug">
-                  <span class="mt-1 w-1 h-1 rounded-full bg-gray-400 shrink-0"></span>
-                  ミッション第一組織における人材評価モデルの再構築
-                </li>
-              </ul>
-            </div>
-          </a>
-
           <a href="/lab/nexs-app/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
-                Core Product
+                nexs ORIGINAL
               </span>
               <div class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
-              nexsアプリ（本アプリ）
+              nexs app
             </h3>
             <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-2">
               情報が増え続ける時代に、AIが「適切に減らす」ことで中立なシグナルを抽出できるかを検証。
@@ -84,22 +53,13 @@ const isAuth = isAuthenticated(Astro.locals);
               </ul>
             </div>
           </a>
-        </div>
-      </section>
 
-      <section class="mb-10">
-        <div class="flex items-center justify-between mb-4">
-          <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">準備中</h2>
-          <span class="text-[10px] text-gray-400 font-mono">In Prep</span>
-        </div>
-
-        <div class="space-y-6">
           <a href="/lab/open-issue/" class="block bg-white rounded-xl shadow-sm border border-gray-100 p-5 active:scale-[0.98] transition-all cursor-pointer group hover:border-gray-300">
             <div class="flex justify-between items-start mb-3">
               <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-900">
-                Platform
+                nexs ORIGINAL
               </span>
-              <div class="w-2 h-2 rounded-full bg-gray-300"></div>
+              <div class="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
             </div>
             <h3 class="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors">
               open issue

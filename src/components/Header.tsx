@@ -1,6 +1,4 @@
-import { SignInButton } from '@clerk/astro/react';
-import { CircleUserRound } from 'lucide-react';
-import UserButton from './auth/UserButton';
+import type { ReactNode } from 'react';
 import { Icons } from './Icons';
 
 interface HeaderProps {
@@ -9,6 +7,7 @@ interface HeaderProps {
   iconType?: 'lab' | 'library' | 'nexs' | 'office' | 'mydesk';
   isReadingMode?: boolean;
   isAuthenticated?: boolean;
+  authStatusSlot?: ReactNode;
 }
 
 export default function Header({
@@ -16,7 +15,7 @@ export default function Header({
   subtitle,
   iconType = 'nexs',
   isReadingMode = false,
-  isAuthenticated = false,
+  authStatusSlot,
 }: HeaderProps) {
   // アイコンの選択
   const renderIcon = () => {
@@ -61,20 +60,7 @@ export default function Header({
       </div>
 
       {/* Auth Status */}
-      <div className="flex items-center relative z-[60]">
-        {isAuthenticated ? (
-          <UserButton />
-        ) : (
-          <SignInButton mode="modal">
-            <button
-              type="button"
-              className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"
-            >
-              <CircleUserRound size={32} className="text-gray-300" />
-            </button>
-          </SignInButton>
-        )}
-      </div>
+      {authStatusSlot}
     </div>
   );
 }

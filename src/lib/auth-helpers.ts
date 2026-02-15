@@ -26,7 +26,7 @@ export function isAuthenticated(locals: {
   }
 
   // 静的ビルド時は auth() が存在しないため、チェックする
-  if (!locals.auth || typeof locals.auth !== "function") {
+  if (!locals.auth || typeof locals.auth !== 'function') {
     return false;
   }
 
