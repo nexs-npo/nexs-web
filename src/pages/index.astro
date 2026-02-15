@@ -1,8 +1,8 @@
 ---
+import { Icons } from '@/components/Icons';
 import PageWrapper from '@/components/PageWrapper';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import { isAuthenticated } from '@/lib/auth-helpers';
-import { Icons } from '@/components/Icons';
 
 const isAuth = isAuthenticated(Astro.locals);
 
@@ -13,7 +13,7 @@ const spaces = [
     nameEn: 'Lab',
     description: '進行中の研究プロジェクト',
     href: '/lab/',
-    icon: 'BookSearch'
+    icon: 'BookSearch',
   },
   {
     id: 'library',
@@ -21,7 +21,7 @@ const spaces = [
     nameEn: 'Library',
     description: '研究記事とナレッジベース',
     href: '/library/',
-    icon: 'Library'
+    icon: 'Library',
   },
   {
     id: 'office',
@@ -29,7 +29,7 @@ const spaces = [
     nameEn: 'Office',
     description: '組織情報と公開文書',
     href: '/office/',
-    icon: 'DoorClosed'
+    icon: 'DoorClosed',
   },
   {
     id: 'mydesk',
@@ -38,8 +38,8 @@ const spaces = [
     description: '会員専用ワークスペース',
     href: '/mydesk/',
     icon: 'LampDesk',
-    requiresAuth: true
-  }
+    requiresAuth: true,
+  },
 ];
 ---
 
@@ -64,7 +64,7 @@ const spaces = [
         </h1>
         <p class="text-sm text-gray-600 leading-loose mb-8">
           ここは次世代社会デザイン研究機構のデジタルツインです。<br />
-          研究室を歩き回るように自由に探索してみてください。
+          研究所を歩き回るように自由に探索してみてください。
         </p>
         <a href="/about" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-gray-800 transition-colors">
           <span>次世代社会デザイン研究機構とは</span>
