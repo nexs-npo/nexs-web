@@ -60,21 +60,22 @@ const spaces = [
           SYSTEM ONLINE
         </div>
         <h1 class="text-2xl font-black text-gray-900 mb-4 tracking-tight leading-tight">
-          Research Institute<br />Digital Twin
+          nexs
         </h1>
-        <p class="text-xs text-gray-500 leading-relaxed mb-6">
-          次世代社会デザイン研究機構のデジタル複製空間<br />
-          研究室を歩き回るように、自由に探索してください
+        <p class="text-sm text-gray-600 leading-relaxed mb-6">
+          ここは次世代社会デザイン研究機構のデジタルツインです。<br />
+          研究室を歩き回るように自由に探索してみてください。
         </p>
-        <a href="/about" class="text-[10px] text-gray-400 font-mono hover:text-gray-900 transition-colors">
-          About this organization →
+        <a href="/about" class="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-white rounded-lg text-xs font-bold hover:bg-gray-800 transition-colors">
+          <span>次世代社会デザイン研究機構とは</span>
+          <span>→</span>
         </a>
       </section>
 
       <!-- Spaces Grid -->
       <section class="mb-12">
         <div class="flex items-center gap-2 mb-6 border-l-2 border-gray-900 pl-2">
-          <h2 class="text-xs font-bold text-gray-900 uppercase tracking-widest">Spaces</h2>
+          <h2 class="text-sm font-bold text-gray-900">どこに行きますか？</h2>
         </div>
 
         <div class="grid grid-cols-1 gap-4">
@@ -103,11 +104,6 @@ const spaces = [
                       </svg>
                     </div>
                   </div>
-                  {space.requiresAuth && (
-                    <div class="mt-3 pt-3 border-t border-gray-100">
-                      <span class="text-[9px] text-gray-400 font-mono">Authentication Required</span>
-                    </div>
-                  )}
                 </div>
               </a>
             );
