@@ -22,10 +22,10 @@ const rejected = sortedResolutions.filter((r) => r.data.status === 'rejected');
 ---
 
 <BaseLayout title="Resolutions - nexs Governance">
-  <div class="min-h-screen bg-white flex flex-col">
+  <div class="min-h-screen bg-gray-50 flex flex-col">
     <Header
-      title="Resolutions"
-      subtitle="議案一覧"
+      title="議案"
+      subtitle="Resolutions"
       showSearch={false}
       client:load
     />
@@ -143,6 +143,6 @@ const rejected = sortedResolutions.filter((r) => r.data.status === 'rejected');
 
 <style>
   :global(body) {
-    @apply bg-white;
+    @apply bg-gray-50;
   }
 </style>
