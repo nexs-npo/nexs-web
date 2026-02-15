@@ -1,4 +1,5 @@
 import { SignInButton, useAuth } from '@clerk/astro/react';
+import { jaJP } from '@clerk/localizations';
 import { CircleUserRound } from 'lucide-react';
 import UserButton from './UserButton';
 
@@ -25,7 +26,7 @@ export default function AuthStatus({
       {isAuthenticated ? (
         <UserButton />
       ) : (
-        <SignInButton mode="modal">
+        <SignInButton mode="modal" localization={jaJP}>
           <button
             type="button"
             className="flex items-center justify-center w-8 h-8 rounded-full hover:bg-gray-100 transition-colors"

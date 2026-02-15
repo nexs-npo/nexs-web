@@ -2,6 +2,7 @@ import mdx from '@astrojs/mdx';
 import node from '@astrojs/node';
 import react from '@astrojs/react';
 import tailwind from '@astrojs/tailwind';
+import { jaJP } from '@clerk/localizations';
 import { defineConfig } from 'astro/config';
 
 // ============================================================
@@ -45,9 +46,7 @@ const clerkIntegration = clerkEnabled
         // Appearance カスタマイズでブランド統一
         appearance: clerkAppearance,
         // 日本語化
-        localization: {
-          locale: 'ja-JP',
-        },
+        localization: jaJP,
       }),
     ]
   : [];

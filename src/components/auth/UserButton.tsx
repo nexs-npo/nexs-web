@@ -1,4 +1,5 @@
 import { UserButton as ClerkUserButton } from '@clerk/astro/react';
+import { jaJP } from '@clerk/localizations';
 
 export default function UserButton() {
   return (
@@ -9,6 +10,7 @@ export default function UserButton() {
           userButtonPopoverCard: 'shadow-xl border border-gray-100',
         },
       }}
+      localization={jaJP}
     />
   );
 }
