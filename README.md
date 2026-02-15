@@ -56,7 +56,7 @@ Docker でのデプロイは `Dockerfile` を参照してください。
 
 ## Contributing
 
-Issue・Pull Request を歓迎します。コードを書く前に [docs/01_PHILOSOPHY.md](./docs/01_PHILOSOPHY.md) を読んでください。
+OSSプロジェクトとしてIssue・Pull Request を受け付けていますが、運営メンバーが少数のため十分な対応ができない場合があります。[docs/01_PHILOSOPHY.md](./docs/01_PHILOSOPHY.md) をご一読ください。
 
 ## License
 
