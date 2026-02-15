@@ -1,4 +1,4 @@
-import { SignInButton, useUser } from '@clerk/astro/react';
+import { SignInButton, useAuth } from '@clerk/astro/react';
 import { CircleUserRound } from 'lucide-react';
 import UserButton from './UserButton';
 
@@ -8,13 +8,13 @@ interface AuthStatusProps {
 
 /**
  * 認証状態を表示するクライアントサイドコンポーネント
- * 静的ページでもログイン状態を反映するため、useUser hook を使用
+ * 静的ページでもログイン状態を反映するため、useAuth hook を使用
  */
 export default function AuthStatus({
   isAuthenticatedSSR = false,
 }: AuthStatusProps) {
   // クライアントサイドで認証状態を取得（静的ページでも動作）
-  const { isSignedIn, isLoaded } = useUser();
+  const { isSignedIn, isLoaded } = useAuth();
 
   // クライアントサイドでロード完了後は useUser の結果を使用
   // SSR時またはロード中はプロパティの値を使用
