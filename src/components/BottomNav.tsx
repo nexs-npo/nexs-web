@@ -147,8 +147,9 @@ export default function BottomNav({
                   {/* 選択中のラベル (nexsは常に表示) */}
                   <span
                     className={`
-                    absolute bottom-2 text-[9px] font-bold tracking-tight transition-all duration-300
+                    absolute bottom-2 text-[9px] font-bold tracking-tight transition-all duration-300 transform
                     ${isActive || tab.id === 'nexs' ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}
+                    ${isActive ? 'scale-110' : 'scale-100'}
                   `}
                   >
                     {tab.label}
