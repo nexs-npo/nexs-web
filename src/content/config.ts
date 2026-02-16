@@ -46,14 +46,6 @@ const resolutionsCollection = defineCollection({
       )
       .optional(),
     resolutionText: z.string().optional(),
-    approvals: z
-      .array(
-        z.object({
-          approved: z.boolean(),
-          date: z.coerce.string().nullable(),
-        }),
-      )
-      .optional(),
   }),
 });
 
