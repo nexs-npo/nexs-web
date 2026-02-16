@@ -55,7 +55,7 @@ All content is managed via AI agents (Claude Code, Gemini CLI, etc.) by directly
 
 **How it works:**
 - Clerk is conditionally loaded in `astro.config.mjs` based on environment variable
-- When enabled: auth middleware (`src/middleware.ts`) protects `/mydesk` and approval APIs
+- When enabled: auth middleware (`src/middleware.ts`) initializes Clerk session
 - When disabled: protected pages show fallback content, public pages work normally
 
 **Role Management:**
@@ -66,16 +66,7 @@ All content is managed via AI agents (Claude Code, Gemini CLI, etc.) by directly
 - Usage: `getRoleFromMetadata(sessionClaims?.metadata)` in SSR pages
 
 **Protected Routes:**
-- `/mydesk` — Shows role-specific desk (SSR)
-- `/api/governance/approve` — Requires authentication + reverification
-
-**Resolution Approval System:**
-- Approvals stored as JSON files in `data/approvals/{proposalId}/` via GitHub Contents API
-- Clerk reverification (5 min, second_factor) enforced on approval action
-- Content hash (SHA-256) verified server-side to prevent tampering
-- Approval records include: approver name (lastName + firstName), timestamp, content hash, auth level
-- Client: `ApprovalSection.tsx` uses `useReverification` hook from `@clerk/shared/react`
-- Server: `/api/governance/approve` validates session + hash, writes to GitHub
+- `/mydesk` — Shows role-specific desk (page-level auth check)
 
 See `.env.example` for setup instructions and `docs/02_ARCHITECTURE.md` Section 6.
 
