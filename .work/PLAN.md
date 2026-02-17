@@ -30,6 +30,7 @@
 ```
 ┌─────────────────────────────────────────────────────┐
 │                    nexs-web (Astro)                   │
+│                    Coolify (自宅サーバー)              │
 │                                                       │
 │  ┌──────────┐  ┌──────────────┐  ┌────────────────┐ │
 │  │ 署名UI   │  │ API Routes   │  │ Webhook Handler│ │
@@ -42,7 +43,8 @@
 ┌──────────────┐ ┌─────────────┐ ┌──────────────────┐
 │  DocuSeal    │ │  Supabase   │ │ Google Workspace │
 │  (署名実行)  │ │  (メタデータ)│ │ (署名済みPDF)    │
-│  Coolify     │ │  Coolify    │ │ Cloud SaaS       │
+│  Coolify     │ │  Cloud      │ │ Cloud SaaS       │
+│  自宅サーバー│ │  (Free Tier)│ │                  │
 └──────────────┘ └─────────────┘ └──────────────────┘
 ```
 
@@ -121,7 +123,7 @@ CREATE POLICY "Anyone can read signatures"
 
 | データ | 保存先 | PII | 理由 |
 |--------|--------|-----|------|
-| 署名メタデータ | Supabase | なし（Clerk userIdは不透明ID） | 高速な状態確認、RLS |
+| 署名メタデータ | Supabase Cloud | なし（Clerk userIdは不透明ID） | 高速な状態確認、RLS、常時稼働 |
 | 署名済みPDF | Google Workspace | あり（氏名等） | 企業SaaS、権限管理、バックアップ |
 | 署名テンプレート | DocuSeal | なし | エンジン側で管理 |
 | 監査ログ（DocuSeal発行） | Google Workspace + Supabase(参照のみ) | なし | 証跡の保全 |
@@ -152,11 +154,11 @@ CREATE POLICY "Anyone can read signatures"
 - `.env.example` - GITHUB_TOKEN セクション除去
 - `src/content/config.ts` - resolutions の approvals フィールド除去
 
-### Phase 1: インフラ構築 ← 外部作業あり
+### Phase 1: インフラ構築
 
-1. **Supabase デプロイ**（Coolify） ← 外部AIへの指示が必要
-2. **DocuSeal デプロイ**（Coolify） ← 外部AIへの指示が必要
-3. データベーススキーマ作成
+1. **Supabase Cloud セットアップ**（ユーザー作業: supabase.com でプロジェクト作成、接続情報取得）
+2. **DocuSeal デプロイ**（Coolify/自宅サーバー） ← 外部AIへの指示が必要
+3. データベーススキーマ作成（Supabase Cloud の SQL Editor で実行）
 4. 環境変数の設定
 5. DocuSeal APIキー取得とテンプレート作成
 
@@ -226,7 +228,7 @@ DOCUSEAL_WEBHOOK_SECRET=your_webhook_secret
 | 障害シナリオ | 影響 | 対策 |
 |-------------|------|------|
 | DocuSeal停止 | 新規署名不可 | UIに「署名サービスが一時的に利用できません」表示。既存メタデータ + Google Drive PDFで過去の署名は確認可能 |
-| Supabase停止 | 署名状態の表示不可 | フォールバックメッセージ表示（既存のResilienceパターン） |
+| Supabase Cloud停止 | 署名状態の表示不可 | フォールバックメッセージ表示（既存のResilienceパターン）。Cloud SaaS なので稼働率は高い |
 | Google Drive停止 | PDF保管不可 | Webhook処理でリトライキューに入れ、復旧後に再送 |
 | Webhook受信失敗 | メタデータ未保存 | DocuSeal側にデータは残るため、定期的な同期バッチで補完可能 |
 

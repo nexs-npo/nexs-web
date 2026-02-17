@@ -72,7 +72,7 @@ See `.env.example` for setup instructions and `docs/02_ARCHITECTURE.md` Section 
 
 ### Database
 
-Supabase (self-hosted PostgreSQL). Client and typed helpers in `src/lib/supabase.ts`. Tables: `public_profiles`, `projects`, `hypotheses`, `discussions`, `signals`, `project_members`. RLS policies enforce read-public, write-authenticated.
+Supabase Cloud (PostgreSQL, Free Tier). Client and typed helpers in `src/lib/supabase.ts`. Tables: `public_profiles`, `projects`, `hypotheses`, `discussions`, `signals`, `project_members`. RLS policies enforce read-public, write-authenticated. No PII stored — only public data + opaque Clerk userIds.
 
 ## Git Strategy
 

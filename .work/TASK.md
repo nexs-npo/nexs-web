@@ -59,16 +59,19 @@
 
 ## Phase 1: インフラ構築
 
-### Task 1-1: Supabase デプロイ 🔧外部作業
+### Task 1-1: Supabase Cloud セットアップ 🔧ユーザー作業
 
-**担当**: ユーザー + 外部AI
-**内容**: CoolifyでSupabaseをデプロイし、接続情報を取得する
+**担当**: ユーザー
+**内容**: supabase.com でプロジェクトを作成し、接続情報を取得する
 
-**外部AIへの指示プロンプト** を作成して渡す。指示内容:
-- Coolify上でSupabaseをデプロイ
-- Cloudflare Tunnelでの公開設定
-- 接続情報（URL, anon key, service role key）の取得
-- RLSの基本設定
+**手順:**
+1. https://supabase.com にアクセスし、アカウント作成（GitHub連携推奨）
+2. 新規プロジェクト作成（リージョン: Tokyo 推奨）
+3. 接続情報を取得:
+   - Project URL → `PUBLIC_SUPABASE_URL`
+   - anon public key → `PUBLIC_SUPABASE_ANON_KEY`
+   - service_role key → `SUPABASE_SERVICE_ROLE_KEY`
+4. `.env` に接続情報を設定
 
 ### Task 1-2: DocuSeal デプロイ 🔧外部作業
 
@@ -84,11 +87,11 @@
 ### Task 1-3: データベーススキーマ作成
 
 **前提**: Task 1-1 完了後
-**内容**: PLAN.md Section 3.1 のスキーマをSupabaseに適用
+**内容**: PLAN.md Section 3.1 のスキーマをSupabase Cloudに適用
 
 **作業:**
 1. SQLマイグレーションファイルを作成
-2. Supabase管理画面またはCLIでスキーマ適用
+2. Supabase Cloud の SQL Editor でスキーマ適用
 3. RLSポリシー設定
 
 **コミット**: `feat: Add signature system database schema`
