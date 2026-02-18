@@ -470,6 +470,67 @@ Keystaticの削除は非常にスムーズで、構造的な問題は一切見�
 
 ---
 
+## 2026-02-18
+
+### インフラ決定: Supabase Cloud 採用
+
+- **決定事項**: Supabase をセルフホスト（Coolify）から **Supabase Cloud（Free Tier）** に変更
+- **理由**:
+  - Safety by Exclusion: DB運用・バックアップ・パッチをSupabase社に委任
+  - Resilience: 自宅サーバーが落ちてもDBは生きている
+  - Reproducibility: Fork後の再現がsupabase.com登録だけで済む
+  - nexsの規模（メンバー数十人、月間署名数件）はFree Tier（500MB）で十分
+- **プロジェクト**: nexs-app（Tokyo, ref: jaatqxqizusmpdinopta）
+
+### Phase 1: インフラ構築完了
+
+- **Task 1-1**: Supabase Cloud プロジェクト作成（ユーザー作業）
+- **Task 1-2**: DocuSeal デプロイ完了（Coolify, `docuseal.internal.nexs.or.jp`）
+- **Task 1-3**: DB スキーマ適用（Supabase CLI `npx supabase db push`）
+- **Task 1-4**: 環境変数追加（.env.example更新、Coolify設定）
+
+### エラー10: uuid_generate_v4() がSupabase Cloudで動かない
+
+- **日時**: 2026-02-18 (feat/digital-signature-flow)
+- **エラー内容**:
+  - `npx supabase db push` で `001_initial_schema.sql` が失敗
+  - `ERROR: function uuid_generate_v4() does not exist`
+  - `uuid-ossp` 拡張を `CREATE EXTENSION IF NOT EXISTS "uuid-ossp"` で有効化しても同様のエラー
+
+- **原因**:
+  - Supabase Cloud では `uuid_generate_v4()` は使えない
+  - PostgreSQL組み込みの `gen_random_uuid()` を使う必要がある
+  - セルフホスト版では動いていたため、Cloud移行時に顕在化
+
+- **解決方法**:
+  - `001_initial_schema.sql` 内の `uuid_generate_v4()` を全て `gen_random_uuid()` に置換
+
+- **重要な学び**:
+  - **新規スキーマは最初から `gen_random_uuid()` を使う**（Cloud/セルフホスト両対応）
+  - `uuid-ossp` 拡張は不要（PostgreSQL 13+ では `gen_random_uuid()` が組み込み）
+
+### Supabase CLI の使い方（npx 経由）
+
+```bash
+# バージョン確認
+npx supabase --version
+
+# プロジェクト一覧・ログイン確認
+npx supabase projects list
+
+# プロジェクトをリンク
+npx supabase link --project-ref jaatqxqizusmpdinopta
+
+# マイグレーション適用
+npx supabase db push
+```
+
+- supabase CLI はグローバルインストール不要、`npx supabase` で使える
+- `supabase/migrations/` ディレクトリにSQLファイルを置くと自動で管理される
+- ファイル名の昇順で適用されるため、プレフィックスに日付を使う（例: `20260218_001_xxx.sql`）
+
+---
+
 ## TODO（タスク外）
 
 - [ ] トップページへの最新お知らせ表示（Phase 2）

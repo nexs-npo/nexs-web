@@ -72,7 +72,10 @@ See `.env.example` for setup instructions and `docs/02_ARCHITECTURE.md` Section 
 
 ### Database
 
-Supabase Cloud (PostgreSQL, Free Tier). Client and typed helpers in `src/lib/supabase.ts`. Tables: `public_profiles`, `projects`, `hypotheses`, `discussions`, `signals`, `project_members`. RLS policies enforce read-public, write-authenticated. No PII stored — only public data + opaque Clerk userIds.
+Supabase Cloud (PostgreSQL, Free Tier). Client and typed helpers in `src/lib/supabase.ts`. Tables: `public_profiles`, `projects`, `hypotheses`, `discussions`, `signals`, `project_members`, `signature_requests`, `signatures`. RLS policies enforce read-public, write-authenticated. No PII stored — only public data + opaque Clerk userIds.
+
+**Migrations**: `supabase/migrations/` に SQL ファイルを配置。`npx supabase db push` で適用。
+- スキーマには `gen_random_uuid()` を使う（`uuid_generate_v4()` は非対応）
 
 ## Git Strategy
 
