@@ -106,11 +106,15 @@ export async function getTemplate(
   return docusealFetch<DocuSealTemplate>(`/templates/${templateId}`);
 }
 
-/** 署名リクエスト（Submission）を作成し、署名者の埋め込みURLを返す */
+/** 署名リクエスト（Submission）を作成し、署名者の埋め込みURLを返す
+ *
+ * DocuSeal POST /api/submissions は submitter の配列を直接返す（submission オブジェクトではない）。
+ * 各 submitter の submission_id が、作成された submission の ID になる。
+ */
 export async function createSubmission(
   params: CreateSubmissionParams,
-): Promise<DocuSealSubmission> {
-  return docusealFetch<DocuSealSubmission>('/submissions', {
+): Promise<DocuSealSubmitter[]> {
+  return docusealFetch<DocuSealSubmitter[]>('/submissions', {
     method: 'POST',
     body: JSON.stringify(params),
   });

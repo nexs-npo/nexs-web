@@ -156,6 +156,17 @@ export const POST: APIRoute = async (context) => {
     );
   }
 
+  // DocuSeal POST /api/submissions は submitter の配列を返す
+  // submission_id（作成された Submission の ID）は各 submitter が持つ
+  if (!submission.length) {
+    console.error('[create] DocuSeal returned empty submitters array');
+    return new Response(
+      JSON.stringify({ error: '署名サービスからの応答が不正でした' }),
+      { status: 502, headers: { 'Content-Type': 'application/json' } },
+    );
+  }
+  const docusealSubmissionId = submission[0].submission_id;
+
   // ── 5. Supabase に署名リクエストを保存 ─────────────────────
   const { data: signatureRequest, error: reqErr } =
     await createSignatureRequest({
@@ -165,7 +176,7 @@ export const POST: APIRoute = async (context) => {
       reference_slug,
       status: 'in_progress',
       required_signers: submitters.length,
-      docuseal_submission_id: submission.id,
+      docuseal_submission_id: docusealSubmissionId,
       content_hash: null, // Phase 3 で実装
       created_by: userId,
       completed_at: null,
@@ -182,9 +193,8 @@ export const POST: APIRoute = async (context) => {
 
   // ── 6. 署名者レコードを Supabase に保存 ────────────────────
   // PIIは保存しない: Clerk userId のみ記録
-  const submitterMap = new Map(
-    submission.submitters.map((s) => [s.external_id, s]),
-  );
+  // submission は DocuSealSubmitter[] なので直接 Map を作成
+  const submitterMap = new Map(submission.map((s) => [s.external_id, s]));
 
   const signatureRecords = submitters.map((s) => {
     const docusealSubmitter = submitterMap.get(s.clerk_user_id);
@@ -208,9 +218,8 @@ export const POST: APIRoute = async (context) => {
 
   // ── 7. リクエスト者の embed_src を取得して返す ──────────────
   // 「署名する」を押したユーザーがそのまま署名できる埋め込み URL
-  const mySubmitter = submission.submitters.find(
-    (s) => s.external_id === userId,
-  );
+  // submission は DocuSealSubmitter[] なので直接 find する
+  const mySubmitter = submission.find((s) => s.external_id === userId);
   const embedSrc = mySubmitter?.embed_src ?? null;
 
   return new Response(
