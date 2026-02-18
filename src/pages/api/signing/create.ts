@@ -110,20 +110,31 @@ export const POST: APIRoute = async (context) => {
 
   // ── 3. 署名者の情報を Clerk から取得 ──────────────────────
   // メール・氏名は DocuSeal に渡すが Supabase には保存しない（PII非保存原則）
-  const clerk = clerkClient(context);
-  const submitterDetails = await Promise.all(
-    submitters.map(async (s) => {
-      const user = await clerk.users.getUser(s.clerk_user_id);
-      const email =
-        user.emailAddresses.find((e) => e.id === user.primaryEmailAddressId)
-          ?.emailAddress ?? user.emailAddresses[0]?.emailAddress;
-      const name =
-        [user.firstName, user.lastName].filter(Boolean).join(' ') ||
-        email?.split('@')[0] ||
-        '未設定';
-      return { ...s, email, name };
-    }),
-  );
+  let submitterDetails: Array<
+    (typeof submitters)[number] & { email: string | undefined; name: string }
+  >;
+  try {
+    const clerk = clerkClient(context);
+    submitterDetails = await Promise.all(
+      submitters.map(async (s) => {
+        const user = await clerk.users.getUser(s.clerk_user_id);
+        const email =
+          user.emailAddresses.find((e) => e.id === user.primaryEmailAddressId)
+            ?.emailAddress ?? user.emailAddresses[0]?.emailAddress;
+        const name =
+          [user.firstName, user.lastName].filter(Boolean).join(' ') ||
+          email?.split('@')[0] ||
+          '未設定';
+        return { ...s, email, name };
+      }),
+    );
+  } catch (err) {
+    console.error('[create] Failed to fetch submitter info from Clerk:', err);
+    return new Response(
+      JSON.stringify({ error: '署名者情報の取得に失敗しました' }),
+      { status: 500, headers: { 'Content-Type': 'application/json' } },
+    );
+  }
 
   // ── 4. DocuSeal Submission を作成 ──────────────────────────
   let submission: Awaited<ReturnType<typeof createSubmission>>;
