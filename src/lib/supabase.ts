@@ -7,9 +7,27 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables');
 }
 
+// 公開データの読み取り用クライアント（anonキー）
+// RLSが有効なため、SELECT のみ可能
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
-// Type-safe helpers
+// サーバーサイド専用クライアント（service_roleキー）
+// RLSをバイパスして書き込み可能。APIルート・Webhookハンドラのみで使用すること。
+// フロントエンドコンポーネントからは絶対に呼ばないこと。
+export function createServiceClient() {
+  const serviceRoleKey = import.meta.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceRoleKey) {
+    throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
+  }
+  return createClient(supabaseUrl, serviceRoleKey, {
+    auth: { persistSession: false },
+  });
+}
+
+// ============================================================
+// Type Definitions
+// ============================================================
+
 export type Database = {
   public: {
     Tables: {
@@ -92,6 +110,58 @@ export type Database = {
           'id' | 'created_at'
         >;
         Update: Partial<Database['public']['Tables']['signals']['Insert']>;
+      };
+      // --------------------------------------------------------
+      // 署名システム（feat/digital-signature-flow で追加）
+      // PIIなし: Clerk userId（不透明ID）のみ保存
+      // --------------------------------------------------------
+      signature_requests: {
+        Row: {
+          id: string;
+          document_type:
+            | 'board_resolution'
+            | 'general_resolution'
+            | 'membership'
+            | 'employment'
+            | 'volunteer';
+          title: string;
+          reference_id: string | null;
+          reference_slug: string | null;
+          status: 'pending' | 'in_progress' | 'completed' | 'expired';
+          required_signers: number;
+          docuseal_submission_id: number | null;
+          content_hash: string | null;
+          created_by: string; // Clerk userId
+          created_at: string;
+          completed_at: string | null;
+          expires_at: string | null;
+        };
+        Insert: Omit<
+          Database['public']['Tables']['signature_requests']['Row'],
+          'id' | 'created_at'
+        >;
+        Update: Partial<
+          Database['public']['Tables']['signature_requests']['Insert']
+        >;
+      };
+      signatures: {
+        Row: {
+          id: string;
+          request_id: string;
+          signer_clerk_id: string; // Clerk userId（PIIではない）
+          status: 'pending' | 'signed' | 'declined';
+          docuseal_submitter_id: number | null;
+          content_hash: string | null;
+          signed_at: string | null;
+          google_drive_file_id: string | null;
+          metadata: Record<string, unknown> | null; // DocuSeal監査情報等
+          created_at: string;
+        };
+        Insert: Omit<
+          Database['public']['Tables']['signatures']['Row'],
+          'id' | 'created_at'
+        >;
+        Update: Partial<Database['public']['Tables']['signatures']['Insert']>;
       };
     };
   };
