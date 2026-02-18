@@ -627,6 +627,126 @@ Supabase の署名関連テーブルを操作するための型定義と関数�
 
 ---
 
+### Task 2-3 〜 2-5: APIエンドポイント実装
+
+**3本のAPIルートを作成した。**
+
+---
+
+#### Task 2-3: Webhook エンドポイント（`src/pages/api/signing/webhook.ts`）
+
+**役割**: DocuSeal が署名完了を通知してきたとき、Supabase のデータを更新する。
+
+**処理の流れ**:
+```
+DocuSeal → POST /api/signing/webhook
+             ↓
+         X-nexs-Secret ヘッダー検証（不正リクエストをここで弾く）
+             ↓
+         payload から docuseal_submission_id を取得
+             ↓
+         Supabase で該当する signature_request を特定
+             ↓
+         完了した署名者ごとに signatures レコードを "signed" に更新
+             ↓
+         全員署名済みなら signature_requests を "completed" に更新
+```
+
+**設計上の判断**:
+- 署名者の特定は `external_id`（Clerk userId）で行う。事前に create API で Clerk userId を DocuSeal に渡しているため対応可能
+- 不正なリクエストには `401` を返す
+- DBレコードが見つからない場合は `200` を返す（DocuSealがリトライを繰り返さないように）
+- PII（氏名・メール）はメタデータに含めない。`docuseal_submission_id` と `docuseal_submitter_id` のみ記録
+
+**今後の拡張ポイント**:
+- Phase 4: 署名完了後に DocuSeal から PDF をダウンロードし、Google Drive にアップロードする処理を追加予定（コードにコメントで TODO 明示済み）
+
+---
+
+#### Task 2-4: 署名リクエスト作成API（`src/pages/api/signing/create.ts`）
+
+**役割**: ユーザーが「署名する」ボタンを押したとき、DocuSeal の Submission を作成し、署名用の埋め込み URL を返す。
+
+**処理の流れ**:
+```
+フロントエンド（board権限ユーザー）
+  → POST /api/signing/create
+    ↓
+  Clerk 認証確認（userId 必須）
+    ↓
+  ロール確認（board または admin のみ通過）
+    ↓
+  リクエストボディを解析（template_id, reference_slug, submitters...）
+    ↓
+  署名者の Clerk userId → Clerk API でメール・氏名を取得（PIIはここで一時使用のみ）
+    ↓
+  DocuSeal に Submission 作成（メール・氏名 + Clerk userId を external_id として渡す）
+    ↓
+  Supabase に signature_request 保存（PIIなし: Clerk userId のみ）
+    ↓
+  Supabase に signatures レコード保存（署名者ごと、Clerk userId のみ）
+    ↓
+  リクエスト者の embed_src（DocuSeal 署名 URL）を返す
+```
+
+**PIIの流れ（重要）**:
+- メール・氏名はClerkからAPIで取得し、DocuSealに渡す
+- Supabaseには**絶対に保存しない**（Safety by Exclusion）
+- Supabaseに保存するのは Clerk userId（不透明ID）のみ
+- 表示時に Clerk API で氏名を解決する（Phase 3で実装）
+
+**ロールチェックの実装**:
+```typescript
+const role = sessionClaims?.role as string | undefined;
+// isBoardOrAdmin は src/lib/roles.ts の関数
+if (!isBoardOrAdmin(role)) → 403 Forbidden
+```
+- `sessionClaims.role` は Clerk の Session Token Template で JWT に埋め込んだもの
+- DEV_LOG Error 8 の解決策を踏襲（getUser() を呼ばずに高速判定）
+
+**エラーレスポンスの設計**:
+| 状況 | HTTPステータス |
+|------|--------------|
+| 未ログイン | 401 |
+| 権限不足（board未満）| 403 |
+| リクエスト形式不正 | 400 |
+| DocuSeal接続失敗 | 502（Bad Gateway） |
+| DB保存失敗 | 500 |
+
+502 を使った理由: nexs-web は DocuSeal に依存しているが、DocuSeal の障害は nexs-web 自身のエラーではないため、上流の失敗を示す 502 を使用した。
+
+---
+
+#### Task 2-5: 署名状態確認API（`src/pages/api/signing/status.ts`）
+
+**役割**: 議案ページが現在の署名状態を取得するための読み取り専用 API。
+
+**設計の特徴**:
+- **認証不要**。署名状態は誰でも確認できる（透明性の原則）
+- クエリパラメータ: `?slug=RES-2026-001`（議案スラグ）
+- レスポンスに含むのは Clerk userId のみ（氏名は含まない）
+- 氏名の解決は Phase 3 の UI コンポーネントで Clerk API を呼んで行う
+
+**レスポンス例**:
+```json
+{
+  "request": {
+    "id": "uuid",
+    "status": "in_progress",
+    "required_signers": 3,
+    "completed_at": null
+  },
+  "signatures": [
+    { "signer_clerk_id": "user_abc", "status": "signed", "signed_at": "2026-02-18T..." },
+    { "signer_clerk_id": "user_def", "status": "pending", "signed_at": null }
+  ]
+}
+```
+
+**署名リクエストがまだない場合**: `{ request: null, signatures: [] }` を 200 で返す（エラーではなく正常状態）。
+
+---
+
 ## TODO（タスク外）
 
 - [ ] トップページへの最新お知らせ表示（Phase 2）
