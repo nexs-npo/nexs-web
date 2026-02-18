@@ -47,7 +47,7 @@ CREATE POLICY "public_profiles_update_own"
 -- 2. projects (プロジェクト)
 -- ----------------------------------------
 CREATE TABLE IF NOT EXISTS public.projects (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     slug TEXT UNIQUE NOT NULL,
     title TEXT NOT NULL,
     description TEXT,
@@ -96,7 +96,7 @@ CREATE POLICY "projects_update_admin_researcher"
 -- 3. hypotheses (仮説・検証項目)
 -- ----------------------------------------
 CREATE TABLE IF NOT EXISTS public.hypotheses (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID NOT NULL REFERENCES public.projects(id) ON DELETE CASCADE,
     content TEXT NOT NULL,
     status TEXT NOT NULL DEFAULT 'collecting_data' CHECK (status IN ('collecting_data', 'analyzing', 'verified', 'rejected')),
@@ -142,7 +142,7 @@ CREATE POLICY "hypotheses_update_admin_researcher"
 -- 4. discussions (議論・コメント)
 -- ----------------------------------------
 CREATE TABLE IF NOT EXISTS public.discussions (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID NOT NULL REFERENCES public.projects(id) ON DELETE CASCADE,
     user_clerk_id TEXT NOT NULL REFERENCES public.public_profiles(clerk_id) ON DELETE CASCADE,
     content TEXT NOT NULL,
@@ -184,7 +184,7 @@ CREATE POLICY "discussions_delete_own"
 -- 5. signals (ニュース・ログ)
 -- ----------------------------------------
 CREATE TABLE IF NOT EXISTS public.signals (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     type TEXT NOT NULL CHECK (type IN ('news', 'log')),
     title TEXT NOT NULL,
     content TEXT NOT NULL,
@@ -221,7 +221,7 @@ CREATE POLICY "signals_insert_admin"
 -- 6. project_members (プロジェクトメンバー)
 -- ----------------------------------------
 CREATE TABLE IF NOT EXISTS public.project_members (
-    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     project_id UUID NOT NULL REFERENCES public.projects(id) ON DELETE CASCADE,
     user_clerk_id TEXT NOT NULL REFERENCES public.public_profiles(clerk_id) ON DELETE CASCADE,
     role TEXT NOT NULL DEFAULT 'contributor' CHECK (role IN ('owner', 'maintainer', 'contributor')),
