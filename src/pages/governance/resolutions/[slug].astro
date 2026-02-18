@@ -5,6 +5,7 @@ import AttachmentAccordion from '@/components/governance/AttachmentAccordion.ast
 import ProcessTimeline from '@/components/governance/ProcessTimeline.astro';
 import StatusBadge from '@/components/governance/StatusBadge.astro';
 import Header from '@/components/Header';
+import SignatureSection from '@/components/signing/SignatureSection';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 export async function getStaticPaths() {
   const resolutions = await getCollection('resolutions');
@@ -158,6 +159,9 @@ const materialTypeLabels: Record<string, string> = {
           </div>
         </section>
       )}
+
+      <!-- Electronic Signature Section -->
+      <SignatureSection referenceSlug={resolution.slug} client:load />
 
       <!-- Footer Info -->
       <section class="text-center border-t border-gray-100 pt-8 pb-4">
