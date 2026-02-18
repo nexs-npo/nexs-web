@@ -25,7 +25,8 @@ export const GET: APIRoute = async ({ url, locals }) => {
     });
   }
 
-  const slug = url.searchParams.get('slug');
+  // Astro slugs are always lowercase — normalize for consistent DB lookup
+  const slug = url.searchParams.get('slug')?.toLowerCase();
   if (!slug) {
     return new Response(JSON.stringify({ error: 'slug が必要です' }), {
       status: 400,

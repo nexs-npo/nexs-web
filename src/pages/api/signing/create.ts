@@ -94,12 +94,14 @@ export const POST: APIRoute = async (context) => {
 
   const {
     template_id,
-    reference_slug,
+    // Astro slugs are always lowercase — normalize to prevent case mismatch
+    reference_slug: reference_slug_raw,
     reference_id,
     title,
     document_type,
     submitters,
   } = body;
+  const reference_slug = reference_slug_raw?.toLowerCase();
 
   if (!template_id || !reference_slug || !title || !submitters?.length) {
     return new Response(
