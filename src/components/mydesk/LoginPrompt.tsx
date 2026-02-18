@@ -33,7 +33,10 @@ export default function LoginPrompt() {
 
         {/* Sign In Button */}
         <SignInButton mode="modal">
-          <button className="px-6 py-3 bg-gray-900 text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition-colors active:scale-95">
+          <button
+            type="button"
+            className="px-6 py-3 bg-gray-900 text-white text-sm font-bold rounded-lg hover:bg-gray-800 transition-colors active:scale-95"
+          >
             ログイン
           </button>
         </SignInButton>
