@@ -81,13 +81,19 @@ export const GET: APIRoute = async ({ url, locals }) => {
   }
 
   // ── 4. DocuSeal から埋め込みURLを取得 ────────────────────────
+  // GET /api/submissions/{id} の submitter には embed_src が含まれない場合があるため、
+  // submitter.slug からURLを構築する: {DOCUSEAL_API_URL}/s/{slug}
   let embedSrc: string | null = null;
   try {
     const submission = await getSubmission(request.docuseal_submission_id);
     const submitter = submission.submitters.find(
       (s) => s.external_id === userId,
     );
-    embedSrc = submitter?.embed_src ?? null;
+    if (submitter) {
+      embedSrc =
+        submitter.embed_src ??
+        `${import.meta.env.DOCUSEAL_API_URL}/s/${submitter.slug}`;
+    }
   } catch (err) {
     console.error('[embed] DocuSeal API error:', err);
     return new Response(

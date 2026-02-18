@@ -25,13 +25,14 @@ export type DocuSealTemplate = {
 export type DocuSealSubmitter = {
   id: number;
   submission_id: number;
+  slug: string; // 署名URL構築に使う: {DOCUSEAL_API_URL}/s/{slug}
   uuid: string;
   email: string;
   name: string | null;
   role: string;
-  status: 'awaiting' | 'opened' | 'completed' | 'declined';
+  status: 'awaiting' | 'sent' | 'opened' | 'completed' | 'declined';
   external_id: string | null; // Clerk userId を渡す
-  embed_src: string | null; // 埋め込み署名URL
+  embed_src: string | null; // POST 時のみ返る（GET では null になる場合あり）
   completed_at: string | null;
   declined_at: string | null;
   created_at: string;
