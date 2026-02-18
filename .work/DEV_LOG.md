@@ -747,6 +747,80 @@ if (!isBoardOrAdmin(role)) → 403 Forbidden
 
 ---
 
+### Task 2-6: GET /api/signing/embed（署名埋め込みURL取得）
+
+**ファイル**: `src/pages/api/signing/embed.ts`
+
+**目的**: 署名者がすでに署名リクエストが存在する議案で「署名する」を押したとき、DocuSeal の個人専用 embed_src URL を取得して返す。
+
+**処理フロー（認可の重ね掛け）**:
+1. `locals.auth()` で Clerk 認証確認（未ログインは 401）
+2. `getSignatureRequestBySlug(slug)` で Supabase から署名リクエスト取得（なければ 404）
+3. `signatures` の中に `signer_clerk_id === userId` があるか確認（署名者でなければ 403）
+4. 既に `status === 'signed'` なら 409 Conflict を返す（二重署名防止）
+5. DocuSeal GET /api/submissions/{id} で submitter 一覧を取得し、`external_id === userId` で絞り込んで `embed_src` を返す
+
+**設計のポイント**:
+- create.ts の返す `embed_src` は「作成者専用の即時署名 URL」だが、embed.ts は「作成後に他の署名者がアクセスするための URL」
+- DocuSeal は submitter ごとに一意の `embed_src` を発行するので、Clerk userId → external_id で照合して取得する
+- エラーレスポンスはすべて JSON で統一（UIがメッセージを表示できるように）
+
+---
+
+### Task 3-1: SignatureSection.tsx（React Island 署名 UI）
+
+**ファイル**: `src/components/signing/SignatureSection.tsx`
+
+**責務**: 署名機能のみ。議案ページに挿入されるセルフコンテインドなコンポーネント。
+
+**表示状態の遷移**:
+```
+isLoaded === false || loading → 「読み込み中...」
+error                         → エラーメッセージ（クラッシュしない）
+statusData.request === null   → 「署名リクエストはまだ作成されていません」
+↓ request あり
+進捗バー（signedCount / required_signers）
+署名者リスト（あなた / メンバー ← PII非表示のMVP表記）
+↓ 自分が署名者 && 未署名 && 進行中
+「署名する」ボタン → /api/signing/embed 呼出 → DocuSeal iframe モーダル
+↓ モーダルを閉じる
+fetchStatus() 再実行（署名完了の可能性があるので更新）
+```
+
+**PII非表示の実装**:
+- `isMe = sig.signer_clerk_id === userId` の場合のみ「あなた」、それ以外は「メンバー」
+- `YOU` バッジも `isMe` の場合のみ表示
+- 名前解決は Phase 4 以降に検討（将来的に Clerk API で名前取得する箇所はコメントに記載）
+
+**Resilience パターン**:
+- fetch エラーは `catch` で捕捉して `setError()` → フォールバックメッセージ表示
+- `isFetchingEmbed` / `embedError` で「署名する」ボタンの非活性とエラー表示を別管理
+- コンポーネントが throw せず、必ず何かを render する設計
+
+**コミット**: d2882a6
+
+---
+
+### Task 3-2: [slug].astro への SignatureSection 統合
+
+**ファイル**: `src/pages/governance/resolutions/[slug].astro`
+
+**変更内容**:
+- `import SignatureSection from '@/components/signing/SignatureSection';` 追加
+- 決議事項セクション（`resolutionText`）の直後・フッターの直前に配置
+- `<SignatureSection referenceSlug={resolution.slug} client:load />` でマウント
+
+**設計判断**:
+- `client:load` を使用: 署名は認証ユーザーのみが操作するため、即時ハイドレーションが適切
+  （`client:visible` より早くインタラクティブになる。スクロールが必要な位置にあるが、
+  ページロード後に署名アクションをすぐ取りたいユーザーのUXを優先）
+- `resolution.slug` をそのまま `referenceSlug` に渡す（ファイル名 = スラグ = API のキー）
+- 全議案ページに無条件で表示するが、署名リクエストがなければコンポーネント内で「まだ作成されていません」と表示するだけでノイズにならない
+
+**コミット**: 2ae3882
+
+---
+
 ## TODO（タスク外）
 
 - [ ] トップページへの最新お知らせ表示（Phase 2）
