@@ -531,6 +531,102 @@ npx supabase db push
 
 ---
 
+## 2026-02-18（続き）
+
+### Phase 2: コア署名エンジン統合
+
+#### Task 2-1: DocuSeal API クライアント（`src/lib/docuseal.ts`）
+
+**何をやったか**:
+DocuSeal の REST API を呼び出すためのラッパー関数群を作成した。
+
+**なぜこのファイルが必要か**:
+- nexs-web の API ルートから DocuSeal に署名リクエストを送る必要がある
+- API のエンドポイント・ヘッダー・エラー処理を一か所に集約（Locality of Behavior）
+- 将来 DocuSeal を別のサービスに差し替える場合、このファイルのみ修正すればよい（Replaceable Code）
+
+**実装した関数**:
+| 関数名 | 役割 |
+|--------|------|
+| `listTemplates()` | DocuSeal のテンプレート一覧取得 |
+| `getTemplate(id)` | テンプレート詳細取得 |
+| `createSubmission(params)` | 署名リクエスト作成。Clerk userId を `external_id` として渡す |
+| `getSubmission(id)` | 署名リクエストの状態確認 |
+| `getSignedPdfUrl(id)` | 署名済みPDFのダウンロードURL取得 |
+| `verifyWebhookSecret(header)` | Webhookの送信元検証（カスタムヘッダー方式） |
+
+**設計上の判断**:
+- APIキーは `import.meta.env.DOCUSEAL_API_KEY`（サーバーサイドのみ）
+- フロントエンドからは直接呼ばない設計（コメントで明示）
+- Webhook検証はカスタムヘッダー方式（`X-nexs-Secret`）を採用
+  - HMAC-SHA256（`whsec_`方式）より強度は劣るが、DocuSealのUI上で確認できた設定方法
+  - MVPとして十分なセキュリティレベル
+
+---
+
+#### Task 2-2: Supabase 署名データアクセス層
+
+**何をやったか**:
+Supabase の署名関連テーブルを操作するための型定義と関数群を作成した。
+
+**変更ファイル: `src/lib/supabase.ts`**:
+- `createServiceClient()` 関数を追加
+  - `SUPABASE_SERVICE_ROLE_KEY` を使うクライアント
+  - RLS（行レベルセキュリティ）をバイパスして書き込みが可能
+  - **サーバーサイドのAPIルート・Webhookハンドラからのみ呼ぶこと**（コメントで明示）
+  - フロントエンドから呼ぶと SERVICE_ROLE_KEY が露出するため厳禁
+- `signature_requests` テーブルの型定義を追加
+- `signatures` テーブルの型定義を追加
+
+**新規ファイル: `src/lib/signing.ts`**:
+
+このファイルが「電子署名システムのDBアクセスの窓口」になる。
+
+**Read系（anonクライアント / 認証不要）**:
+| 関数名 | 役割 | 誰が使う |
+|--------|------|---------|
+| `getSignatureRequestBySlug(slug)` | 議案スラグから署名状態を取得 | 議案ページ、署名状態APIが呼ぶ |
+| `getSignatureRequestById(id)` | IDから署名状態を取得 | Webhookハンドラが呼ぶ |
+
+**Write系（service_roleクライアント / サーバーサイドのみ）**:
+| 関数名 | 役割 | 誰が使う |
+|--------|------|---------|
+| `createSignatureRequest(params)` | 署名リクエスト作成 | `/api/signing/create` が呼ぶ |
+| `createSignatures(records)` | 署名者レコードを一括作成 | `/api/signing/create` が呼ぶ |
+| `updateSignatureRequestStatus(id, updates)` | ステータスとDocuSeal IDを更新 | `/api/signing/create` が呼ぶ |
+| `markSignatureCompleted(requestId, clerkId, updates)` | 個別署名完了を記録 | Webhookハンドラが呼ぶ |
+| `checkAndCompleteRequest(requestId)` | 全員署名済みなら request を completed に | Webhookハンドラが呼ぶ |
+
+**設計上の重要な判断**:
+
+1. **PIIを一切保存しない（Safety by Exclusion）**
+   - `signer_clerk_id` は Clerk の不透明ID（例: `user_2abc123`）のみ
+   - 署名者の氏名・メールアドレスは保存しない
+   - 表示時に Clerk API から解決する（Phase 3で実装）
+
+2. **エラーを例外で投げずにオブジェクトで返す（Resilience）**
+   ```typescript
+   // 例外を投げる❌
+   throw new Error('DB error')
+
+   // オブジェクトで返す✅
+   return { data: null, error: '署名データの取得に失敗しました' }
+   ```
+   - Webhookハンドラやページが try/catch なしでエラーを扱える
+   - エラー時にUIでフォールバックメッセージを表示しやすい
+
+3. **anonクライアントと service_role クライアントを使い分ける**
+   - 読み取り（SELECT）: anon クライアント（RLSで保護）
+   - 書き込み（INSERT/UPDATE）: service_role クライアント（RLSをバイパス）
+   - これにより「誰でも読める、書けるのはサーバーだけ」を DB レベルで強制
+
+4. **署名完了の自動判定（`checkAndCompleteRequest`）**
+   - 個別署名が完了するたびに呼ぶ
+   - 全員（required_signers人分）が `signed` になったら request を `completed` に更新
+   - この関数が Webhook 処理フローの最後に呼ばれる予定
+
+---
+
 ## TODO（タスク外）
 
 - [ ] トップページへの最新お知らせ表示（Phase 2）
