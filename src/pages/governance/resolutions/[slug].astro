@@ -161,7 +161,7 @@ const materialTypeLabels: Record<string, string> = {
       )}
 
       <!-- Electronic Signature Section -->
-      <SignatureSection referenceSlug={resolution.slug} client:load />
+      <SignatureSection referenceSlug={resolution.slug} client:only="react" />
 
       <!-- Footer Info -->
       <section class="text-center border-t border-gray-100 pt-8 pb-4">
