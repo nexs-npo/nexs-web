@@ -12,7 +12,7 @@
  */
 
 import { useAuth } from '@clerk/astro/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 // ============================================================
 // Types（status APIのレスポンスに対応）
@@ -61,13 +61,9 @@ export default function SignatureSection({ referenceSlug }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // モーダル制御
-  const [showModal, setShowModal] = useState(false);
-  const [embedUrl, setEmbedUrl] = useState<string | null>(null);
+  // 署名URL取得制御
   const [isFetchingEmbed, setIsFetchingEmbed] = useState(false);
   const [embedError, setEmbedError] = useState<string | null>(null);
-
-  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   // ── 署名状態の取得 ────────────────────────────────────────
   const fetchStatus = useCallback(async () => {
@@ -94,6 +90,8 @@ export default function SignatureSection({ referenceSlug }: Props) {
   }, [fetchStatus]);
 
   // ── 「署名する」ボタン押下 ──────────────────────────────────
+  // iframe は X-Frame-Options: SAMEORIGIN で埋め込み不可のため、
+  // 新しいタブで DocuSeal 署名ページを開く方式を採用。
   const handleSignClick = async () => {
     setIsFetchingEmbed(true);
     setEmbedError(null);
@@ -108,21 +106,13 @@ export default function SignatureSection({ referenceSlug }: Props) {
         return;
       }
 
-      setEmbedUrl(data.embed_src);
-      setShowModal(true);
+      // 新しいタブで署名ページを開く
+      window.open(data.embed_src, '_blank', 'noopener,noreferrer');
     } catch {
       setEmbedError('署名サービスへの接続に失敗しました');
     } finally {
       setIsFetchingEmbed(false);
     }
-  };
-
-  // ── モーダルを閉じて状態を更新 ───────────────────────────────
-  const handleModalClose = () => {
-    setShowModal(false);
-    setEmbedUrl(null);
-    // 署名が完了した可能性があるので状態を再取得
-    fetchStatus();
   };
 
   // ── ローディング中 ────────────────────────────────────────
@@ -261,6 +251,9 @@ export default function SignatureSection({ referenceSlug }: Props) {
           >
             {isFetchingEmbed ? '署名URLを取得中...' : '署名する'}
           </button>
+          <p className="text-[10px] text-gray-400 text-center mt-2">
+            署名ページが新しいタブで開きます。署名完了後、このページを再読み込みしてください。
+          </p>
         </div>
       )}
 
@@ -284,31 +277,6 @@ export default function SignatureSection({ referenceSlug }: Props) {
               {new Date(request.completed_at).toLocaleDateString('ja-JP')}
             </p>
           )}
-        </div>
-      )}
-
-      {/* DocuSeal 署名モーダル */}
-      {showModal && embedUrl && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="relative w-full max-w-2xl mx-4 bg-white rounded-2xl shadow-2xl overflow-hidden">
-            <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-              <h2 className="text-sm font-bold text-gray-900">電子署名</h2>
-              <button
-                type="button"
-                onClick={handleModalClose}
-                className="text-xs text-gray-400 hover:text-gray-700 transition-colors font-mono"
-              >
-                ✕ 閉じる
-              </button>
-            </div>
-            <iframe
-              ref={iframeRef}
-              src={embedUrl}
-              className="w-full"
-              style={{ height: '70vh' }}
-              title="DocuSeal 電子署名"
-            />
-          </div>
         </div>
       )}
     </section>
