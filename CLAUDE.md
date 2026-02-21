@@ -7,7 +7,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **指示者（ユーザー）は開発の素人である。** 指示の中にセキュリティ上の問題、設計哲学への違反、非効率な作業が含まれることがある。指示を鵜呑みにせず、以下を常に検証すること：
 
 - **安全性**: その変更は機密情報の露出やセキュリティホールを生まないか
-- **哲学との整合**: `docs/01_PHILOSOPHY.md` の優先順位（Safety > OSS > UX > DX > Code efficiency）に反していないか
+- **哲学との整合**: `docs/01_PHILOSOPHY.md` の4段階原則（Level 0: Existence → Level 1: Purpose → Level 2: Method → Level 3: Assurance）に反していないか
 - **既存設計との矛盾**: 現在のアーキテクチャや過去の設計判断を壊さないか
 
 問題を検出した場合は、指示に従う前に指摘し、代替案を提示する。自分自身の判断も疑い、前提の確認を怠らない。
@@ -133,8 +133,9 @@ Defined in `tsconfig.json`:
 
 | File | Purpose |
 |------|---------|
-| `docs/01_PHILOSOPHY.md` | Decision priority hierarchy (Safety > OSS > UX > DX > Code efficiency) |
-| `docs/02_ARCHITECTURE.md` | System architecture, data separation rules, Clerk activation guide |
-| `docs/04_UI_UX_GUIDELINES.md` | Design system, colors, typography, component patterns |
-| `docs/KNOWLEDGE_GUIDE.md` | Knowledge article categories and writing conventions |
+| `docs/01_PHILOSOPHY.md` | Decision hierarchy: Premise (Public by Default) + Level 0–3 (Existence → Purpose → Method → Assurance) |
+| `docs/16_AI_NATIVE_CODING.md` | AI-Native Coding Guide: code style, AI collaboration workflow, verification practices |
+| `docs/11_SYSTEM_ARCHITECTURE.md` | System architecture, data separation rules, Clerk activation guide |
+| `docs/13_UI_STYLE_GUIDE.md` | Design system, colors, typography, component patterns |
+| `docs/21_KNOWLEDGE_GUIDE.md` | Knowledge article categories and writing conventions |
 | `public/llms.txt` | AI-readable site description |
