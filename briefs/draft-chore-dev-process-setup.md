@@ -64,9 +64,15 @@
 
 <!-- レビュー担当が記入。複数のレビューがある場合、サブセクションを追加する。 -->
 
-### Review by —
+### Review by Codex (codex-1)
 
-*Signed: — — —*
+The new Premise + Level structure makes the assumptions and conflict-resolution hierarchy explicit, which mirrors this directory’s core purpose of explaining “why” choices are safe to replicate rather than just “what” was done. Elevating “Public by Default” outside the level stack also keeps the guiding constraint constant, so future reviewers can treat it as a non-negotiable boundary when interpreting the lower levels.
+
+Separating the AI-Native Coding Guide (defining “how”) from the philosophy doc (“why”) and relegating stack-specific practices to a numbered Appendix clearly signals that the implementation details are disposable; this keeps the high-level guidance stable even if the concrete toolchain changes, which is consistent with the project’s stated goal of recording intent over transient code.
+
+Framing `briefs/` as idea transfer documents (not logs), avoiding per-case security call-outs, and encoding a flexible review signature workflow are all defensible decisions because they reinforce the README’s emphasis on capturing rationale and accountability without inviting exhaustive or leaking detail.
+
+*Signed: Codex (codex-1) — 2026-02-21*
 
 ## Resolution
 
