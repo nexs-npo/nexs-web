@@ -1,8 +1,18 @@
 # 電子署名/承認フロー実装プラン
 
 **作成日**: 2026-02-16
-**ブランチ**: feat/digital-signature-flow
-**ステータス**: 計画中
+**ブランチ**: `feat/digital-signature-flow`
+**ステータス**: ⏸ 一時停止中（2026-02-21）
+
+### 停止理由
+
+DocuSeal の **"Embedded signing form"（iframeモーダル署名）が On-premises Pro 機能**であることが判明。
+新タブ遷移方式での基本フローは動作確認済みだが、モーダル UX を実現するための
+Embed SDK 利用がライセンス上グレーなため、エンジンの乗り換えを検討中。
+
+**候補**: [Documenso](https://documenso.com/)（MIT ライセンス、DocuSeal 代替 OSS）
+
+再開時は TASK.md のチェックリストと DEV_LOG.md の「Phase 3 QA」セクションを参照。
 
 ---
 

@@ -1,8 +1,13 @@
 # 作業手順（TASK）
 
 **プラン**: PLAN.md 参照
-**ブランチ**: feat/digital-signature-flow
+**ブランチ**: `feat/digital-signature-flow`
 **開始日**: 2026-02-16
+**最終更新**: 2026-02-21
+**ステータス**: ⏸ 一時停止中
+
+> DocuSeal の Embedded signing form が Pro 機能と判明。エンジン乗り換え（Documenso 等）を検討中。
+> 再開時は PLAN.md の「停止理由」セクションと DEV_LOG.md の「Phase 3 QA」を参照。
 
 ---
 
@@ -233,8 +238,19 @@ DOCUSEAL_WEBHOOK_SECRET=
 
 ## チェックリスト
 
-- [ ] Phase 0: 旧承認システム削除完了
-- [ ] Phase 1: Supabase + DocuSeal デプロイ完了
-- [ ] Phase 2: APIエンドポイント実装完了
-- [ ] Phase 3: 署名UI完成、理事会議案で動作確認
-- [ ] Phase 4: Google Workspace連携完了
+- [x] Phase 0: 旧承認システム削除完了
+- [x] Phase 1: Supabase Cloud + DocuSeal デプロイ完了
+- [x] Phase 2: APIエンドポイント実装完了（create / status / embed / webhook）
+- [⏸] Phase 3: 署名UI実装済み・新タブ方式で動作確認済み。iframeモーダルはライセンス問題で保留
+  - [x] Task 3-1: SignatureSection.tsx 実装（新タブ方式）
+  - [x] Task 3-2: [slug].astro への統合
+  - [x] Task 3-3: DocuSeal テンプレート作成（テスト用 PDF）
+  - [ ] Task 3-4（未着手）: 署名完了後のステータス自動更新（Webhook 本番動作確認）
+- [ ] Phase 4: Google Workspace連携完了（未着手）
+
+### 未解決の技術課題
+
+- **iframeモーダル**: DocuSeal Embed SDK は Pro ライセンス。Documenso への乗り換えで解決できる可能性
+- **Webhook 本番確認**: `nexs.or.jp`（main ブランチ）に署名 API が未デプロイ。main マージ後に確認
+- **署名者名表示**: 現在「あなた/メンバー」表示。Clerk API で名前解決は Phase 4 以降
+- **Google Workspace 連携**: Phase 4（未着手）

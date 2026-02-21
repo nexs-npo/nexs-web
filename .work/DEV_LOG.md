@@ -821,6 +821,75 @@ fetchStatus() 再実行（署名完了の可能性があるので更新）
 
 ---
 
+### Phase 3 QA: iframeモーダル調査と新タブ方式への切り替え
+
+**日時**: 2026-02-18〜21
+**ブランチ**: feat/digital-signature-flow
+
+#### 発生した問題群とデバッグ記録
+
+**問題1: useAuth() SSRクラッシュ**
+- 症状: `Cannot destructure property 'sessionId' of 'useStore2(...)' as it is undefined`
+- 原因: `[slug].astro` は `getStaticPaths()` で静的生成されるため、Astro の SSR パスで React island が描画される際に ClerkProvider が存在しない
+- 修正: `client:load` → `client:only="react"` に変更。これで SSR パスをスキップし、クライアント専用レンダリングにする
+- コミット: 4963efc
+
+**問題2: DocuSeal createSubmission の戻り値の型誤り**
+- 症状: `TypeError: Cannot read properties of undefined (reading 'map')` (Coolify ログ)
+- 原因: DocuSeal `POST /api/submissions` のレスポンスは `DocuSealSubmission` オブジェクト（`{ id, submitters: [...] }` 形式）ではなく、**`DocuSealSubmitter[]` の配列を直接返す**。型定義と実装が実際の API と合っていなかった
+- 修正: `createSubmission` の戻り値型を `DocuSealSubmitter[]` に変更。`submission.id` → `submission[0].submission_id`、`submission.submitters.map()` → `submission.map()` に修正
+- コミット: 00c894f
+
+**問題3: slug の大文字小文字不一致**
+- 症状: 署名リクエスト作成成功後にページをリロードしても「まだ作成されていません」のまま
+- 原因: Astro コンテンツコレクションは slug を**自動で小文字変換**する（`RES-2026-001.mdx` → `res-2026-001`）。コンポーネントは `res-2026-001` で status API を叩いていたが、Supabase には `RES-2026-001`（大文字）で保存されていた
+- 修正: status・embed・create の各 API で `.toLowerCase()` による正規化を追加
+- コミット: ff2a75f
+
+**問題4: GET /api/submissions/{id} に embed_src が含まれない**
+- 症状: 「署名URLが取得できませんでした」(404)
+- 原因: DocuSeal の `POST /api/submissions` は `embed_src` を返すが、`GET /api/submissions/{id}` は submitter オブジェクトに `embed_src` を含まない
+- 修正: submitter の `slug` フィールドから `{DOCUSEAL_API_URL}/s/{slug}` の形式で URL を構築するフォールバックを追加
+- コミット: ccbd2ad
+
+**問題5: X-Frame-Options によるiframe埋め込みブロック**
+- 症状: iframe に `https://docuseal.internal.nexs.or.jp/` の接続拒否 + `X-Frame-Options: SAMEORIGIN` エラー
+- 調査:
+  - DocuSeal の署名ページ (`/s/{slug}`) にも `x-frame-options: SAMEORIGIN` が付与されていることを curl で確認
+  - SameSite=Lax Cookie により、クロスオリジン iframe ではセッションが送信されない問題も重なる
+- 暫定対応: iframe モーダル → **新しいタブで開く方式**に切り替え（`window.open(_blank)`）
+- 実際の動作: 署名画面への遷移 → 署名 → PDF ダウンロードまで完走を確認
+- コミット: 926ba9e
+
+#### iframeモーダル実現のための技術調査（ChatGPT・Gemini）
+
+外部 AI（ChatGPT・Gemini）に以下の選択肢を調査依頼した。
+
+| 選択肢 | 概要 | 評価 |
+|--------|------|------|
+| A: nginx ヘッダー上書き | `proxy_hide_header X-Frame-Options` + CSP `frame-ancestors` | 技術的には最も確実 |
+| B: DocuSeal Embed SDK | `@docuseal/react` の `onComplete` コールバックでモーダルUX実現 | A が前提。完了イベントも取れる |
+| C: サーバーサイドプロキシ | nexs-web が DocuSeal ページを取得して返す | JS/CSS パス解決が壊れる。非推奨 |
+| D: 同一ドメインのサブパス配置 | `nexs.or.jp/sign/` に DocuSeal を配置 | Rails のサブパス対応が不明。高難度 |
+
+両 AI の結論: **A + B の組み合わせ**が最も現実的。
+
+#### ライセンス問題の発覚→作業中断
+
+DocuSeal の On-premises 料金ページを確認したところ、**"Embedded signing form"（埋め込み署名フォーム）が Pro 機能**として記載されていた。
+
+- OSS（AGPL）版でもコードは動作するが、商用・業務利用においては Pro ライセンスが必要な可能性
+- 哲学（Safety > OSS > UX の優先順位）に基づき、ライセンス上グレーな機能の利用は回避する
+- **→ DocuSeal の利用を継続するか、別の OSS 署名エンジンに移行するか検討中**
+
+**現在の状態（2026-02-21 時点）**:
+- 新タブ方式での基本的な署名フロー（作成 → 署名 → PDF ダウンロード）は動作確認済み
+- Webhook によるステータス自動更新は本番環境（nexs.or.jp）に未デプロイのため未検証
+- **Documenso（Docuseal の代替 OSS）への乗り換えを検討中**
+- ブランチ `feat/digital-signature-flow` で作業を一時停止。再開時は TASK.md を参照
+
+---
+
 ## TODO（タスク外）
 
 - [ ] トップページへの最新お知らせ表示（Phase 2）
