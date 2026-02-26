@@ -10,7 +10,7 @@ interface GitHubCommit {
 
 export const prerender = false;
 
-const REPO = 'nexs-npo/nexs-web';
+const REPO = 'nexs-npo/nexs-app';
 
 export const GET: APIRoute = async ({ url }) => {
   const path = url.searchParams.get('path');
@@ -46,7 +46,7 @@ export const GET: APIRoute = async ({ url }) => {
     headers: {
       Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github+json',
-      'User-Agent': 'nexs-web',
+      'User-Agent': 'nexs-app',
     },
   });
 

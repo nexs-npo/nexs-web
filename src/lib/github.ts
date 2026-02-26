@@ -5,7 +5,7 @@
  * 既存の audit-log.ts のパターンを踏襲。
  */
 
-const REPO = 'nexs-npo/nexs-web';
+const REPO = 'nexs-npo/nexs-app';
 const API_BASE = 'https://api.github.com';
 
 /**
@@ -15,7 +15,7 @@ function getHeaders(token: string): HeadersInit {
   return {
     Authorization: `Bearer ${token}`,
     Accept: 'application/vnd.github+json',
-    'User-Agent': 'nexs-web',
+    'User-Agent': 'nexs-app',
   };
 }
 
