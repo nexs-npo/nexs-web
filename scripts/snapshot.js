@@ -13,86 +13,18 @@ const TAILWIND_CDN = 'https://cdn.tailwindcss.com';
 const PAGES = ['/', '/lab/', '/library/', '/office/', '/mydesk/'];
 
 /**
- * Fetch all CSS content from the page
- */
-async function fetchAllStyles(page) {
-  console.log('  🎨 Analyzing CSS...');
-
-  // Get stylesheet and inline style counts from the browser
-  const { stylesheets, inlineStyleCount } = await page.evaluate(() => {
-    const stylesheets = [];
-
-    // Get all <link rel="stylesheet"> elements
-    for (const link of document.querySelectorAll('link[rel="stylesheet"]')) {
-      try {
-        // Find the corresponding CSSStyleSheet
-        for (const sheet of document.styleSheets) {
-          if (sheet.href === link.href) {
-            const rules = [];
-            try {
-              // Extract all CSS rules
-              for (const rule of sheet.cssRules) {
-                rules.push(rule.cssText);
-              }
-              stylesheets.push({
-                href: link.href,
-                css: rules.join('\n'),
-              });
-            } catch (_e) {
-              // CORS or other access issues - skip this stylesheet
-              console.warn(`Cannot read stylesheet: ${link.href}`);
-            }
-            break;
-          }
-        }
-      } catch (_e) {
-        // Skip if there's an error
-      }
-    }
-
-    // Count inline <style> tags (already in HTML)
-    const inlineStyleCount = document.querySelectorAll('style').length;
-
-    return { stylesheets, inlineStyleCount };
-  });
-
-  if (stylesheets.length > 0) {
-    console.log(
-      `  ✓ Found ${stylesheets.length} external stylesheet(s) - will inline`,
-    );
-  }
-  if (inlineStyleCount > 0) {
-    console.log(
-      `  ✓ Found ${inlineStyleCount} inline <style> tag(s) - already inlined`,
-    );
-  }
-  if (stylesheets.length === 0 && inlineStyleCount === 0) {
-    console.log('  ⚠ No CSS found (Tailwind CDN will be added)');
-  }
-
-  return stylesheets;
-}
-
-/**
  * Capture HTML from a page using Playwright
  */
 async function capturePage(page, url) {
   console.log(`📸 Capturing: ${url}`);
   await page.goto(url, { waitUntil: 'networkidle' });
-
-  // Fetch CSS before getting HTML
-  const styles = await fetchAllStyles(page);
-
-  // Get HTML content
-  const html = await page.content();
-
-  return { html, styles };
+  return await page.content();
 }
 
 /**
- * Process HTML: remove scripts/stylesheets, inline CSS, add Tailwind CDN
+ * Process HTML: remove scripts/stylesheets, strip Vite-generated CSS, add Tailwind CDN
  */
-function processHtml(html, styles) {
+function processHtml(html) {
   const $ = cheerio.load(html);
 
   // Remove all script tags
@@ -101,14 +33,40 @@ function processHtml(html, styles) {
   // Remove all stylesheet links
   $('link[rel="stylesheet"]').remove();
 
-  // Inline all CSS from the page
-  if (styles.length > 0) {
-    const inlinedCss = styles.map((s) => s.css).join('\n\n');
-    $('head').append(`\n    <style>\n${inlinedCss}\n    </style>`);
-  }
+  // Remove Vite/Astro-generated style tags — these contain the full Tailwind
+  // utility dump and make the snapshot unreadably long. Tailwind CDN replaces them.
+  $('style[data-vite-dev-id]').remove();
 
-  // Add Tailwind CSS CDN to head (for utility classes)
+  // Restore Google Fonts (was inside the removed Vite style tag)
+  $('head').append(
+    '\n    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Noto+Sans+JP:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" />',
+  );
+
+  // Restore base font rules (body font-family was inside the removed Vite style tag)
+  $('head').append(`
+    <style>
+      body { font-family: 'Inter', 'Noto Sans JP', sans-serif; -webkit-font-smoothing: antialiased; }
+      code, pre, .font-mono { font-family: 'Space Mono', monospace; }
+    </style>`);
+
+  // Add Tailwind CSS CDN to head (replaces the removed utility CSS)
   $('head').append(`\n    <script src="${TAILWIND_CDN}"></script>`);
+
+  // Pass project font config to Tailwind CDN — must come AFTER the CDN script
+  // so that the `tailwind` global exists when this runs
+  $('head').append(`
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+              mono: ['Space Mono', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>`);
 
   return $.html();
 }
@@ -153,11 +111,11 @@ async function main() {
     for (const urlPath of PAGES) {
       const url = `${BASE_URL}${urlPath}`;
 
-      // Capture page HTML and CSS
-      const { html, styles } = await capturePage(page, url);
+      // Capture page HTML
+      const html = await capturePage(page, url);
 
-      // Process HTML (inline CSS)
-      const processedHtml = processHtml(html, styles);
+      // Process HTML (strip Vite CSS, add Tailwind CDN)
+      const processedHtml = processHtml(html);
 
       // Format HTML
       const formattedHtml = await formatHtml(processedHtml);

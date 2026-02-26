@@ -1,0 +1,79 @@
+# chore/dev-process-setup
+
+**Branch:** chore/dev-process-setup
+**Status:** draft
+**Date:** 2026-02-21
+
+## Task
+
+以下3つのタスクをまとめて依頼された（当初ブランチ名は `chore/update-docs`、スコープ拡大につきリネーム）。
+
+1. `docs/01_PHILOSOPHY.md` を v3.4 に改訂する
+   - 旧：フラットな5原則（Safety > OSS > UX > DX > Code efficiency）
+   - 新：Premise（Public by Default）+ Level 0–3 の4階層構造
+   - ユーザー提供の改訂案全文を反映。モデル名を `ChatGPT 5.2 Thinking` に修正。
+
+2. AI-Native Coding Guide を新規作成する
+   - 哲学書 Level 2・3 が参照する実践文書として
+   - ユーザーが外部AIと作成したドラフト（8ルール）と既存の実践内容をマージ
+   - バージョン 0.1 Draft として開始
+
+3. 関係者間の意思疎通の仕組みとして `briefs/` ディレクトリを設計・新設する
+   - 意図レビューのためのワークフロー・命名規則・テンプレート・記述ルールを README に策定
+
+*Signed: Claude Code (claude-sonnet-4-6) — 2026-02-21*
+
+## Implementation
+
+### af1b806 — 哲学書改訂 + AI-Native Coding Guide 新設
+
+**哲学書の構造変更について**
+旧構造（5原則フラット）は「何を優先するか」の優先順位リストだったが、「なぜその順位か」の説明が弱かった。新構造（Premise + Level 0–3）は各Levelが前のLevelの前提条件であることを明示し、衝突時の判断基準が自明になるよう設計した。
+
+`Premise: Public by Default` を原則の外側に置いたのは、公開は「選択肢のひとつ」ではなくNPO事業としての不変の制約であるため、原則の階層に含めると相対化されるリスクがあると判断した。
+
+**AI-Native Coding Guide の位置付け**
+哲学書は「なぜ」を定義する。コーディングガイドは「どうやって」を定義する。この分離により、技術スタックが変わってもガイドのAppendixのみ更新すれば済む設計にした。ファイル番号は `16_` — 既存の `15_CODING_RULES.md`（プレースホルダー）の後継として隣接させた。
+
+**CLAUDE.md の更新範囲**
+哲学の参照記述とKey Filesテーブルの2箇所のみ変更。スコープを最小限に絞り、他の記述（Clerk、Database等）には手を加えなかった。ただしKey Filesテーブルに記載されていた古いファイルパス（`02_ARCHITECTURE.md` 等）が現在の番号付きパスと乖離していたため、あわせて修正した。
+
+### 00502e6 — AI-Native Coding Guide にドラフトをマージ
+
+ユーザーが外部AIと作成した8ルール（Snapshot First〜Change Protocol）を本体に採用し、初版の実践内容をAppendixに移動。
+
+**構造判断の根拠**
+8ルールは技術スタックに依存しない原則であり、Appendixの「現行スタック」セクションと明確に分離する価値があった。Appendixに `A-1〜A-5` の番号を振ったのは、将来スタックが変わった際に「Appendixのみ更新する」という指示を明確にするため。
+
+バージョンを `1.0` から `0.1 Draft` に変更したのは、ユーザーの指示「手探りしながら作り込む」に合わせて破壊的変更ありを明示するため。
+
+### b65389d・253b40c — briefs/ ディレクトリ新設・brief 初稿
+
+**`briefs/` と命名した理由**
+"Brief" には「背景・制約・意図を次のアクターに渡す文書」の語義がある（design brief / mission brief）。`log/` は「やったことの時系列記録」の文脈が強く、AIが作業サマリーを書きがちになるリスクがあった。
+
+**セキュリティルールの設計**
+公開リポジトリのため、セキュリティ上の抜けを具体的に記述することは攻撃の手がかりになる。禁止リストではなく「この判断を採用した理由は書いてよい。採用しなかった対策とその対策が無い箇所は書かない」という基準1文で表現した。AIはルールの文言に引っ張られるため、ケースの列挙より基準の提示が有効と判断した。
+
+**署名・複数レビュー対応への改訂（本コミット）**
+当初READMEは担当者を固定名称（ClaudeCode、Codex）で記述していたが、担当AIは状況によって変わりうるため、役割ベースの表記（作業担当・レビュー担当）に変更。各セクション末尾の署名により「誰がいつ書いたか」を追跡できる形とした。Reviewセクションは複数エントリを想定したサブセクション構造（`### Review by ...`）にした。
+
+*Signed: Claude Code (claude-sonnet-4-6) — 2026-02-21*
+
+## Review
+
+<!-- レビュー担当が記入。複数のレビューがある場合、サブセクションを追加する。 -->
+
+### Review by Codex (codex-1)
+
+The new Premise + Level structure makes the assumptions and conflict-resolution hierarchy explicit, which mirrors this directory’s core purpose of explaining “why” choices are safe to replicate rather than just “what” was done. Elevating “Public by Default” outside the level stack also keeps the guiding constraint constant, so future reviewers can treat it as a non-negotiable boundary when interpreting the lower levels.
+
+Separating the AI-Native Coding Guide (defining “how”) from the philosophy doc (“why”) and relegating stack-specific practices to a numbered Appendix clearly signals that the implementation details are disposable; this keeps the high-level guidance stable even if the concrete toolchain changes, which is consistent with the project’s stated goal of recording intent over transient code.
+
+Framing `briefs/` as idea transfer documents (not logs), avoiding per-case security call-outs, and encoding a flexible review signature workflow are all defensible decisions because they reinforce the README’s emphasis on capturing rationale and accountability without inviting exhaustive or leaking detail.
+
+*Signed: Codex (codex-1) — 2026-02-21*
+
+## Resolution
+
+<!-- レビュー後に記入 -->
